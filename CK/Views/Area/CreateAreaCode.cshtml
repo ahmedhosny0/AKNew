@@ -1,0 +1,68 @@
+﻿@model CK.Models.TopSoft.AreaCode
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+    <title>Form Example</title>
+</head>
+<body>
+    <div class="form-container">
+    <button class="btn Title">Create Area</button>
+    <form id="myForm" asp-controller="Area" asp-action="CreateAreaCode" method="post">
+        <ul>
+            <input type="hidden" asp-for="Serial" />
+            <li class="fields">
+                <label asp-for="Code">Code</label>
+                <input asp-for="Code" class="form-control" style="width:250px" value="@ViewBag.VBMaxCode" readonly >
+            </li>
+            <li class="fields">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" style="width:250px" />
+            </li>
+            <li class="fields">
+                <label for="ZoneName">Zone Name:</label>
+                <select class="FilterSelect form-control" asp-for="ZoneSerial" id="ZoneName" required>
+                    <option value="0">All Zones</option>
+                    @foreach (var zone in ViewBag.VBZone ?? Enumerable.Empty<Store>())
+                    {
+                        <option value="@zone.Serial">@zone.Name</option>
+                    }
+                </select>
+            </li>
+        </ul>
+        <button type="submit" id="saveButton" class="btn btn-primary">Create Area</button>
+        <a asp-controller="Area" asp-action="GetAllAreaCodes" class="btn btn-primary">Display Areas</a>
+    </form>
+    </div>
+    <script>
+        var success = '@TempData["SuccessMessage"]';
+        if (success === "success") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "Good, You Create Area Successfully",
+                    icon: "success",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const saveButton = document.getElementById('saveButton');
+
+            saveButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.getElementById('myForm').submit();
+            });
+        });
+    </script>
+</body>
+</html>
+

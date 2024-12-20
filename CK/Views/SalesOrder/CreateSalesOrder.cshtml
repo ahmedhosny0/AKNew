@@ -1,0 +1,682 @@
+﻿@model CK.ViewModel.SalesOrderRequest
+<!Doctype html>
+<html>
+    <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+    </head>
+    <body>
+<div class="Contain">
+<div class="header-container">
+    <h1 class="header-title">Create Sales Order</h1>
+</div>
+        <a asp-action="GetAllSalesOrders">GetAllSalesOrders</a>
+        <form id="myForm" method="post" asp-action="CreateSalesOrder" class="form-containerSales">
+    <!-- Header Section -->
+    <fieldset class="form-section">
+        <legend class="section-legend">Main Data</legend>
+
+        <!-- First row: Sales Code and Date -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="SalesCode">Sales Code</label>
+                <input type="text" value="@ViewBag.MaxCode" id="SalesCode" class="form-control" readonly />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="SalesOrderDate">Date</label>
+                <input type="date" asp-for="Header.SalesOrderDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
+            </div>
+        </div>
+
+        <!-- Second row: Branch Code and Customer Code -->
+        <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="SalesOrderDate">Customer</label>
+                    <select class="FilterSelect form-control" asp-for="Header.CustomerCode" id="CustomerCode" asp-items="@(new SelectList(ViewBag.VBCustomer,"CustomerCode1","CustomerName"))">
+                        <option value="0">All Customers</option>
+                    </select>
+                </div>
+            <div class="form-group col-md-6">
+                <label for="BranchCode">Branch Code</label>
+                <select class="FilterSelect form-control" asp-for="Header.BranchCode" id="BranchCode">
+                    <option value="0">All Branches</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Third row: Category Code -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="CategoryCode">Category Code</label>
+                <select class="FilterSelect form-control" id="CategoryCode" asp-items="@(new SelectList(ViewBag.VBDepartment))">
+                    <option value="0">All Categories</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div class="form-group">
+            <label for="Notes">Notes</label>
+            <textarea class="FilterSelect form-control" asp-for="Header.Notes" id="Notes"></textarea>
+        </div>
+    </fieldset>
+        <input type="text" name="Details[${rowCount}].Quantity" style="display:none"
+               class="form-control quantity-input"
+               placeholder="Quantity"
+               data-max-quantity="0" />
+    <!-- Details Section -->
+    <fieldset class="form-section">
+        <legend class="section-legend">Details</legend>
+        <table id="detailsTable" class="details-table">
+            <thead>
+                <tr>
+                    <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>Category Name</th>
+                     <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                            <td>
+
+                                <input type="text" class="form-control item-search" name="Details[0].ItemCode" placeholder="Search Item" />
+                                <ul class="search-results" style="display: none;"></ul>
+                                <!-- Hidden input for ItemId -->
+                                <input type="hidden" class="item-id" name="Details[0].ItemId" />
+                            </td>
+                            <td>
+                                <input type="text" name="Details[0].ItemName" class="form-control item-name" placeholder="Item Name" readonly />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control category-name" name="Details[0].CategoryName" placeholder="Category Name" readonly />
+                            </td>
+                            <td>
+                        <input type="text" name="Details[0].Price" class="form-control price-input" placeholder="Price" readonly />
+                    </td>
+                    <td>
+                        <input type="number" name="Details[0].Quantity" class="form-control quantity-input" placeholder="Quantity" />
+                    </td>
+                    <td>
+                            <input type="number" name="Details[0].Total" class="form-control row-total" placeholder="Total" readonly />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <button type="button" id="addRow" class="btn btn-primary">Add Row</button>
+    </fieldset>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Grand Total</label>
+                <input type="number" class="form-control" asp-for="Header.GrandTotal" id="grandTotal" readonly />
+        </div>
+            <div class="form-group col-md-6">
+                <label>Fees</label>
+                    <input type="number" class="form-control" asp-for="Header.Fees"  id="Fees" readonly />
+            </div>
+                <div class="form-group col-md-6">
+                    <label>Delivery time</label>
+                    <input type="text" class="form-control" asp-for="Header.Deliverytime" id="Deliverytime" readonly />
+                </div>
+            <div class="form-group col-md-6">
+                <label id="grandTotalWithFeesLabel">
+                    Grand Total with Fees: + <input type="button"  id="AdditionalFees" readonly style="background-color: #f8f9fa;
+                                                    border: none;
+                                                    color: red;" />
+                    <span style="display: flex; align-items: center;">
+                            <input type="number" class="form-control" asp-for="Header.GrandTotalwithFees"  id="grandTotalWithFees" readonly style="margin-right: 10px;" />
+                    </span>
+                </label>
+        </div>
+        </div>
+        <button type="submit" id="saveButton" class="btn btn-success">Save</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const customerSelect = document.getElementById('CustomerCode');
+        const branchSelect = document.getElementById('BranchCode');
+        const categorySelect = document.getElementById('CategoryCode');
+        const addRowButton = document.getElementById('addRow');
+        const saveButton = document.getElementById('saveButton');
+        const detailsTable = document.getElementById('detailsTable').querySelector('tbody');
+
+        // Disable Branch and Category initially
+        branchSelect.disabled = true;
+        categorySelect.disabled = true;
+
+        // Enable Branch only after Customer is selected
+        customerSelect.addEventListener('change', function () {
+            if (customerSelect.value !== '0') {
+                branchSelect.disabled = false;
+            } else {
+                branchSelect.disabled = true;
+                categorySelect.disabled = true;
+                branchSelect.value = '0';
+                categorySelect.value = '0';
+            }
+        });
+
+        // Enable Category only after Branch is selected
+        branchSelect.addEventListener('change', function () {
+            if (branchSelect.value !== '0') {
+                categorySelect.disabled = false;
+            } else {
+                categorySelect.disabled = true;
+                categorySelect.value = '0';
+            }
+        });
+        // Validation on Save Button
+        saveButton.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Check Customer selection
+            if (customerSelect.value === '0') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select a Customer before proceeding.',
+                });
+                return;
+            }
+
+            // Check Branch selection
+            if (branchSelect.value === '0') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select a Branch before proceeding.',
+                });
+                return;
+            }
+
+            // Check Category selection
+            if (categorySelect.value === '0') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select a Category before proceeding.',
+                });
+                return;
+            }
+
+            // Validate rows in the details table
+            let allValid = true;
+            const rows = detailsTable.querySelectorAll('tr');
+            rows.forEach(row => {
+                    const itemSearchInput = row.querySelector('.item-search');  // Search box for the item
+                    const priceInput = row.querySelector('.price-input');
+                const quantityInput = row.querySelector('.quantity-input');
+
+                    // Check if an item is selected by ensuring the search box has a value and is not empty
+                    if (!itemSearchInput || itemSearchInput.value === '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validation Error',
+                            text: 'Please select an Item in each row from the search results.',
+                        });
+                        allValid = false;
+                    } else if (!priceInput || priceInput.value === '' || parseFloat(priceInput.value) <= 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please ensure each row has a valid Price.',
+                    });
+                    allValid = false;
+                } else if (!quantityInput || quantityInput.value === '' || parseFloat(quantityInput.value) <= 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please ensure each row has a valid Quantity.',
+                    });
+                    allValid = false;
+                }
+            });
+
+            if (!allValid) return;
+
+            // Proceed to save if all validations pass
+            Swal.fire({
+                icon: 'success',
+                title: 'Validated',
+                text: 'All validations passed. Proceeding to save...',
+                timer: 1000,
+                timerProgressBar: true,
+                willClose: () => {
+                    document.getElementById('myForm').submit();
+                }
+            });
+
+        });
+    });
+</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const CustomerCode = document.getElementById("CustomerCode");
+            const BranchCode = document.getElementById("BranchCode");
+            const deliveryTimeElement = document.getElementById("Deliverytime"); // Reference the Fees text field
+            const feesElement = document.getElementById("Fees"); // Reference the Fees text field
+            const additionalFeesElement = document.getElementById("AdditionalFees"); // Reference the AdditionalFees text field
+
+            // Handle Customer selection
+            CustomerCode.addEventListener("change", function () {
+                const selectedCustomer = this.value;
+
+                if (selectedCustomer && selectedCustomer !== "0") {
+                    fetch(`/SalesOrder/GetFilteredBranch?customer=${selectedCustomer}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            BranchCode.innerHTML = '<option value="0">All Branches</option>';
+                            let totalDeliverytime = 0;
+                            let totalServiceCost = 0;
+
+                            data.forEach(branch => {
+                                const option = document.createElement("option");
+                                option.value = branch.branchId;
+                                option.dataset.deliveryTime = branch.deliveryTime || '0';
+                                option.dataset.serviceCost = branch.serviceCost || '0';
+                                option.textContent = branch.branchName;
+                                BranchCode.appendChild(option);
+
+                                totalDeliverytime += parseFloat(branch.deliveryTime) || 0;
+                                totalServiceCost += parseFloat(branch.serviceCost) || 0;
+                            });
+
+                            if (data.length === 0) {
+                                deliveryTimeElement.value = '';
+                                feesElement.value = '';
+                                additionalFeesElement.value = '';
+                            } else {
+                                deliveryTimeElement.value = data.length === 1 ? data[0].deliveryTime || '0' : totalDeliverytime.toFixed(2);
+                                feesElement.value = data.length === 1 ? data[0].serviceCost || '0' : totalServiceCost.toFixed(2);
+                                additionalFeesElement.value = data.length === 1 ? data[0].serviceCost || '0' : totalServiceCost.toFixed(2);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error fetching branches:", error);
+                            deliveryTimeElement.value = '';
+                            feesElement.value = '';
+                            additionalFeesElement.value = '';
+                        });
+                } else {
+                    BranchCode.innerHTML = '<option value="0">All Branches</option>';
+                    deliveryTimeElement.value = '';
+                    feesElement.value = '';
+                    additionalFeesElement.value = '';
+                }
+            });
+
+            // Handle Branch selection
+            BranchCode.addEventListener("change", function () {
+                const selectedBranch = this.options[this.selectedIndex];
+                if (selectedBranch.value !== "0") {
+                    const serviceCost = selectedBranch.dataset.serviceCost || '0';
+                    feesElement.value = serviceCost;
+                    additionalFeesElement.value = serviceCost;
+                } else {
+                    feesElement.value = '';
+                    additionalFeesElement.value = '';
+                }
+            });
+        });
+    </script>
+
+<script>
+    var success = '@TempData["SuccessMessage"]';
+    if (success === "Sales Order has been successfully created!") {
+        window.addEventListener('load', function () {
+            Swal.fire({
+                title: "Good, You Create Invoice Successfully",
+                icon: "success",
+                timer: 6500
+            });
+        });
+    }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const categorySelect = document.getElementById("CategoryCode");
+            const detailsTable = document.getElementById("detailsTable").querySelector("tbody");
+            const addRowButton = document.getElementById("addRow");
+
+            let currentItems = []; // Store fetched items
+            // Function to calculate totals
+            function calculateTotals() {
+                let grandTotal = 0;
+                const rowTotals = document.querySelectorAll(".row-total");
+                rowTotals.forEach(rowTotal => {
+                    const value = parseFloat(rowTotal.value) || 0;
+                    grandTotal += value;
+                });
+                const fees = parseFloat(document.getElementById("Fees").value) || 0;
+                document.getElementById("grandTotal").value = grandTotal.toFixed(2);
+                document.getElementById("grandTotalWithFees").value = (grandTotal + fees).toFixed(2);
+            }
+            // Function to update row total and validate quantity
+            // Function to update row total and validate quantity
+            function updateRowTotalAndValidate(row) {
+                const priceField = row.querySelector(".price-input");
+                const quantityField = row.querySelector(".quantity-input");
+                const totalField = row.querySelector(".row-total");
+                const maxQuantity = parseFloat(quantityField.dataset.maxQuantity) || 0; // Get max quantity from data attribute
+
+                const price = parseFloat(priceField.value) || 0;
+                const quantity = parseFloat(quantityField.value) || 0;
+
+                if (quantity > maxQuantity) {
+                    // Use SweetAlert to display the validation message
+                    Swal.fire({
+                        title: "Invalid Quantity",
+                        text: `You entered: ${quantity}, but only ${maxQuantity} is available.`,
+                        icon: "warning",
+                        confirmButtonText: "OK",
+                    }).then(() => {
+                        quantityField.value = maxQuantity; // Reset to max stock
+                        const total = price * maxQuantity; // Update total based on max quantity
+                        totalField.value = total.toFixed(2);
+                        calculateTotals(); // Recalculate totals after adjustment
+                    });
+
+                    return; // Stop further calculations
+                }
+
+                const total = price * quantity;
+                totalField.value = total.toFixed(2);
+
+                calculateTotals();
+            }
+            // Function to update row totals
+            function updateRowTotal(row) {
+                const priceField = row.querySelector(".price-input");
+                const quantityField = row.querySelector(".quantity-input");
+                const totalField = row.querySelector(".row-total");
+
+                const price = parseFloat(priceField.value) || 0;
+                const quantity = parseFloat(quantityField.value) || 0;
+                const total = price * quantity;
+
+                totalField.value = total.toFixed(2);
+                calculateTotals();
+            }
+            // Function to fetch items by category
+            async function fetchItemsByCategory(categoryId) {
+                const branchCode = document.getElementById("BranchCode").value; // Retrieve branchCode dynamically
+                if (!branchCode || branchCode === "0" || !categoryId || categoryId === "0") {
+                    console.warn("Invalid branchCode or categoryId");
+                    return [];
+                }
+
+                console.log("Fetching items for branch:", branchCode, "category:", categoryId);
+
+                try {
+                    const response = await fetch(`/SalesOrder/GetFilteredItems?Branch=${branchCode}&Category=${categoryId}`, {
+                        method: "GET",
+                        headers: { "Accept": "application/json" },
+                    });
+
+                    if (response.ok) {
+                        const jsonData = await response.json();
+                        console.log("Fetched items:", jsonData);
+                        currentItems = jsonData; // Store the fetched items
+                        updateAllRows(); // Automatically update the rows with the fetched items
+                    } else {
+                        console.error("Failed to fetch items:", response.statusText);
+                        currentItems = [];
+                    }
+                } catch (error) {
+                    console.error("Error fetching items:", error);
+                    currentItems = [];
+                }
+            }
+
+            // Function to handle search input and display matching items
+            function handleItemSearch(event) {
+                const searchInput = event.target;
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                const resultsContainer = searchInput.nextElementSibling; // Assuming <ul> for search results
+                resultsContainer.innerHTML = ''; // Clear previous results
+
+                if (searchTerm === '') {
+                    resultsContainer.style.display = 'none'; // Hide results if search term is empty
+                    return;
+                }
+
+                const filteredItems = currentItems.filter(item =>
+                    item.itemName.toLowerCase().includes(searchTerm)
+                );
+
+                if (filteredItems.length > 0) {
+                    resultsContainer.style.display = 'block'; // Show results
+                    filteredItems.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item.itemName;
+                        li.dataset.itemId = item.itemId; // Store the item ID in data attribute
+                        li.addEventListener('click', () => selectItem(item, searchInput, resultsContainer));
+                        resultsContainer.appendChild(li);
+                    });
+                } else {
+                    resultsContainer.style.display = 'none'; // Hide if no results
+                }
+            }
+            // Function to fetch price and set max quantity
+            async function fetchPrice(branchCode, itemId, priceField, quantityField) {
+                if (!branchCode || !itemId || branchCode === "0" || itemId === "0") {
+                    console.warn("Invalid branchCode or itemId");
+                    return;
+                }
+
+                console.log("Fetching price for branch:", branchCode, "item:", itemId);
+
+                try {
+                    const response = await fetch("/SalesOrder/GetPrice", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ branchCode, itemId }),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log("Fetched price and quantity:", data);
+
+                        priceField.value = (data.price || 0).toFixed(2);
+
+                        // Set the fetched quantity and max quantity for validation
+                        const fetchedQuantity = data.quantity || 0;
+                        quantityField.value = ""; // Leave the field empty for user input
+                        quantityField.setAttribute("data-max-quantity", fetchedQuantity.toFixed(2));
+                    } else {
+                        console.error("Failed to fetch price:", response.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error fetching price:", error);
+                }
+            }
+
+            // Update all rows with new items
+            function updateAllRows() {
+                const rows = detailsTable.querySelectorAll(".item-search");
+                rows.forEach(input => {
+                    input.addEventListener('input', handleItemSearch); // Attach search event handler to input fields
+                    const resultsContainer = input.nextElementSibling; // <ul> element for search results
+                    resultsContainer.innerHTML = ''; // Clear any previous results
+
+                    // Show results container when the input box is focused
+                    input.addEventListener('focus', () => {
+                        resultsContainer.style.display = 'block';
+                        handleItemSearch({ target: input }); // Trigger search when focused
+                    });
+
+                    // Automatically populate search results when the category is selected
+                    handleItemSearch({ target: input });
+                });
+            }
+            categorySelect.addEventListener("change", async function () {
+                const selectedCategory = categorySelect.options[categorySelect.selectedIndex].text; // Get selected category name
+                const selectedCategoryId = categorySelect.value; // Get selected category ID
+
+                if (!selectedCategoryId || selectedCategoryId === "0") return;
+
+                // Fetch items based on the selected category (optional, depending on your needs)
+                await fetchItemsByCategory(selectedCategoryId);
+
+                // Update the current row's category box (not all rows)
+                const focusedRow = document.activeElement.closest("tr"); // Get the row of the currently focused input (search input)
+                if (focusedRow) {
+                    const categoryInput = focusedRow.querySelector(".category-name"); // Get category input for the current row
+                    if (categoryInput) {
+                        categoryInput.value = selectedCategory; // Set the selected category value for the specific row
+                    }
+                }
+            });
+            
+            // Add new row to the table
+            // Add new row to the table
+            addRowButton.addEventListener("click", function () {
+                const rowCount = detailsTable.querySelectorAll("tbody tr").length;
+                const selectedCategory = categorySelect.options[categorySelect.selectedIndex].text; // Get selected category name
+
+                // Create new row HTML
+                const newRow = `
+            <tr>
+                <td>
+                    <input type="text" class="form-control item-search" name="Details[${rowCount}].ItemCode" placeholder="Search Item" />
+                    <ul class="search-results" style="display: none;"></ul>
+                    <input type="hidden" class="item-id" name="Details[${rowCount}].ItemId" />
+                </td>
+                          <td>
+                                    <input type="text" name="Details[${rowCount}].ItemName" class="form-control item-name" placeholder="Item Name" readonly />
+                        </td>
+                <td>
+                    <input type="text" name="Details[${rowCount}].CategoryName" class="form-control category-name" placeholder="Category Name" value="${selectedCategory}" readonly />
+                </td>
+                <td>
+                    <input type="number" name="Details[${rowCount}].Price" class="form-control price-input" placeholder="Price" readonly />
+                </td>
+                <td>
+                    <input type="number" name="Details[${rowCount}].Quantity" class="form-control quantity-input" placeholder="Quantity" />
+                </td>
+                <td>
+                    <input type="number" name="Details[${rowCount}].Total" class="form-control row-total" placeholder="Total" readonly />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-row">Remove</button>
+                </td>
+            </tr>`;
+
+                // Insert the new row
+                detailsTable.insertAdjacentHTML("beforeend", newRow);
+
+                // Get the new row inputs and results container
+                const newInput = detailsTable.querySelectorAll(".item-search")[rowCount];
+                const resultsContainer = newInput.nextElementSibling; // <ul> element for search results
+                newInput.addEventListener('input', handleItemSearch); // Attach search event handler to input fields
+                resultsContainer.innerHTML = ''; // Clear any previous results
+
+                // Display the search results when the search box is clicked
+                newInput.addEventListener('focus', () => {
+                    resultsContainer.style.display = 'block';
+                    handleItemSearch({ target: newInput }); // Trigger search when focused
+                });
+
+                // Automatically trigger search on new row after category is selected
+                handleItemSearch({ target: newInput });
+            });
+
+            // Function to select an item and update the row
+            // Function to select an item and update the row
+            function selectItem(item, searchInput, resultsContainer) {
+                const row = searchInput.closest("tr");
+
+                // Set the input value as itemId for submission
+                searchInput.value = item.itemId; // Set the value to itemId (correct input data)
+                searchInput.setAttribute("data-display-name", item.itemName); // Store itemName for display
+
+                // Display itemName visually after input is blurred
+                searchInput.addEventListener("blur", function () {
+                    searchInput.value = searchInput.getAttribute("data-display-name");
+                });
+
+                // Ensure itemId remains the value for submission
+                searchInput.addEventListener("focus", function () {
+                    searchInput.value = item.itemId; // Restore itemId when input is focused
+                });
+
+                // Find or create a hidden input for ItemId
+                let hiddenInput = row.querySelector(".item-id");
+                if (!hiddenInput) {
+                    hiddenInput = document.createElement("input");
+                    hiddenInput.type = "hidden";
+                    hiddenInput.className = "item-id";
+                    hiddenInput.name = searchInput.name.replace("ItemCode", "ItemId");
+                    row.appendChild(hiddenInput);
+                }
+                hiddenInput.value = item.itemId; // Store itemId in hidden input
+
+                // Fetch price and set quantity validation
+                const priceField = row.querySelector(".price-input");
+                const quantityField = row.querySelector(".quantity-input");
+                const branchCode = document.getElementById("BranchCode").value;
+                fetchPrice(branchCode, item.itemId, priceField, quantityField);
+
+                // Update the CategoryName field with the selected category
+                const categoryNameField = row.querySelector(".category-name");
+                if (categoryNameField) {
+                    categoryNameField.value = categorySelect.options[categorySelect.selectedIndex].text; // Use the current selected category
+                }
+
+                // Update the ItemName field with the selected item's name
+                const itemNameField = row.querySelector(".item-name");
+                if (itemNameField) {
+                    itemNameField.value = item.itemName; // Set the item name for the row
+                }
+
+                // Hide the search results
+                resultsContainer.style.display = "none";
+                updateRowTotal(row); // Update row total after item selection
+            }
+
+
+            // Update row total dynamically
+            detailsTable.addEventListener("input", function (e) {
+                if (e.target && e.target.classList.contains("quantity-input")) {
+                    const row = e.target.closest("tr");
+                    updateRowTotalAndValidate(row);
+                }
+                if (e.target && e.target.classList.contains("quantity-input")) {
+                    const row = e.target.closest("tr");
+                    updateRowTotal(row);
+                }
+            });
+            // Example: Function to simulate setting max stock
+            function setMaxStock(row, stock) {
+                const quantityField = row.querySelector(".quantity-input");
+                quantityField.setAttribute("data-max-quantity", stock);
+            }
+
+            // Remove row
+            detailsTable.addEventListener("click", function (e) {
+                if (e.target && e.target.classList.contains("remove-row")) {
+                    const row = e.target.closest("tr");
+                    row.remove();
+                    calculateTotals();
+                }
+            });
+
+            // Initial calculation
+            calculateTotals();
+        });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+﻿<!Doctype html>
+<head>
+    <style>
+        .main-footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+@if (ViewBag.Customers != null)
+{
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Order Delivery Details</h2>
+
+        <table id="detailsTable" class="table table-bordered table-hover">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th style="width: 10%;">Actions</th>
+                    <th style="width: 15%;">Status</th>
+                    <th style="width: 50%;">Order Details</th>
+                    <th style="width: 15%;">Created At</th>
+                    <th style="width: 10%;">Total Invoice</th>
+                    <th style="width: 10%;">Fees</th>
+                    <th style="width: 10%;">Total With Fees</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dr in ViewBag.Customers)
+                {
+                    // Determine background color and label based on SalesStatus
+                    string bgColor = "";
+                    string statusLabel = "";
+                    if (dr.SalesStatus == "0")
+                    {
+                        bgColor = "#FFEB3B"; // Yellow for Packing
+                        statusLabel = "Packing";
+                    }
+                    else if (dr.SalesStatus == "1")
+                    {
+                        bgColor = "#03A9F4"; // Light Blue for In Transit
+                        statusLabel = "In Transit";
+                    }
+                    else if (dr.SalesStatus == "2")
+                    {
+                        bgColor = "#8BC34A"; // Light Green for Delivered
+                        statusLabel = "Delivered";
+                    }
+                    else if (dr.SalesStatus == "3")
+                    {
+                        bgColor = "#F44336"; // Light Coral for Canceled
+                        statusLabel = "Canceled";
+                    }
+                    else
+                    {
+                        bgColor = "#FFFFFF"; // Default White
+                        statusLabel = "Unknown";
+                    }
+
+                    <tr>
+                        <!-- Actions -->
+                        <td class="text-center">
+                            <a class="btn btn-outline-primary btn-sm"
+                               href="@Url.Action("EditSalesOrder", "SalesOrder", new { @id = @dr.HSalesCode })">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                        </td>
+
+                        <!-- Status with color-coded badge -->
+                        <td class="text-center">
+                            <span class="badge" style="background-color:@bgColor; color: black; font-size: 0.9rem; padding: 10px 15px;">
+                                @statusLabel
+                            </span>
+                        </td>
+
+                        <!-- Order Details -->
+                        <td>
+                            <div>
+                                <strong>Phone:</strong> @dr.Phone1 <br />
+                                <strong>Customer:</strong> @dr.CustomerName <br />
+                                <strong>Zone:</strong> @dr.ZoneName, @dr.AreaName <br />
+                                <strong>Street:</strong> @dr.StreetName
+                            </div>
+                        </td>
+
+                        <!-- CreatedAtTime -->
+                        <td class="text-center">
+                            @if (dr.CreatedAtTime != null)
+                            {
+                                @dr.CreatedAtTime.ToString("yyyy-MM-dd hh:mm tt")
+                            }
+                            else
+                            {
+                                <span>N/A</span>
+                            }
+                        </td>
+
+                        <!-- Total Invoice -->
+                        <td class="text-center">
+                            @dr.GrandTotal LE
+                        </td>
+
+                        <!-- Fees -->
+                        <td class="text-center">
+                            @dr.ServiceCost LE
+                        </td>
+
+                        <!-- Total With Fees -->
+                        <td class="text-center">
+                            @dr.GrandTotalWithFees LE
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+ <script>
+        $('#detailsTable').DataTable({
+            pageLength: 25,
+            lengthChange: false,
+            searching: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: ['excelHtml5', 'pdfHtml5'],
+            columnDefs: [
+                { targets: '_all', className: 'text-center' }
+            ]
+        });
+
+        // Move the buttons to the top of the table
+        new $.fn.dataTable.Buttons(table, {
+            buttons: ['pdf'],
+        }).container().appendTo($('#example_wrapper').find('.col-sm-6:eq(0)'));
+
+        // Add tooltip to delete button
+        $('.hidedeletebtn').tooltip({
+            placement: 'top',
+            trigger: 'hover'
+        });
+    </script>
+</body>
+</html>

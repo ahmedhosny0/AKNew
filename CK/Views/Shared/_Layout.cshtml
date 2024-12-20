@@ -1,0 +1,812 @@
+﻿@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@* @{
+    var role = ViewBag.Role;
+    var isSalesVisible = role == "Sales_NewS_Tender" ? "" : "d-none";
+    var isTenderVisible = role == "TenderRole" ? "" : "d-none";
+} *@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Circle K</title>
+    <!-- Google Font: Source Sans Pro -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
+    <link rel="stylesheet" href="~/css/test.css" />
+    <link rel="stylesheet" href="~/plugins/bootstrap/date.css" />
+    <!--for date-->
+    <!-- Add Bootstrap CSS (you may have this already) -->
+    <link rel="stylesheet" href="~/js/bootstrap.min.css">
+    <!--Use this-->
+    <link rel="stylesheet" type="text/css" href="~/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/css.css">
+    <link href="~/css/css2.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
+    <script src="/js/sweetalert2@11"></script>
+    <script src="/css/sweetalert2@11"></script>
+    <!-- Add Bootstrap JS (you may have this already) -->
+    <style>
+        .usernametitle {
+            background-color: #007bff;
+            padding: 5px;
+            border-radius: 9px;
+            font-size: 18px;
+        }
+
+        #lo {
+            display: none;
+            position: absolute;
+            top: 12%;
+            left: 40%;
+            width: 170px;
+        }
+
+        .card-body {
+            display: none;
+        }
+
+        .nav-link {
+            font-weight: bold !important;
+        }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 0;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 5px 0 5px 5px;
+                border-color: transparent transparent transparent #cdc4c4;
+                transform: translateY(-50%) rotate(-270deg);
+                margin: auto;
+            }
+
+        .Sales::after {
+            content: none;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-color: transparent transparent transparent #cdc4c4;
+            transform: translateY(-50%) rotate(-270deg);
+            margin: auto;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            max-width: 200px;
+        }
+
+            .dropdown-menu a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .navbar-expand .navbar-nav .nav-link {
+            padding-right: 0.5rem;
+            padding-left: 0.5rem;
+            margin-right: 30px;
+        }
+
+        .logout {
+            position: absolute;
+            right: 5%;
+            top: 25%;
+            font-weight: bold;
+            color: white;
+        }
+
+        .stopwatch-container {
+            text-align: center;
+        }
+
+        #display {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        a.nav-link {
+            width: max-content;
+        }
+
+        .Displayli label:hover {
+            background-color: #ffff;
+        }
+
+        #loader-gif {
+            display: none;
+            position: absolute;
+            top: 15%;
+            width: 32%;
+            left: 30%;
+        }
+
+        #loader-gif2 {
+            display: none;
+            position: absolute;
+            top: 25%;
+            left: 85%;
+        }
+
+        .disabled-link {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Styles for the checkboxes */
+        .form-check {
+            display: flex;
+            align-items: center; /* Aligns items vertically in the center */
+            margin-bottom: 10px; /* Adds some space between each item */
+        }
+
+        /* Ensure the label is displayed inline with the checkbox */
+        .form-check-label {
+            margin-left: 10px; /* Adds some space between the checkbox and the label */
+            margin-bottom: 0; /* Removes any bottom margin to align with the checkbox */
+        }
+
+        .form-check-input {
+            width: 16px;
+            height: 16px;
+            top: 0;
+        }
+
+        .form-check-label {
+            margin-left: 10px; /* Adds some space between the checkbox and the label */
+            margin-bottom: 0; /* Removes any bottom margin to align with the checkbox */
+        }
+
+        .form-check-input {
+            width: 16px;
+            height: 16px;
+            top: 0;
+        }
+
+        #searchBox {
+            margin-bottom: 10px;
+            padding: 6px 12px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .Storedropdown, .dp, .sub {
+            max-height: 380px; /* Adjust as needed */
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,.1);
+            padding: 6px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        /* Additional styles */
+        .Store-dropdown, .department-dropdown, .supplier-dropdown {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .Display {
+            background-color: #a60f0f;
+        }
+
+        .main-footer {
+            position: relative !important;
+        }
+
+        #nav {
+            display: none;
+        }
+        /*         .all-log {
+                    left: 2% !important;
+                } */
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get references to the cards
+            var filterCard = document.getElementById('filterCard');
+            var displayFieldsCard = document.getElementById('displayFieldsCard');
+
+            // Function to toggle both cards
+            function toggleCards() {
+                // Check if the filter card is collapsed
+                var isCollapsed = filterCard.classList.contains('collapsed-card');
+
+                // Toggle the classes for both cards
+                filterCard.classList.toggle('collapsed-card', !isCollapsed);
+                displayFieldsCard.classList.toggle('collapsed-card', !isCollapsed);
+
+                // Optionally, add a transition effect
+                filterCard.style.transition = 'max-height 0.5s ease-in-out';
+                displayFieldsCard.style.transition = 'max-height 0.5s ease-in-out';
+            }
+
+            // Add event listener to the filter card header
+            filterCard.querySelector('.card-header').addEventListener('click', toggleCards);
+
+            // Initially set the state to collapsed
+            toggleCards(); // This line ensures both cards start in the collapsed state
+        });
+    </script>
+    <script>
+        var preventBack = @Html.Raw(Json.Serialize(ViewData["PreventBack"] ?? false));
+
+        if (preventBack) {
+            window.history.pushState(null, "", location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, "", location.href);
+            };
+        }
+    </script>
+</head>
+<body class="hold-transition @* sidebar-mini layout-fixed *@" >
+    @* <div class="preloader">
+    <div class="sk-spinner sk-spinner-wave">
+    <div class="sk-rect1"></div>
+    <div class="sk-rect2"></div>
+    <div class="sk-rect3"></div>
+    <div class="sk-rect4"></div>
+    <div class="sk-rect5"></div>
+    </div>
+    </div> *@
+    <div class="wrapper" style="margin-left:0;position: unset;">
+
+        <nav id="nav" class="main-header navbar navbar-expand-lg navbar-white navbar-light" style="background-color: #a60f0f; margin-left: 0;height:51px;font-size:14px">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a asp-action="DisplayUsers" asp-controller="Login" style="color: #cdc4c4;float:right;font-weight:bold;position:absolute;right:1%;top:25%;" id="controleU">Users </a>
+            <a asp-action="Logout" asp-controller="Home" class="logout" style="color: #cdc4c4;text-decoration:none;">Logout <span class="usernametitle">@ViewBag.Username</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    @*                     <li class="nav-item @isSalesVisible d-sm-inline-block mr-2">  
+                    *@
+                    <li class="nav-item1">
+                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="Index">Data</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Area" asp-action="GetAllAreaCodes" class="nav-link Sales" style="color:#cdc4c4" id="VArea">Create Area</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Street" asp-action="GetAllStreetCodes" class="nav-link Sales" style="color:#cdc4c4" id="VStreet">Create Street</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="nav-link Sales" style="color:#cdc4c4" id="VZone">Create Zone</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="nav-link Sales" style="color:#cdc4c4" id="VCustomer">Create Customer</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="SalesOrder" asp-action="CreateSalesOrder" class="nav-link Sales" style="color:#cdc4c4" id="VSalesOrder">CreateSalesOrder</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="CompareTenderwithWaf" asp-action="CompareData" class="nav-link Sales" style="color:#cdc4c4" id="CompareDataW">CompareTenderwithWaf</a>
+                    </li> 
+                    <li class="nav-item1">
+                        <a asp-controller="Driveres" asp-action="CreateDriver" class="nav-link Sales" style="color:#cdc4c4" id="Driver">Create Car License</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="ItemMovements" class="nav-link Sales" style="color:#cdc4c4" id="ItemMovements">ItemMovements</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="CreateMessage" class="nav-link Sales" style="color:#cdc4c4" id="CreateMessage">Create Message</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Messages" asp-action="CreateCloseDay" class="nav-link Sales" style="color:#cdc4c4" id="CreateCloseDay">Close Day</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="FollowBranches" class="nav-link Sales" style="color:#cdc4c4" id="FollowBranches">Follow Branches</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Accounts" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="Accounts">Accounts</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Accounts" asp-action="AInvNewItem" class="nav-link Sales" style="color:#cdc4c4" id="NewItem">Add New Item</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Accounts" asp-action="AInvNewCust" class="nav-link Sales" style="color:#cdc4c4" id="NewCust">Add New Customer</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="Dashboard" class="nav-link Sales" style="color:#cdc4c4" id="Dashboard">Follow Login</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="Home1" class="nav-link Sales" style="color:#cdc4c4" id="Home1">Dashboard</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="CompareData" class="nav-link Sales" style="color:#cdc4c4" id="CompareData">CompareData</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Categorylimit" asp-action="DisplayItems" class="nav-link Sales" style="color:#cdc4c4" id="Categorylimit">Add Item To Stock</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Branches" asp-action="DisplayStores" class="nav-link Sales" style="color:#cdc4c4" id="controleB">Branches</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="Sales">Sales</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="Offer" class="nav-link Sales" style="color:#cdc4c4" id="Offer">Offers</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="Store" class="nav-link Sales" style="color:#cdc4c4" id="Salesfrombranch">Sales</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="transfersalespdf2" asp-action="ATransferSol" class="nav-link Sales" style="color:#cdc4c4" id="TransferM">Review Transfers</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block mr-2">
+                        <a class="nav-link " href="#" id="Transfer" style="color:#cdc4c4">Transfer</a>
+                        <ul class="dropdown-menu" style="background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    border: ridge 1px;
+    font-family: sans-serif;
+    left: -28px;
+    top: 33px;">
+                            <li>
+                                <a class="dropdown-item" asp-controller="transfersalespdf" asp-action="ATransferSol" style="font-weight: bold; font-family: auto;">Transfer Pdf</a>
+                            </li>
+                            <li><a class="dropdown-item" asp-controller="transfersalespdf" asp-action="SalesPdf" style="font-weight: bold; font-family: auto;">Sales Pdf</a></li>
+                            @*
+                            <li><a class="dropdown-item" href="#">Option 3</a></li>
+                            <li><a class="dropdown-item" href="#">Option 4</a></li>
+                            <li><a class="dropdown-item" href="#">Option 5</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Stock" asp-action="SupplierItemBarcode" class="nav-link Sales" style="color:#cdc4c4" id="SubItem">Supplier of Item</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block mr-2">
+                        <a class="nav-link " href="#" id="Stock" style="color:#cdc4c4">Stock</a>
+                        <ul class="dropdown-menu" style="background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    border: ridge 1px;
+    font-family: sans-serif;
+    left: -28px;
+    top: 33px;">
+                            <li id="AllStock">
+                                <a class="dropdown-item" asp-controller="Stock" asp-action="Index" style="font-weight: bold; font-family: auto;">Stock</a>
+                            </li>
+                            <li id="SBranch"><a class="dropdown-item" asp-controller="Stock" asp-action="StockFromBranch" style="font-weight: bold; font-family: auto;">Current Stock</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item1">
+                        <a class="nav-link Sales" style="color:#cdc4c4" asp-controller="Tender" asp-action="Index" id="Tender">Tender</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Stock" asp-action="StockFromBranch" class="nav-link Sales" style="color:#cdc4c4" id="Stockfrombranch">Current Stock</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Tender" asp-action="TenderFromBranch" class="nav-link Sales" style="color:#cdc4c4" id="Tenderfrombranch">Tender</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="Shelf" class="nav-link Sales" style="color:#cdc4c4" id="Shelf">Shelf Label</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-action="EditUser" asp-controller="Login" class="nav-link Sales" style="color:#cdc4c4" id="EditUser">تغيير كلمة السر</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block mr-2">
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="content-wrapper" style="margin-left:0;">
+        @RenderBody()
+        <footer class="main-footer" style="margin-left:0  ; margin-left: 0; width: 100%;bottom: 0;position: absolute;">
+            <strong>Copyright &copy; 2024 <a href="">Circle K</a>.</strong>
+            All rights reserved.
+        </footer>
+    </div>
+    <script type="text/javascript" src="~/js/jquery-1.8.3.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/js/jquery-3.4.1.slim.min.js"></script>
+    <!-- Datepicker JS -->
+    <script type="text/javascript" src="~/js/bootstrap-datepicker.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script>
+        //$(document).ready(function () {
+        var username = '@ViewBag.Username';
+        var Password = '@ViewBag.Password';
+        var role = '@ViewBag.Role';
+        var StoreId = '@ViewBag.StoreIddynamic';
+        var isUsername = '@ViewBag.isUsername';
+        var uuu = '@ViewBag.uuu';
+        $('#nav').show();
+        $('#VCustomer').hide();
+        $('#VArea').hide();
+        $('#VStreet').hide();
+        $('#VZone').hide();
+        $('#VSalesOrder').hide();
+        $('#CompareDataW').hide();
+        $('#Dashboard').hide();
+        $('#FollowBranches').hide();
+        $('#Home1').hide();
+        $('#Accounts').hide();
+        $('#NewItem').hide();
+        $('#NewCust').hide();
+        $('#Salesfrombranch').hide();
+        $('#Stockfrombranch').hide();
+        $('#Tenderfrombranch').hide();
+        $('#Shelf').hide();
+        $('#controleB').hide();
+        $('#controleU').hide();
+        $('#CompareData').hide();
+        $('#Categorylimit').hide();
+        $('#Sales').hide();
+        $('#Stock').hide();
+        $('#Tender').hide();
+        $('#Transfer').hide();
+        $('#SubItem').hide();
+        $('#Offer').hide();
+        $('#ItemMovements').hide();
+        $('#CreateMessage').hide();
+        $('#CreateCloseDay').hide();
+        $('#TransferM').hide();
+        $('#Driver').hide();
+        $('#CreateEmployee').hide();
+        $('#CreateRole').hide();
+        $('#CreateManager').hide();
+        $('#CreateModelType').hide();
+        $('#CreateModel').hide();
+        $('#DisplayModel').hide();
+        $('#EditUser').show();
+        // function updateLanguageBasedOnRole() {
+        //     var bodyElement = document.body;
+        //     bodyElement.classList.add('logout');
+        // }
+        // // Call the function to apply the changes
+        // updateLanguageBasedOnRole();
+        // $('#SBranch').hide();
+        // $('#AllStock').hide();
+        if (username === 'ahak' && Password === 'Dd@1234') {
+            console.log(role);
+            $('#controleB').show();
+            $('#EditUser').hide();
+            // $('#Accounts').show();
+            // $('#NewItem').show();
+            // $('#NewCust').show();
+            $('#CompareDataW').show();
+           // $('#FollowBranches').show();
+            $('#Dashboard').show();
+            $('#CompareData').show();
+            $('#controleU').show();
+            $('#SBranch').show();
+            $('#CreateMessage').show();
+            $('#CreateCloseDay').show();
+          //  $('#Shelf').show();
+            $('#VCustomer').show();
+            $('#VArea').show();
+            $('#VStreet').show();
+            $('#VZone').show();
+            $('#VSalesOrder').show();
+        }
+        else if (role === 'Manager') {
+            console.log(role);
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#Tender').show();
+            $('#Transfer').show();
+            $('#Offer').show();
+            $('#SBranch').show();
+            $('#AllStock').show();
+            $('#Shelf').show();
+        }
+        else if (role === 'Manager1') {
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#Tender').show();
+            $('#Transfer').show();
+            $('#Offer').show();
+            $('#SBranch').show();
+            $('#AllStock').show();
+            $('#Dashboard').show();
+            $('#controleB').show();
+            $('#CreateMessage').show();
+            $('#CreateCloseDay').show();
+            $('#Categorylimit').show();
+            $('#Shelf').show();
+            if (username === "Admin") {
+                $('#controleU').show();
+                $('#FollowBranches').show();
+                $('#VArea').show();
+                $('#VStreet').show();
+                $('#VZone').show();
+                $('#VSalesOrder').show();
+                $('#CompareDataW').show();
+            }
+        }
+        else if (role === 'Manager2') {
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#Tender').show();
+            $('#Transfer').show();
+            $('#Offer').show();
+            $('#SBranch').show();
+            $('#AllStock').show();
+            $('#TransferM').show();
+            $('#Shelf').show();
+        }
+        else if (role === 'Carlicense') {
+            $('#Driver').show();
+        }
+        else if (uuu === 'True' || isUsername === 'True') {
+            $('#Shelf').show();
+            $('#Stock').hide();
+            console.log(role);
+            if (StoreId !== 'RMS') {
+                $('#Stockfrombranch').show();
+                $('#Transfer').show();
+                $('#SubItem').show();
+                $('#Salesfrombranch').show();
+                $('#Tenderfrombranch').show();
+                $('#TransferM').show();
+                $('#VSalesOrder').show();
+            }
+            else if (username === 'Midor' || username === 'AL-REHAB' || username === 'AL-SHAHID1' || username === 'CFC' || username === 'Nakheel' || username === 'Maadimobil') {
+                $('#Salesfrombranch').show();
+            }
+        }
+        else if (role === 'Transfer') {
+            $('#Transfer').show();
+            $('#ItemMovements').show();
+        }
+        else if (role === 'Accounts') {
+            $('#Accounts').show();
+            $('#NewItem').show();
+            $('#NewCust').show();
+            if (username === "Haitham" || username === "Youssef") {
+                $('#Tender').show();
+                $('#Sales').show();
+            }
+        }
+        else if (role === 'IT_Transfer') {
+            $('#Sales').show();
+            $('#controleB').show();
+            $('#Categorylimit').show();
+            $('#Stock').show();
+            $('#SBranch').show();
+            $('#Transfer').show();
+            $('#ItemMovements').show();
+            $('#TransferM').show();
+            $('#Shelf').show();
+        }
+        else if (role === 'IT') {
+            $('#controleB').show();
+            $('#Categorylimit').show();
+            $('#Stock').show();
+            $('#SBranch').show();
+            $('#Shelf').show();
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#Tender').show();
+        }
+        else if (role === 'Stock') {
+            $('#Stock').show();
+            $('#AllStock').show();
+        }
+        else if (role === 'Sales_NewS_Stock') {
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#AllStock').show();
+        }
+        else if (role === 'Sales_NewS_Stock_Tender') {
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#AllStock').show();
+            $('#Tender').show();
+        }
+        else if (role === 'Sales_NewS_Tender') {
+            $('#Sales').show();
+            $('#Tender').show();
+        }
+        else if (role === 'Sales_NewS_Stock_Tender') {
+            Sales_NewS_Stock
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#AllStock').show();
+            $('#Tender').show();
+        }
+        else if (role === 'BranchOwner') {
+            $('#Sales').show();
+            $('#Shelf').show();
+        }
+        else if (role === 'TerrManager') {
+            $('#Sales').show();
+            $('#Shelf').show();
+            $('#Stock').show();
+            $('#AllStock').show();
+            $('#Tender').show();
+        }
+        else if (role === 'SalesM' || role === 'Sales_NewS' || role === 'FoodManager' || role === 'TerrManager') {
+            $('#Sales').show();
+        }
+        else if (role === 'Sales_NewS_Stock') {
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#AllStock').show();
+        }
+        else {
+            window.location.href = "/Home/Logout";
+        }
+        // });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var filterCard = document.getElementById('filterCard');
+            var displayFieldsCard = document.getElementById('displayFieldsCard');
+
+            // Event listener for filtering card toggle
+            filterCard.querySelector('.card-title').addEventListener('click', function () {
+                toggleCard(filterCard, displayFieldsCard);
+            });
+
+            // Event listener for display fields card toggle
+            displayFieldsCard.querySelector('.card-title').addEventListener('click', function () {
+                toggleCard(displayFieldsCard, filterCard);
+            });
+
+            function toggleCard(cardToShow, cardToHide) {
+                var cardBodyToShow = cardToShow.querySelector('.card-body');
+                var cardBodyToHide = cardToHide.querySelector('.card-body');
+
+
+                // Toggle the visibility of the card to show
+                cardBodyToShow.style.display = cardBodyToShow.style.display === 'none' ? 'block' : 'none';
+
+                // Hide the card to hide
+                cardBodyToHide.style.display = 'none';
+                cardBodyToShow.style.display = 'none';
+            }
+
+        });</script>
+    <script>
+        var preventBack = @Html.Raw(Json.Serialize(ViewData["PreventBack"] ?? false));
+
+        if (preventBack) {
+            window.history.pushState(null, "", location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, "", location.href);
+            };
+        }
+    </script>
+    <script src="~/js/sweetalert2@11.js"></script>
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <script>
+        // Function to show an alert with the current date and time minus 10 seconds and then redirect to login/login
+        function showAlertAndRedirect() {
+            // Calculate the current date and time minus 10 seconds
+            var now = new Date();
+            var tenSecondsAgo = new Date(now.getTime() - 1800000); // 10000 milliseconds = 10 seconds
+
+            // Format the date and time
+            var formattedTime = tenSecondsAgo.toLocaleString();
+            // Display an alert with the formatted time
+
+            Swal.fire({
+                title: "Session is ended after 30 minute.",
+                text: "Login in again ",
+                icon: "question",
+                timer: 4000, // Timer set to 5000 milliseconds (5 seconds)
+            }).then(() => {
+                // Redirect to login/logout page after the SweetAlert is closed
+                window.location.href = "/Home/Logout";
+            });
+        }
+
+        // Schedule the function to be called after 10 seconds
+        setTimeout(showAlertAndRedirect, 1800000); // 10000 milliseconds = 10 seconds
+    </script>
+    <script src="~/js/jquery-3.6.4.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script language="javascript">
+        var matchEnterdDate = 0;
+        //function to set back date opacity for non supported browsers
+        window.onload = function () {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'date');
+            input.setAttribute('value', 'some text');
+            if (input.value === "some text") {
+                allDates = document.getElementsByClassName("xDateContainer");
+                matchEnterdDate = 1;
+                for (var i = 0; i < allDates.length; i++) {
+                    allDates[i].style.opacity = "1";
+                }
+            }
+        }
+        //function to convert enterd date to any format
+        function setCorrect(xObj, xTraget) {
+            var date = new Date(xObj.value);
+            var month = date.getMonth();
+            var day = date.getDate();
+            var year = date.getFullYear();
+            if (month != 'NaN') {
+                document.getElementById(xTraget).value = day + " / " + month + " / " + year;
+            } else {
+                if (matchEnterdDate == 1) { document.getElementById(xTraget).value = xObj.value; }
+            }
+        }
+    </script>
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <script src="~/js/main.js"></script>
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/plugins/chart.js/Chart.min.js"></script>
+    <script src="~/plugins/sparklines/sparkline.js"></script>
+    <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="~/plugins/moment/moment.min.js"></script>
+    <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="~/dist/js/adminlte.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Display Uploaded Invoices";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!Doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Button styles */
+        .btn-primary {
+            margin-top: 20px;
+        }
+
+        /* Responsive grid layout */
+
+        .fileds {
+            display: inline-block;
+            margin: 10px 50px;
+            font-family: auto;
+            font-size: 21px;
+        }
+
+        .filed label {
+            padding: 3%;
+        }
+
+        ul {
+            width: 1500px;
+        }
+
+        .Title {
+            background-color: #b50101;
+            font-family: emoji;
+            font-weight: bold;
+        }
+
+        .dataTables_info, #example_info {
+            position: absolute !important;
+            left: 12% !important;
+            top: 0;
+            font-weight: bold;
+        }
+
+        .custom-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .dt-buttons {
+            margin-right: 10px;
+        }
+
+        .dataTables_length {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="salesReportTableWrapper" style="margin:1%">
+        @if (ViewBag.Data != null)
+        {
+            <table id="example" class="table" style="width:93%;">
+                <thead>
+                    <tr style="background-color: #a60f0f;color: #ffffffc7;">
+                        <th>SortFi<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>DocNo<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>DocDate<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>DueDate<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>AccCode<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Customer<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Total Sales<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>UUID<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Status<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Action<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < ViewBag.Data.Count; i++)
+                    {
+                        var dr = ViewBag.Data[i];
+                        <tr>
+                            <td>@dr.StoreName</td>
+                            <td>@dr.Username</td>
+                            <td>@dr.Dmanager</td>
+                            <td>@dr.Fmanager</td>
+                            <td>@dr.DpName</td>
+                            <td>@dr.SupplierName</td>
+                            <td>@dr.ItemName</td>
+                            <td>@dr.StoreFranchise</td>
+                            <td>@dr.StoreId</td>
+                            <td>
+                                <a href="@Url.Action("DeleteInvoice", "Accounts", new { @Id = @dr.Username })">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script>
+        var table = $('#example').DataTable({
+            pageLength: 50,  // Set default page length to "All"
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],  // Page length options
+            dom: '<"custom-toolbar"lfB>rtip',  // Custom placement of elements
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Export To Excel',
+                    className: 'export-excel-button'
+                }
+            ],
+            language: {
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",  // Custom info text
+                infoEmpty: "No records available",
+                infoFiltered: "(filtered from _MAX_ total entries)"
+            },
+            order: [[3, 'desc']],  // Set initial sorting by the first data column (after row numbers)
+            columnDefs: [
+                { targets: 0, orderable: false }  // Disable sorting on the row number column
+            ],
+            drawCallback: function (settings) {
+                var api = this.api();
+                var start = api.page.info().start;
+                api.column(0, { order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = start + i + 1;  // Set the row number
+                });
+            },
+            initComplete: function () {
+                // Ensure the info text and length menu are aligned beside the button
+                $('.dataTables_length').detach().prependTo('.custom-toolbar');
+                $('.dataTables_info').detach().appendTo('.custom-toolbar');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+

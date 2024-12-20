@@ -1,0 +1,41 @@
+﻿@model CK.Models.TopSoft.AreaCode
+@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Store</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+</head>
+<body>
+    <div class="form-container">
+
+    <button class="btn Title">Edit Area</button>
+
+    <form asp-action="UpdateAreaCode" asp-asp-controller="Area" method="post">
+    <ul>
+            <input type="hidden" asp-for="Serial" />
+            <li class="fileds">
+                <label asp-for="Code">Code</label>
+                <input asp-for="Code" class="form-control" style="width:250px" readonly>
+        </li>
+            <li class="fileds">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" style="width:250px" />
+            </li>
+            <li class="fileds">
+                <label for="ZoneName">Zone Name:</label>
+                <select class="FilterSelect form-control" asp-for="ZoneSerial" id="ZoneName" asp-items="@(new SelectList(ViewBag.VBZone,"Serial","Name"))">
+                    <option value="0">All Zone</option>
+                </select>
+            </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+</div>
+</body>
+</html>
+

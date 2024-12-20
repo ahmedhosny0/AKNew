@@ -1,0 +1,74 @@
+﻿@model CK.Models.TopSoft.CustomerCode
+@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Store</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+</head>
+<body>
+    <div class="form-container">
+        <!-- Header Button -->
+        <button class="btn Title">Edit Customer</button>
+    <form asp-action="UpdateCustomerCode" asp-asp-controller="Customer" method="post">
+            <ul>
+                <input type="hidden" asp-for="CustomerCode1" readonly />
+                <li class="fields">
+                    <label asp-for="CustomerName">Customer Name</label>
+                    <input asp-for="CustomerName" class="form-control" required />
+                </li>
+                <li class="fields">
+                    <label asp-for="Phone1">Phone Number 1</label>
+                    <input asp-for="Phone1" class="form-control" maxlength="11" required pattern="^[0-9]+$" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Phone2">Phone Number 2</label>
+                    <input asp-for="Phone2" class="form-control" maxlength="11" pattern="^[0-9]+$" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Phone3">Phone Number 3</label>
+                    <input asp-for="Phone3" class="form-control" maxlength="11" pattern="^[0-9]+$" />
+                </li>
+                <div class="form-row" style="width:67%">
+                    <div class="form-group col-md-6" >
+                        <label for="ZoneName">Zone Name:</label>
+                        <select class="FilterSelect form-control" asp-for="ZoneSerial" id="ZoneName" asp-items="@(new SelectList(ViewBag.VBZone,"Serial","Name"))">
+                            <option value="0">All Zone</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="AreaName">Area Name:</label>
+                        <select class="FilterSelect form-control" asp-for="AreaSerial" id="AreaName"  asp-items="@(new SelectList(ViewBag.VBArea,"Serial","Name"))">
+                            <option value="0">All Area</option>
+                        </select>
+                    </div>
+                </div>
+                           <li class="fileds" style="width:32%">
+                <label for="StreetName">Street Name:</label>
+                    <select class="FilterSelect form-control" asp-for="StreetSerial" id="StreetName" asp-items="@(new SelectList(ViewBag.VBStreet,"Serial","Name"))">
+                    <option value="0">All Street</option>
+                </select>
+            </li>
+                <li class="fields">
+                    <label asp-for="Address1">Address 1</label>
+                    <input asp-for="Address1" class="form-control" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Address2">Address 2</label>
+                    <input asp-for="Address2" class="form-control" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Notes">Notes</label>
+                    <input asp-for="Notes" class="form-control" />
+                </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,317 @@
+﻿@model CK.Models.SalesParameters
+@{
+    ViewData["Title"] = "Add Car";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!Doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
+    <style>
+
+        /* Button styles */
+        .btn-primary {
+            margin-top: 20px;
+        }
+
+        /* Responsive grid layout */
+
+
+        .Title {
+            background-color: #b50101;
+            font-family: emoji;
+            font-weight: bold;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 268px;
+        }
+
+        #char-typed-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 300px; /* Adjust the width as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="row" style="display: block; margin:0 1px">
+        <div class="col-md-3">
+            <div class="card card-primary collapsed-card" style="width:1500px" id="filterCard">
+                <div class="card-header card-title" data-card-widget="collapse" style="color: #034C96;border:1px solid #0000004d;background-color:#0000000f">
+                    <h3 class="card-title">Filtering</h3>
+                    <div class="card-tools">
+                    </div>
+                </div>
+                <div class="card-body" style="display:block; padding: 20px;transition:max-height 5s ease-in-out;">
+                    <form id="InsertForm" asp-controller="Driveres" asp-action="EditDriver" method="post" enctype="multipart/form-data">
+                        <ul style="list-style: none;">
+                            <li class="Displayliselect">
+                                <label>License StartDate</label>
+                                <br>
+                                <input type="date" class="form-control" id="startDate" name="StartDate" style="width:200px;display:inline-block" value="@ViewBag.SupplierName" required>
+                            </li>
+                            <li class="Displayliselect">
+                                <label>License EndDate</label>
+                                <br>
+                                <input type="date" class="form-control" id="endDate" name="EndDate" style="width:200px;display:inline-block" value="@ViewBag.Dmanager" required>
+                            </li>
+                            <li class="Displayliselect">
+                                <label>Driver Name</label>
+                                <input type="text" id="DriverName" class="FilterSelect form-control" style="width:250px" name="Parobj.DriverName" value="@ViewBag.DriverName" required>
+                            </li>
+                            <li class="Displayliselect">
+                                <label>Card Photo</label>
+                                <img class="FilterSelect form-control" style="width:300px;height:300px" src="@ViewBag.Fmanager">
+                                <input type="file" class="FilterSelect form-control" style="width:250px" name="CardPhoto" src="@ViewBag.Fmanager">
+@*                                 <img id="imagePreview" src="@ViewBag.Fmanager" alt="Image Preview" style="max-width:100%; height:auto;">
+                                <input type="hidden" name="Ph" value="@TempData["photo"]" />
+                                <!-- File input for selecting an image -->
+                                <input type="file" class="FilterSelect form-control" style="width:250px" name="CardPhoto" onchange="previewImage(event)" > *@
+                            </li>
+                            <li class="Displayliselect">
+                                <label>Car Number</label>
+                                <div class="input-container">
+                                    <input value="@ViewBag.numbers" type="text" id="num-typed-input" class="FilterSelect form-control" style="width:125px;font-weight:bold" name="Parobj.CarNumberDigits" placeholder="3-4 nums" required>
+                                    <input value="@ViewBag.chars" type="text" id="char-typed-input" class="FilterSelect form-control" style="width:125px;font-weight:bold" name="Parobj.CarNumberLetters" placeholder="3 letters" required>
+                                    
+                                </div>
+                            </li> 
+                            <li class="Displayliselect">
+                                <label>Chassis Number</label>
+                                <input value="@ViewBag.Company" type="text" class="FilterSelect form-control" style="width:250px" id="ChassisNumber" name="Parobj.ChassisNumber" required>
+                            </li>
+                            <li class="Displayliselect" style="width:120px;">
+                                <label>Motor Number</label>
+                                <input value="@ViewBag.Employee" type="text" class="FilterSelect form-control" style="width:250px" id="MotorNumber" name="Parobj.MotorNumber" required>
+                            </li>
+                            <li class="Displayliselect">
+                                <label>Driver Phone</label>
+                                <input type="text" class="FilterSelect form-control" style="width:250px" id="DriverPhone" name="Parobj.DriverPhone" value="@ViewBag.DriverPhone">
+                            </li>
+                            <br />
+                            <div class="lines"></div>
+                            <li class="Displayliselect Displayfix">
+                                <label>Car Brand</label>
+                                <br>
+                                <select name="Parobj.CarModel" id="CarModel" class="FilterSelect form-control" style="width:200px">
+                                    <option value="NotFound">Choose</option>
+                                    <option>Chevrolet Optra</option>
+                                    <option>MG 6</option>
+                                    <option>Nissan Sunny</option>
+                                    <option>Mercedes V250</option>
+                                    <option>Chevrolet Optra</option>
+                                    <option>Citroen</option>
+                                    <option>Chevrolet TFR</option>
+                                    <option>Fiat  Van</option>
+                                    <option>KYC x 3</option>
+                                    <option>XMQ65 كينج لونج</option>
+                                    <option>Chevrolet RT95</option>
+                                    <option>Chevorlet N300</option>
+                                    <option>IVECO</option>
+                                    <option>Chevrolet NKR</option>
+                                    @if (!string.IsNullOrEmpty(ViewBag.CarModel))
+                                    {
+                                        <option value="@ViewBag.CarModel" selected>@ViewBag.CarModel</option>
+                                    }
+                                </select>
+                            </li>
+                            <li class="Displayliselect Displayfix">
+                                <label>Year Model</label>
+                                <input type="text" class="FilterSelect form-control" style="width:250px" id="YearModel" name="Parobj.YearModel" value="@ViewBag.YearModel">
+                            </li>
+                            <li class="Displayliselect Displayfix">
+                                <label>Owned By</label>
+                                <br>
+                                <select name="Parobj.OwnedBy" id="OwnedBy" class="FilterSelect form-control" style="width:250px">
+                                    <option value="NotFound">Choose</option>
+                                    <option>Contact</option>
+                                    <option>Al Tameer</option>
+                                    <option>Sky</option>
+                                    <option>TMT</option>
+                                    <option>Cairo Leasing</option>
+                                    @if (!string.IsNullOrEmpty(ViewBag.OwnedBy))
+                                    {
+                                        <option value="@ViewBag.OwnedBy" selected>@ViewBag.OwnedBy</option>
+                                    }
+                                </select>
+                            </li>
+                            <li class="Displayliselect Displayfix">
+                                <label>Insurance Company</label>
+                                <br>
+                                <select name="Parobj.InsuranceCompany" id="InsuranceCompany" class="FilterSelect form-control" style="width:250px">
+                                    <option value="NotFound">Choose</option>
+                                    <option>Misr Insurance</option>
+                                    <option>ESIH</option>
+                                    <option>MADA</option>
+                                    <option>Sarwa</option>
+                                    <option>Royal</option>
+                                    @if (!string.IsNullOrEmpty(ViewBag.InsuranceCompany))
+                                    {
+                                        <option value="@ViewBag.InsuranceCompany" selected>@ViewBag.InsuranceCompany</option>
+                                    }
+                                </select>
+                            </li>
+                            <li class="Displayliselect Displayfix">
+                                <label>Certificate</label>
+                                <input type="text" class="FilterSelect form-control" style="width:250px" id="Certificate" name="Parobj.Certificate" value="@ViewBag.Certificate">
+                            </li>
+                            <li class="Displayliselect Displayfix">
+                                <label>Insurance Value </label>
+                                <input type="number" class="FilterSelect form-control" style="width:250px" id="InsuranceValue" name="Parobj.InsuranceValue" value="@ViewBag.InsuranceValue">
+                            </li>
+                            <li class="Displayliselect Displayfix">
+                                <label>Installment Value </label>
+                                <input type="number" class="FilterSelect form-control" style="width:250px" id="InstallmentValue" name="Parobj.InstallmentValue" value="@ViewBag.InstallmentValue">
+                            </li>
+                            <div class="lines"></div>
+                            <li class="Displayliselect">
+                                <label>Remarks</label>
+                                <input type="text" class="FilterSelect form-control" style="width:250px" id="Remarks" name="Parobj.Remarks" value="@ViewBag.Remarks">
+                            </li>
+                            <br />
+                        </ul>
+                        <button type="submit" id="Addbtn" class="btn btn-primary">Edit Driver</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script>
+        // function previewImage(event) {
+        //     var reader = new FileReader();
+        //     reader.onload = function () {
+        //         var output = document.getElementById('imagePreview');
+        //         output.src = reader.result;
+        //     };
+        //     reader.readAsDataURL(event.target.files[0]);
+        // }
+        var table = $('#example').DataTable({
+            pageLength: 20,
+            lengthChange: true,
+            dom: 'Bfrtip', // This keeps the buttons in the DataTables control
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Export To Excel',
+                    className: 'export-excel-button' // Add a class for easier selection later
+                }
+            ]
+        });
+
+        // After initializing the table, manually move the Excel export button to the top
+        $('.export-excel-button').detach().prependTo($('#example_wrapper'));
+
+        // Initialize the table again after moving the button
+        table.buttons().container().appendTo('#example_wrapper');
+    </script>
+    <script>
+        let Addbtn = document.getElementById('Addbtn');
+        const inputField = document.getElementById('char-typed-input');
+        const DriverName = document.getElementById('DriverName');
+        // let UnApprovebtn = document.getElementById('UnApprovebtn');
+        // let ManagerReply = document.getElementById('ManagerReply'); // Reference to the hidden input
+        // let Message = document.getElementById('Message'); // Reference to the hidden input
+        // // Event listener for the Display button
+        Addbtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            var startDateInput = document.getElementById('startDate');
+            var endDateInput = document.getElementById('endDate');
+            const numinputField = document.getElementById('num-typed-input');
+            let cleanedValuenum = numinputField.value.replace(/\s/g, '');
+            if (!numinputField.value || !inputField.value) {
+                Swal.fire({
+                    title: "Dear ," + username,
+                    text: "Please fill out CarNumber field.",
+                    icon: "info",
+                    timer: 4500
+                });
+                return true;
+            }
+            if (/^[a-zA-Z\u0590-\u05FF\u0600-\u06FF]+$/g.test(cleanedValuenum)) {
+                Swal.fire({
+                    title: "Input contains invalid Numbers.",
+                    text: "Please enter only Numbers.",
+                    icon: "warning",
+                    timer: 4500
+                });
+                return;
+            }
+            // Check if the cleaned value length is greater than 3
+            if (cleanedValuenum.length > 4) {
+                Swal.fire({
+                    title: "You've reached the maximum allowed Numbers.",
+                    icon: "question",
+                    timer: 4500
+                });
+                return;
+                // Slice the cleaned value to the first 3 characters
+            }
+            if (!startDateInput.value || !endDateInput.value) {
+                Swal.fire({
+                    title: "Dear ," + username,
+                    text: "Please fill out both date fields.",
+                    icon: "info",
+                    timer: 4500
+                });
+                return true;
+            }
+            if (!DriverName.value) {
+                Swal.fire({
+                    title: "Dear ," + username,
+                    text: "Please fill out DriverName field.",
+                    icon: "info",
+                    timer: 4500
+                });
+                return true;
+            } // First, remove existing spaces to accurately count characters
+            let cleanedValue = inputField.value.replace(/\s/g, '');
+            // Check if the cleaned value length is greater than 3
+            if (cleanedValue.length > 3) {
+                Swal.fire({
+                    title: "You've reached the maximum allowed characters.",
+                    icon: "question",
+                    timer: 4500
+                });
+                return;
+            }
+            if (!/^[a-zA-Z\u0590-\u05FF\u0600-\u06FF]+$/g.test(cleanedValue)) {
+                Swal.fire({
+                    title: "Input contains invalid characters.",
+                    text: "Please enter only letters.",
+                    icon: "warning",
+                    timer: 4500
+                });
+                return;
+                // Slice the cleaned value to the first 3 characters
+            }
+            // ManagerReply.value = 1; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        function submitExportForm() {
+            InsertForm.submit(); // Submit the export form
+            // Set up an interval to check export status periodically
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+

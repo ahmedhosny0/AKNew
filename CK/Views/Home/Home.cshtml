@@ -1,0 +1,202 @@
+﻿@model SalesParameters
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .main-footer {
+        position: absolute !important;
+        display:none;
+    }
+</style>
+@* <p>@ViewBag.Role</p>
+ *@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/test.css" />
+    <script src="/plugins/chart.js/Chart.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <script src="/js/sweetalert2@11"></script>
+    <script src="/css/sweetalert2@11.js"></script>
+   <style>
+        .main-footer {
+            position: relative !important;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        .AnalysisCard {
+            width: 250px;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .maincards {
+            list-style: none;
+            padding: 2%;
+            width: 1000px;
+            margin-left: 50%;
+        }
+
+        .icon {
+            font-size: 38px;
+        }
+
+        .main-footer {
+            display: relative !important;
+        }
+
+        .ph {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: relative;
+            animation-name: example;
+            animation-duration: 4s;
+        }
+        .go
+        {
+            position:absolute;
+            right:4%;
+            top:7%;
+            background-color: #517883;
+            padding:5px;
+            text-align:center;
+            color:white;
+        }
+
+        .go2 {
+            position: absolute;
+            left: 4%;
+            top: 7%;
+            background-color: #2d516f;
+            padding: 5px;
+            text-align: center;
+            color: white;
+        }
+
+        .content-wrapper
+        {
+            background-color: #233e55 !important;
+        }
+    </style>
+    <script src="/js/sweetalert2@11"></script>
+    <script src="/css/animate.min.css"></script>
+    <script>
+        var username = '@ViewBag.Username';
+        var Message = '@ViewBag.StartMessage';
+        console.log(Message);
+    // Listen for the load event on the window object
+        window.addEventListener('load', function () {
+            Swal.fire({
+                title: "Hi " + username + ", How are you?",
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutDown animate__faster'
+                },
+                timer: 1000
+            }).then((result) => {
+                // This part will execute after the first alert is closed
+                Swal.fire({
+                    icon: "success",
+                    title: "Welcome " + username + " To TopSoft APP.",
+                    html: '<h4>' + Message + '</h4>',
+                    timer: 2500
+                });
+            });
+        });
+    </script> 
+</head>
+<body style="background-color:#233e55 !important">
+    <div style="background-color:#233e55 !important">
+        <div class="loader"></div>
+        <div class="go2" style="width: 360px;
+    height: 398px;
+    position: absolute;border-radius: 29px;">
+            <div style="margin:auto;color:red;" class="loader1"></div>
+            <h2 style="margin:5px">صندوق الرسائل للتواصل معنا</h2>
+            <h3 style="color:black;font-weight:bold;">@ViewBag.Username المستخدم</h3>
+            <h4>@ViewBag.Username من <br />@ViewBag.UserMessage  </h4>
+            <h4> من المبرمج <br />@ViewBag.Storeuser</h4>
+        </div>
+
+        <div class="go" style="width: 360px;border-radius: 29px;
+    height: 398px;
+    position: absolute;">
+            <div style="margin:auto;color:red;"class="loader1"></div>
+            <h1 style="margin:5px">Notifications</h1>
+            <h3 style="margin:5px">TopSoft App - CircleK</h3>
+            <h5 style="color:black">Welcome @ViewBag.Username</h5>
+            @if (ViewBag.Data!=null)
+            {
+@*                 @for (int i = 0; i < ViewBag.Data.Count; i++)
+                {
+                    var dr = ViewBag.Data[i]; *@
+                    <h5>@ViewBag.Data</h5>
+@*                 }
+ *@            }
+        </div>
+        <form id="exportForm" asp-controller="Home" asp-action="Home" method="post" style="margin-left:30%">
+            <ul style="list-style: none;width:0px">
+                <li class="Displayliselect">
+                    <label style="color:white;text-align:center;font-size:19px">تواصل معنا</label>
+                    <br />
+                    <label style="color:white;text-align:center;font-size:19px">أرسل رسالة إلي المبرمج</label>
+                    <textarea class="FilterSelect form-control" style="width:250px; direction:rtl" name="Parobj.Messagefordev"></textarea>
+                </li>
+            </ul>
+            <button id="AddButton" type="submit" style="margin-left:15%" class="btn btn-primary">إرسال</button>
+            <br />
+@*             <span style="color:white;text-align:center;font-size:30px;position:absolute">لتثبيت الباسورد وعدم كتابتها مره اخري عند تسجيل الدخول اضغط علي علامة المفتاح في شريط البحث للمتصفح</span>
+            <img style="margin-top:30px" src="~/images/pass.png"/> *@
+        </form>
+    </div>
+    <script>
+        const xValues = [@ViewBag.StoreName];
+        const yValues = [@ViewBag.TotalSales];
+        const barColors = ["red"];
+        var u = '@ViewBag.u';
+        if (u === "u") {
+            // window.addEventListener('load', function () {
+            Swal.fire({
+                title: "Good, You update Password Successfully",
+                icon: "success",
+                timer: 3500
+            });
+            //});
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var role = '@ViewBag.Role';
+            var username = '@ViewBag.Username';
+            var Password = '@ViewBag.Password';
+            var isUsername = '@ViewBag.isUsername';
+            $('#show4').hide();
+              $('#show').hide();
+                $('#show2').hide();
+                $('#show1').hide();
+            if (username === "ahak") {
+                $('#show').show();
+                $('#show2').show();
+                $('#show1').show();
+                $('#show4').show();
+            }           
+            else {
+                $('#all').hide();
+            }
+        });
+    </script>
+</body>
+</html>

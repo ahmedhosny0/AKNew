@@ -1,0 +1,174 @@
+﻿@model CK.Models.TopSoft.CustomerCode
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Customer</title>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+</head>
+<body>
+    <div class="form-container">
+        <!-- Header Button -->
+        <button class="btn Title">Create Customer</button>
+
+        <!-- Form -->
+        <form id="myForm" asp-controller="Customer" asp-action="CreateCustomerCode" method="post">
+            <ul>
+                <input type="hidden" asp-for="CustomerCode1" />
+                <li class="fields">
+                    <label asp-for="CustomerName">Customer Name</label>
+                    <input asp-for="CustomerName" class="form-control" required />
+                </li>
+                <li class="fields">
+                    <label asp-for="Phone1">Phone Number 1</label>
+                    <input asp-for="Phone1" class="form-control" maxlength="11" required pattern="^[0-9]+$" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Phone2">Phone Number 2</label>
+                    <input asp-for="Phone2" class="form-control" maxlength="11" pattern="^[0-9]+$" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Phone3">Phone Number 3</label>
+                    <input asp-for="Phone3" class="form-control" maxlength="11" pattern="^[0-9]+$" />
+                </li>
+                <li class="fields">
+                    <label for="ZoneName">Zone Name</label>
+                    <select class="FilterSelect" asp-for="ZoneSerial" id="ZoneName" required>
+                        <option value="0">All Zones</option>
+                        @foreach (var zone in ViewBag.VBZone ?? Enumerable.Empty<Store>())
+                        {
+                            <option value="@zone.Serial">@zone.Name</option>
+                        }
+                    </select>
+                </li>
+                <li class="fields">
+                    <label for="AreaName">Area Name</label>
+                    <select class="FilterSelect" asp-for="AreaSerial" id="AreaName" required>
+                        <option value="0">All Areas</option>
+                    </select>
+                </li>
+                <li class="fields">
+                    <label for="StreetName">Street Name</label>
+                    <select class="FilterSelect" asp-for="StreetSerial" id="StreetName" required>
+                        <option value="0">All Streets</option>
+                    </select>
+                </li>
+                <li class="fields">
+                    <label asp-for="Address1">Address 1</label>
+                    <input asp-for="Address1" class="form-control" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Address2">Address 2</label>
+                    <input asp-for="Address2" class="form-control" />
+                </li>
+                <li class="fields">
+                    <label asp-for="Notes">Notes</label>
+                    <input asp-for="Notes" class="form-control" />
+                </li>
+            </ul>
+
+            <!-- Buttons -->
+            <button type="submit" id="saveButton" class="btn btn-primary">Create Customer</button>
+            <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="btn btn-primary">Display Customers</a>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const saveButton = document.getElementById('saveButton');
+
+            saveButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Validate the form
+                if (document.getElementById('myForm').checkValidity()) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Validated',
+                        text: 'All validations passed. Proceeding to save...',
+                        timer: 1000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            document.getElementById('myForm').submit();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please fill out all required fields correctly.',
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const zoneDropdown = document.getElementById("ZoneName");
+            const areaDropdown = document.getElementById("AreaName");
+            const streetDropdown = document.getElementById("StreetName");
+
+            // Handle Zone selection
+            zoneDropdown.addEventListener("change", function () {
+                const selectedZone = this.value;
+
+                if (selectedZone && selectedZone !== "0") {
+                    fetch(`/Customer/GetFilteredArea?zone=${selectedZone}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            areaDropdown.innerHTML = '<option value="0">All Areas</option>';
+                            streetDropdown.innerHTML = '<option value="0">All Streets</option>'; // Reset streets
+                            data.forEach(area => {
+                                const option = document.createElement("option");
+                                option.value = area.serial;
+                                option.textContent = area.name;
+                                areaDropdown.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Error fetching areas:", error);
+                        });
+                } else {
+                    areaDropdown.innerHTML = '<option value="0">All Areas</option>';
+                    streetDropdown.innerHTML = '<option value="0">All Streets</option>';
+                }
+            });
+
+            // Handle Area selection
+            areaDropdown.addEventListener("change", function () {
+                const selectedZone = zoneDropdown.value;
+                const selectedArea = this.value;
+
+                if (selectedArea && selectedArea !== "0") {
+                    fetch(`/Customer/GetFilteredSteet?zone=${selectedZone}&area=${selectedArea}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            streetDropdown.innerHTML = '<option value="0">All Streets</option>';
+                            data.forEach(street => {
+                                const option = document.createElement("option");
+                                option.value = street.serial;
+                                option.textContent = street.name;
+                                streetDropdown.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Error fetching streets:", error);
+                        });
+                } else {
+                    streetDropdown.innerHTML = '<option value="0">All Streets</option>';
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
+

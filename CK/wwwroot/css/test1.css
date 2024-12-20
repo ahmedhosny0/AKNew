@@ -1,0 +1,40 @@
+﻿.price {
+    position: fixed;
+    width: 20%;
+    height: 45px;
+    right: 18px;
+    top: 15px;
+    padding-top: 10px;
+    color: black;
+    font-size: 10px;
+    text-align: center;
+    font-family: Cambria;
+    border-bottom: 2px solid #0a0a0a;
+    border-left: 2px solid #0a0a0a;
+    border-top-color: white;
+}
+
+.test {
+    color: red !important;
+    position: fixed;
+    width: 70%;
+    height: 40px;
+    top: 20px;
+    left: 11px;
+    padding-top: 10px;
+    padding: 2px;
+    color: black;
+    font-size: 12px;
+    text-align: center;
+    font-family: Cambria;
+    border-bottom: 2px solid #0a0a0a;
+}
+@media print {
+    body {
+        color: black; /* Change text color */
+    }
+
+    .no-print {
+        display: none; /* Hide elements */
+    }
+}

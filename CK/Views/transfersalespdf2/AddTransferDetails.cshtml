@@ -1,0 +1,252 @@
+﻿@model List<CK.Models.R>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!Doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
+    <style>
+        .main-footer {
+            position: relative;
+        }
+        /* Styles for the Transfer details */
+        .transfer-details {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+            .transfer-details label {
+                font-weight: bold;
+            }
+
+        /* Styles for Transfer ID form */
+        #transferForm {
+            margin: 20px;
+        }
+
+
+
+            #transferForm label {
+                margin-right: 10px;
+            }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px; /* Spacing between buttons */
+            margin-top: 10px; /* Space above buttons */
+        }
+
+        .main-footer {
+            position: relative !important;
+            display: none;
+        }
+
+        .dataTables_filter {
+            margin-right: 100px !important;
+        }
+        .unapprove
+{
+            background-color: #d56a6a;
+            font-weight: bold;
+}
+.HeadDetails
+{
+            background-color: #cd4d4d;
+            width: 215px;
+            margin: auto;
+            padding: 5px;
+            font-weight: bold;
+            color: white;
+}
+    </style>
+</head>
+<body>
+    <div class="row" style="display: block; margin:0 1px">
+        <div class="col-md-3" id="allto">
+            <div class="card card-primary collapsed-card" style="width:1500px" id="filterCard">
+                <div class="card-header card-title" data-card-widget="collapse" style="color: #034C96;border:1px solid #0000004d;background-color:#0000000f">
+                    <h3 class="card-title">Filtering</h3>
+                    <div class="card-tools">
+                    </div>
+                </div>
+                <div class="card-body" style="display:block; padding: 20px;transition:max-height 5s ease-in-out;">
+                    <div class="transfer-details">
+                            <form id="transferForm" asp-action="AddTransferDetails" asp-controller="transfersalespdf2" method="post">
+                                <li class="Displayliselect">
+                                    <label>Message</label>
+                                    <textarea style="font-weight:bold;height:100px" class="form-control" name="Parobj.TransferMessage" id="Message"></textarea>
+
+                                </li>
+                                <input type="hidden" value="@TempData["Transfer"]" name="transferId" />
+                                <input type="hidden" value="@TempData["InvoiceStatus"]" name="Parobj.InvoiceStatus" />
+                                <input type="hidden" id="ManagerReply" name="Parobj.ManagerReply">
+                                <button type="submit" id="Approvebtn" class="btn btn-primary" style="font-weight:bold;">Approve</button>
+                            <button type="submit" id="UnApprovebtn" class="btn btn-primary unapprove">UnApprove</button>
+                                @*             <p>@TempData["Transfer"]</p>
+                            *@
+                            </form>
+                        @if (!string.IsNullOrEmpty(ViewBag.TransferNumber))
+                        {
+                            <label>Transfer Number:</label> @ViewBag.TransferNumber <br>
+                        }
+                        @if (!string.IsNullOrEmpty(ViewBag.Status))
+                        {
+                            <label>Status:</label> @ViewBag.Status <br>
+                        }
+                        @if (!string.IsNullOrEmpty(ViewBag.Date))
+                        {
+                            <label>Date:</label> @ViewBag.Date <br>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3 class="HeadDetails">Transfer Details</h3>
+    @if (ViewBag.Data != null)
+    {
+        <table id="example" class="table" style="width:90%;">
+            <thead>
+                <tr style="background-color: #a60f0f;color: #ffffffc7;">
+                    <th>From<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    @if (ViewBag.TransferId != null)
+                    {
+                        <th>Day<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Quantity<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Item<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Barcode<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    }
+                    <th>Transaction<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    <th>To <i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    <th>Status<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    @if (ViewBag.DpName != null)
+                    {
+                        <th>Manager Action<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Message from Manager<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                        <th>Review<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                    }
+                    @*  @if (ViewBag.TransferId != null)
+                {
+                <th>Action<i style="font-size:16px" class="fa">&#xf0dc;</i></th>
+                } *@
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < ViewBag.Data.Count; i++)
+                {
+                    var dr = ViewBag.Data[i];
+                    <tr>
+                        <td>@dr.StoreName</td>
+                        @if (ViewBag.TransferId != null)
+                        {
+                            <td>@dr.Dmanager</td>
+                            <td>@dr.Qty</td>
+                            <td>@dr.ItemName</td>
+                            <td>@dr.ItemLookupCode</td>
+                        }
+                        <td>
+                            <a target="_blank" href="@Url.Action("AddTransferDetails", "transfersalespdf2", new { @transferId = @dr.TransactionNumber,@ManagerAction = @dr.DpName })">@dr.TransactionNumber</a>
+                        </td>
+                        <td>@dr.StoreFranchise</td>
+                        <td>@dr.Fmanager</td>
+                        @if (ViewBag.DpName != null)
+                        {
+                            <td>@dr.DpName</td>
+                            <td>@dr.SupplierName</td>
+                            <td>@dr.DpId</td>
+                        }
+                        @* @if (ViewBag.TransferId != null)
+                {
+                <td>
+                <a target="_self" href="@Url.Action("AddTransferDetails", "transfersalespdf2", new { @transferId = @dr.TransactionNumber })">Approve</a>
+                @* <button type="submit" class="btn btn-primary" formaction="/transfersalespdf2/AddTransferDetails" style="margin: 0;padding: 1%;">
+                Approve
+                </button>
+                </td>
+                } *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script src="/js/sweetalert2@11"></script>
+    <script>
+        var username = '@ViewBag.Username';
+        var Password = '@ViewBag.Password';
+        var role = '@ViewBag.Role';
+        var StoreId = '@ViewBag.StoreIddynamic';
+        var isUsername = '@ViewBag.isUsername';
+        var uuu = '@ViewBag.uuu';
+        if (uuu === 'False' || isUsername === 'False') {
+            $('#allto').hide();
+        }
+    </script>
+    <script>
+        var warningMessage = '@ViewBag.Re';
+        console.log(warningMessage);
+        if (warningMessage === "done") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "Good, Your Message was sent Successfully",
+                    icon: "success",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
+        var table = $('#example').DataTable({
+            pageLength: 30,
+            lengthChange: true,
+            dom: 'Bfrtip', // This keeps the buttons in the DataTables control
+            buttons: [
+            ]
+        });
+
+        // After initializing the table, manually move the Excel export button to the top
+
+        // Initialize the table again after moving the button
+        table.buttons().container().appendTo('#example_wrapper');
+    </script>
+    <script>
+        let Approvebtn = document.getElementById('Approvebtn');
+        let UnApprovebtn = document.getElementById('UnApprovebtn');
+        let ManagerReply = document.getElementById('ManagerReply'); // Reference to the hidden input
+        let Message = document.getElementById('Message'); // Reference to the hidden input
+        // // Event listener for the Display button
+        Approvebtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            ManagerReply.value = 1; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        UnApprovebtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (!Message.value) {
+                Swal.fire({
+                    title: "Write Message Why you Not Approve",
+                    icon: "question",
+                    timer: 6500
+                });
+                return;
+            }
+            ManagerReply.value = 2; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        function submitExportForm() {
+            transferForm.submit(); // Submit the export form
+            // Set up an interval to check export status periodically
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿.logout {
+    left: 2% !important;
+}
+
+.Displayliselect {
+    margin-left: 2%
+}
+
+    .Displayliselect label {
+        text-align: right;
+        width: 201px;
+    }
+
+ul {
+    text-align: right;
+}
+h3 {
+    float: right;
+}
+.Htitle {
+    float: right;
+}
+
+@media (max-width: 768px) {
+*{
+    margin:0;
+    padding:0;
+}
+   ul
+   {
+       display:grid;
+       width:100%;
+   }
+   .card
+   {
+       width:100%!important;
+   }
+    .main-footer {
+        display:none;
+    }
+}

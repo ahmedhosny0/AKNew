@@ -1,0 +1,64 @@
+﻿@model CK.Models.TopSoft.StreetCode
+@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Store</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+</head>
+<body>
+    <div class="form-container">
+        <!-- Header Button -->
+        <button class="btn Title">Edit Street</button>
+    <form asp-action="UpdateStreetCode" asp-asp-controller="Street" method="post">
+        <ul>
+            <input type="hidden" asp-for="Serial" />
+            <li class="fields">
+                <label asp-for="Code">Code</label>
+                <input asp-for="Code" class="form-control" style="width:250px" asp-for="Code" readonly />
+            </li>
+            <li class="fields">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" style="width:250px" required />
+            </li>
+            <li class="fields">
+                <label for="ZoneName">Zone Name:</label>
+                <select class="FilterSelect form-control" asp-for="ZoneSerial" id="ZoneName" required>
+                    <option value="0">All Zones</option>
+                    @foreach (var zone in ViewBag.VBZone ?? Enumerable.Empty<Store>())
+                    {
+                        <option value="@zone.Serial">@zone.Name</option>
+                    }
+                </select>
+            </li>
+            <li class="fields">
+                <label for="AreaName">Area Name:</label>
+                <select class="FilterSelect form-control" asp-for="AreaSerial" id="AreaName" asp-items="@(new SelectList(ViewBag.VBArea,"Serial","Name"))" required>
+                    <option value="0">All Areas</option>
+                </select>
+            </li>
+            <li class="fields">
+                <label for="AreaName">Branch Name:</label>
+                <select class="FilterSelect form-control" asp-for="BranchSerial" id="BranchName" asp-items="@(new SelectList(ViewBag.VBBranch,"Serial","BranchName"))" required>
+                    <option value="0">All Branches</option>
+                </select>
+            </li>
+            <li class="fields">
+                <label asp-for="ServiceCost">ServiceCost</label>
+                <input asp-for="ServiceCost" class="form-control" style="width:250px" required />
+            </li>
+            <li class="fields">
+                <label asp-for="DeliveryTime">DeliveryTime</label>
+                <input asp-for="DeliveryTime" class="form-control" style="width:250px" required />
+            </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+</div>
+</body>
+</html>
+

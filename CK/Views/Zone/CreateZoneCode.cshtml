@@ -1,0 +1,83 @@
+﻿@model CK.Models.TopSoft.ZoneCode
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+</head>
+<body>
+    <div class="form-container">
+        <!-- Title Button -->
+        <button class="btn Title">Create Zone</button>
+
+        <!-- Form -->
+        <form id="myForm" asp-controller="Zone" asp-action="CreateZoneCode" method="post">
+            <ul>
+                <input type="hidden" asp-for="Serial" />
+                <!-- Zone Code -->
+                <li class="fields">
+                    <label asp-for="Code">Zone Code</label>
+                    <input asp-for="Code" class="form-control" style="width:250px" value="@ViewBag.VBMaxCode" readonly>
+                </li>
+                <!-- Zone Name -->
+                <li class="fields">
+                    <label asp-for="Name">Zone Name</label>
+                    <input asp-for="Name" class="form-control" style="width:250px" required />
+                </li>
+            </ul>
+            <!-- Buttons -->
+            <div class="text-center">
+                <button type="submit" id="saveButton" class="btn btn-primary">Create Zone</button>
+                <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="btn btn-primary">Display Zones</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        var success = '@TempData["SuccessMessage"]';
+        if (success === "success") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "Good, You Create Zone Successfully",
+                    icon: "success",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const saveButton = document.getElementById('saveButton');
+
+            saveButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Validate the form
+                if (document.getElementById('myForm').checkValidity()) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Validated',
+                        text: 'All validations passed. Proceeding to save...',
+                        timer: 1000,
+                        timerProgressBar: true,
+                        willClose: () => {
+                            document.getElementById('myForm').submit();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        text: 'Please fill out all required fields correctly.',
+                        timer: 2000,
+                        timerProgressBar: true
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
