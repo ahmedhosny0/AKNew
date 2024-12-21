@@ -15,6 +15,7 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using MimeKit;
 using CK.Models.TopSoft.Model;
+using CK.Models.CKPro;
 namespace CK.Controllers
 {
     [Authorize]

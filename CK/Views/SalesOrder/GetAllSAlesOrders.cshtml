@@ -51,7 +51,7 @@
                     </td>
                     <td>@si.HSalesCode</td>
                     <td>@si.CustomerName</td>
-                    <td>@si.CategoryCode</td>
+                    <td>@si.CategoryName</td>
                     <td>@si.GrandTotal</td>
                     <td>@si.GrandTotalWithFees</td>
                     <td>@si.SalesOrderDate</td>
@@ -72,6 +72,18 @@
     <script src="/js/buttons.html5.min.js"></script>
     <script src="/js/pdfmake.min.js"></script>
     <script src="/js/vfs_fonts.js"></script>
+    <script>
+        var success = '@TempData["Check"]';
+        if (success === "T") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "There are Transactions",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
     <script>
         var success = '@TempData["SuccessMessage"]';
         if (success === "Sales Order has been successfully Updated!") {

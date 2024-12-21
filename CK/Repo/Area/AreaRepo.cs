@@ -1,4 +1,5 @@
 ﻿using CK.Models;
+using CK.Models.CKPro;
 using CK.Models.TopSoft;
 using CK.Repo.Base;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,16 @@ namespace CK.Repo.Area
             .Select(h => h.Code.Value) // Select the actual value
             .FirstOrDefaultAsync(); // Fetch the first value
             return maxSalesCode + 1;
+        }
+        public async Task<bool> CheckTransactions(int Area)
+        {
+            var data = await _TopSoftContext.CustomerCodes.Where(x => x.AreaSerial == Area).ToListAsync();
+            var data2 = await _TopSoftContext.StreetCodes.Where(x => x.AreaSerial == Area).ToListAsync();
+            if (data.Count > 0 || data2.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
         public async Task AddAreaCodeAsync(AreaCode Area)
         {

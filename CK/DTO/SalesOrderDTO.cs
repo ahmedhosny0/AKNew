@@ -5,7 +5,7 @@
         public string HSalesCode { get; set; } // HSales.Serial
         public string HSalesCode2 { get; set; } // HSales.SalesCode
         public string CustomerCode { get; set; } // HSales.CustomerCode
-        public string CategoryCode { get; set; } // HSales.CategoryCode
+        public string CategoryName { get; set; } // HSales.CategoryName
         public string GrandTotal { get; set; } // CAST(HSales.GrandTotal AS NVARCHAR)
         public string GrandTotalWithFees { get; set; } // CAST(HSales.GrandTotalwithFees AS NVARCHAR)
         public string SalesOrderDate { get; set; } // CAST(HSales.SalesOrderDate AS NVARCHAR)

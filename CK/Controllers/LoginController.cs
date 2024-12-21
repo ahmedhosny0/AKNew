@@ -12,6 +12,8 @@ using Microsoft.Data.SqlClient;
 using CK.Models.TopSoft;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
+using CK.Models.CKPro;
+using CK.ViewModel;
 namespace CK.Controllers
 {
     public class LoginController : Controller
@@ -228,6 +230,7 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
                                             HttpContext.Session.SetString("StoreIdRms", authenticatedUser.RmsstoNumber);
                                             HttpContext.Session.SetString("PriceCategory", authenticatedUser.Category);
                                             HttpContext.Session.SetString("isUsername", isuser);
+                                            HttpContext.Session.SetString("Delivery", authenticatedUser.Delivery.ToString());
 
                                         }
                                         else
@@ -241,7 +244,9 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
                                             HttpContext.Session.SetString("StoreIdRms", authenticatedUser.RmsstoNumber);
                                             HttpContext.Session.SetString("PriceCategory", authenticatedUser.Category);
                                             HttpContext.Session.SetString("isUsername", isuser);
+                                            HttpContext.Session.SetString("Delivery", authenticatedUser.Delivery.ToString());
                                         }
+
                                         return RedirectToAction("EditUser", "Login");
                                     }
                                     vi.Add(si);
@@ -319,6 +324,7 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
                     HttpContext.Session.SetString("StoreIdRms", authenticatedUser.RmsstoNumber);
                     HttpContext.Session.SetString("PriceCategory", authenticatedUser.Category);
                     HttpContext.Session.SetString("isUsername", isuser);
+                    HttpContext.Session.SetString("Delivery", authenticatedUser.Delivery.ToString());
 
                 }
                 else
@@ -332,6 +338,8 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
                     HttpContext.Session.SetString("StoreIdRms", authenticatedUser.RmsstoNumber);
                     HttpContext.Session.SetString("PriceCategory", authenticatedUser.Category);
                     HttpContext.Session.SetString("isUsername", isuser);
+                    HttpContext.Session.SetString("Delivery", authenticatedUser.Delivery.ToString());
+
                 }
 
 
@@ -427,7 +435,7 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
             // Encrypt the password before saving
             user.Role ??= "0";
             user.Department ??= "0";
-            user.UpdatedDatetime = DateTime.Now;
+            user.UpdatedDateTime = DateTime.Now;
             user.Password = encrypt(user.Password);
 
             _dbContext.Add(user);
@@ -525,7 +533,7 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
             //    TempData["s"] = "S";
             //    return RedirectToAction("EditUser", "Login");
             //}
-            model.UpdatedDatetime = DateTime.Now;
+            model.UpdatedDateTime = DateTime.Now;
             //if (!ModelState.IsValid)
             //{
             //    return View(model);
@@ -557,7 +565,7 @@ convert(int,DATEDIFF(day, CAST(UpdatedDatetime AS date),CAST(GETDATE() AS date))
                             //command.Parameters.Add(new SqlParameter("@Message", Message));
                             command.Parameters.Add(new SqlParameter("@Username", username));
                             command.Parameters.Add(new SqlParameter("@Password", model.Password));
-                            command.Parameters.Add(new SqlParameter("@UpdatedDatetime", model.UpdatedDatetime));
+                            command.Parameters.Add(new SqlParameter("@UpdatedDatetime", model.UpdatedDateTime));
                             if (Isuser != "True")
                             {
                                 command.Parameters.Add(new SqlParameter("@Role", model.Role));

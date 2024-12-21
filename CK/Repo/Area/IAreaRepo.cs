@@ -5,6 +5,7 @@ namespace CK.Repo.Area
 {
     public interface IAreaRepo :IBaseRepo
     {
+        Task<bool> CheckTransactions(int Area);
         Task<int> GetMaxCode();
         Task AddAreaCodeAsync(AreaCode Area);
         List<AreaCode> GetAllAreaCodes();

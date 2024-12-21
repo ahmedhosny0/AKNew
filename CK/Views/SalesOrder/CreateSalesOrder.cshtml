@@ -47,8 +47,8 @@
         <!-- Third row: Category Code -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="CategoryCode">Category Code</label>
-                <select class="FilterSelect form-control" id="CategoryCode" asp-items="@(new SelectList(ViewBag.VBDepartment))">
+                <label for="CategoryName">Category Code</label>
+                <select class="FilterSelect form-control" id="CategoryName" asp-items="@(new SelectList(ViewBag.VBDepartment))">
                     <option value="0">All Categories</option>
                 </select>
             </div>
@@ -145,7 +145,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const customerSelect = document.getElementById('CustomerCode');
         const branchSelect = document.getElementById('BranchCode');
-        const categorySelect = document.getElementById('CategoryCode');
+        const categorySelect = document.getElementById('CategoryName');
         const addRowButton = document.getElementById('addRow');
         const saveButton = document.getElementById('saveButton');
         const detailsTable = document.getElementById('detailsTable').querySelector('tbody');
@@ -345,7 +345,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const categorySelect = document.getElementById("CategoryCode");
+            const categorySelect = document.getElementById("CategoryName");
             const detailsTable = document.getElementById("detailsTable").querySelector("tbody");
             const addRowButton = document.getElementById("addRow");
 

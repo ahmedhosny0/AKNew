@@ -1,5 +1,6 @@
 ﻿using CK.DTO;
 using CK.Models;
+using CK.Models.CKPro;
 using CK.Models.TopSoft;
 using CK.ViewModel;
 

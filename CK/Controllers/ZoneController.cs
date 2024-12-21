@@ -48,6 +48,11 @@ namespace CK.Controllers
         {
             var Zones = _ZoneRepo.GetAllZoneCodes();
             var data = TempData["SuccessMessage"];
+            var check = TempData["Check"];
+            if (check != null)
+            {
+                TempData["Check"] = "T";
+            }
             if (data != null)
             {
                 TempData["SuccessMessage"] = "success";
@@ -70,6 +75,12 @@ namespace CK.Controllers
         }
         public async Task<IActionResult> DeleteZoneCode(int id)
         {
+            bool Check = await _ZoneRepo.CheckTransactions(id);
+            if (Check)
+            {
+                TempData["Check"] = "T";
+                return RedirectToAction("GetAllZoneCodes", "Zone");
+            }
             try
             {
                 await _ZoneRepo.DeleteZoneCodeAsync(id);

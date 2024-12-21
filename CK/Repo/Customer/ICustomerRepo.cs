@@ -7,6 +7,8 @@ namespace CK.Repo.Customer
     public interface ICustomerRepo : IBaseRepo
     {
         //Customer
+        Task<bool> CheckTransactions(int Customer);
+        Task<bool> CheckExist(CustomerCode Customer);
         Task AddCustomerCodeAsync(CustomerCode customer);
         List<CustomerCode> GetAllCustomerCodes();
         Task<CustomerCode?> GetCustomerCodeByIdAsync(int id);

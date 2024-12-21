@@ -63,6 +63,11 @@ namespace CK.Controllers
         {
             var Streets = _StreetRepo.GetAllStreetCodes();
             var data = TempData["SuccessMessage"];
+            var check = TempData["Check"];
+            if (check != null)
+            {
+                TempData["Check"] = "T";
+            }
             if (data != null)
             {
                 TempData["SuccessMessage"] = "edit";
@@ -86,6 +91,12 @@ namespace CK.Controllers
         }
         public async Task<IActionResult> DeleteStreetCode(int id)
         {
+            bool Check = await _StreetRepo.CheckTransactions(id);
+            if (Check)
+            {
+                TempData["Check"] = "T";
+                return RedirectToAction("GetAllStreetCodes", "Street");
+            }
             try
             {
                 await _StreetRepo.DeleteStreetCodeAsync(id);

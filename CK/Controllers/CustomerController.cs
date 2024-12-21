@@ -31,11 +31,23 @@ namespace CK.Controllers
         public async Task<IActionResult> CreateCustomerCode()
         {
             ViewBag.VBZone = await _CustomerRepo.GetZone();
+            var data = TempData["Check"];
+            if (data != null)
+            {
+                TempData["Check"] = "T";
+            }
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> CreateCustomerCode(CustomerCode customer)
         {
+            ViewBag.VBZone = await _CustomerRepo.GetZone();
+            bool IsExist = await _CustomerRepo.CheckExist(customer);
+            if (IsExist)
+            {
+                TempData["Check"] = "T";
+                return View();
+            }
             if (customer == null)
                 return BadRequest("Customer data is invalid.");
 
@@ -47,8 +59,6 @@ namespace CK.Controllers
         public async Task<IActionResult> EditCustomer(int id)
         {
             var customer = await _CustomerRepo.GetCustomerCodeByIdAsync(id);
-            customer.Notes ??= "No Data";
-            customer.Phone3 ??= "No Data";
             ViewBag.VBZone = await _CustomerRepo.GetZone();
             ViewBag.VBBranch = await _CustomerRepo.GetBranch();
             int Zone = Convert.ToInt32(customer.ZoneSerial); // Assuming `Header` contains the Customer
@@ -66,6 +76,16 @@ namespace CK.Controllers
         {
             var customers = _CustomerRepo.GetAllCustomerCodes();
             var data = TempData["SuccessMessage"];
+            var check = TempData["Check"];
+            var Dou = TempData["D"];
+            if (check != null)
+            {
+                TempData["Check"] = "T";
+            }
+            if (Dou!= null)
+            {
+                TempData["D"] = "D";
+            }
             if (data != null)
             {
                 TempData["SuccessMessage"] = "edit";
@@ -76,6 +96,12 @@ namespace CK.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateCustomerCode(int id, CustomerCode customer)
         {
+            bool IsExist = await _CustomerRepo.CheckExist(customer);
+            if (IsExist)
+            {
+                TempData["D"] = "D";
+                return RedirectToAction("GetAllCustomerCodes", "Customer");
+            }
             try
             {
                 await _CustomerRepo.UpdateCustomerCodeAsync(customer);
@@ -89,6 +115,12 @@ namespace CK.Controllers
         }
         public async Task<IActionResult> DeleteCustomerCode(int id)
         {
+            bool Check = await _CustomerRepo.CheckTransactions(id);
+            if (Check)
+            {
+                TempData["Check"] = "T";
+                return RedirectToAction("GetAllCustomerCodes", "Customer");
+            }
             try
             {
                 await _CustomerRepo.DeleteCustomerCodeAsync(id);

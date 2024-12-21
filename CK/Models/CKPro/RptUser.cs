@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace CK.Models.CKPro;
+
+public partial class RptUser
+{
+    public string? Storenumber { get; set; }
+
+    public string? RmsstoNumber { get; set; }
+
+    public string? Username2 { get; set; }
+
+    public string? Username { get; set; }
+
+    public string? Inventlocation { get; set; }
+
+    public string? Password { get; set; }
+
+    public string? Server { get; set; }
+
+    public string? Dmanager { get; set; }
+
+    public string? Fmanager { get; set; }
+
+    public string? Role { get; set; }
+
+    public string? Department { get; set; }
+
+    public string? Category { get; set; }
+
+    public int? Delivery { get; set; }
+}

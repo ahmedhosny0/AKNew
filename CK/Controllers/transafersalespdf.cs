@@ -9,6 +9,7 @@ using Rectangle = iTextSharp.text.Rectangle;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Text.RegularExpressions;
+using CK.Models.CKPro;
 
 
 namespace CK.Controllers

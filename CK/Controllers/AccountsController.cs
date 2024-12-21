@@ -5,6 +5,7 @@ using Microsoft.Data.SqlClient;
 using CK.Models.AXDBTest;
 using System.Text.RegularExpressions;
 using CK.Models.AXDB;
+using CK.Models.CKPro;
 namespace CK.Controllers
 {
     //Accounts
@@ -252,9 +253,9 @@ group by Location,CustId
         [HttpPost]
         public async Task<IActionResult> CreateNewCust(SalesParameters Parobj, int NO, string Name, string Code)
         {
-            CkproUsersContext Ckpro = new CkproUsersContext();
+            AxdbtestContext axdbtest = new AxdbtestContext();
             int maxId;
-            bool success = int.TryParse(Ckpro.CustInvs.Max(x => x.No).ToString(), out maxId);
+            bool success = int.TryParse(axdbtest.CustInvs.Max(x => x.No).ToString(), out maxId);
             int x = 0;
             if (success)
             {

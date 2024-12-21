@@ -16,6 +16,7 @@ using CK.Repo.Base;
 using CK.Repo.Zone;
 using CK.Repo.Area;
 using CK.Repo.Street;
+using CK.Models.CKPro;
 
 
 var builder = WebApplication.CreateBuilder(args);

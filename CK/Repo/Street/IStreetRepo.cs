@@ -5,6 +5,7 @@ namespace CK.Repo.Street
 {
     public interface IStreetRepo : IBaseRepo
     {
+        Task<bool> CheckTransactions(int Street);
         Task<int> GetMaxCode();
         Task AddStreetCodeAsync(StreetCode Street);
         List<StreetCode> GetAllStreetCodes();

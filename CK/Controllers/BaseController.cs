@@ -15,6 +15,7 @@ namespace CK.Controllers
         protected string checkStart;
         protected string checkEnd;
         protected string Inventlocation;
+        protected string Delivery;
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
@@ -30,6 +31,7 @@ namespace CK.Controllers
             checkStart = HttpContext.Session.GetString("StartDate");
             checkEnd = HttpContext.Session.GetString("EndDate");
             Inventlocation = HttpContext.Session.GetString("Inventlocation");
+            Delivery = HttpContext.Session.GetString("Delivery");
             // Store them in ViewBag for views
             ViewBag.Username = username;
             ViewBag.Password = Password;
@@ -41,6 +43,7 @@ namespace CK.Controllers
             ViewBag.checkStart = checkStart;
             ViewBag.checkEnd = checkEnd;
             ViewBag.uuu = Isuser;
+            ViewBag.Delivery = Delivery;
         }
     }
 }

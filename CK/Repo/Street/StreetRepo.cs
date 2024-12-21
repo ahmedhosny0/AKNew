@@ -2,6 +2,7 @@
 using CK.Models;
 using CK.Repo.Base;
 using Microsoft.EntityFrameworkCore;
+using CK.Models.CKPro;
 
 namespace CK.Repo.Street
 {
@@ -13,6 +14,15 @@ namespace CK.Repo.Street
    IHttpContextAccessor httpContextAccessor
   ) : base(ckproUsersContext, topSoftContext, httpContextAccessor)
         {
+        }
+        public async Task<bool> CheckTransactions(int Street)
+        {
+            var data = await _TopSoftContext.CustomerCodes.Where(x => x.StreetSerial == Street).ToListAsync();
+            if (data.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
         public async Task<int> GetMaxCode()
         {

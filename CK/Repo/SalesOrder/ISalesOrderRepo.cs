@@ -6,6 +6,7 @@ namespace CK.Repo.SalesOrder
 {
     public interface ISalesOrderRepo
     {
+        Task<bool> CheckTransactions(int Branch);
         Task<int> GetMaxCode();
         Task<List<CustomerCode>> GetCustomerList();
         Task<List<BranchDTO>> GetBranchesList(int Customer);

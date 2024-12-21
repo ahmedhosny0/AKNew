@@ -15,6 +15,7 @@ using DocumentFormat.OpenXml.ExtendedProperties;
 using Microsoft.CodeAnalysis.Operations;
 using DocumentFormat.OpenXml.Drawing;
 using Org.BouncyCastle.Asn1.X509;
+using CK.Models.CKPro;
 
 namespace CK.Repo.SalesOrder
 {
@@ -34,6 +35,15 @@ namespace CK.Repo.SalesOrder
             _TopSoftContext = topSoftContext;
             _httpContextAccessor = httpContextAccessor;
             _AxdbContext = axdbContext; 
+        }
+        public async Task<bool> CheckTransactions(int Branch)
+        {
+            var data = await _TopSoftContext.StreetCodes.Where(x => x.BranchSerial == Branch).ToListAsync();
+            if (data.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
         public async Task<int> GetMaxCode()
         {
@@ -385,7 +395,7 @@ Cust in _TopSoftContext.CustomerCodes
                             HSalesCode = test["HSalesCode"] == DBNull.Value ? "" : test["HSalesCode"].ToString(),
                             HSalesCode2 = test["HSalesCode2"] == DBNull.Value ? "" : test["HSalesCode2"].ToString(),
                             CustomerCode = test["CustomerCode"] == DBNull.Value ? "" : test["CustomerCode"].ToString(),
-                            CategoryCode = test["CategoryCode"] == DBNull.Value ? string.Empty : test["CategoryCode"].ToString(),
+                            CategoryName = test["CategoryName"] == DBNull.Value ? string.Empty : test["CategoryName"].ToString(),
                             GrandTotal = test["GrandTotal"] == DBNull.Value ? "" : Convert.ToDouble(test["GrandTotal"]).ToString("#,##0.00"),
                             GrandTotalWithFees = test["GrandTotalWithFees"] == DBNull.Value ? "" : Convert.ToDouble(test["GrandTotalWithFees"]).ToString("#,##0.00"),
                             SalesOrderDate = test["SalesOrderDate"] == DBNull.Value ? "" : Convert.ToDateTime(test["SalesOrderDate"]).ToString("yyyy-MM-dd"),
@@ -433,10 +443,10 @@ Cust in _TopSoftContext.CustomerCodes
         {
             using (SqlConnection connection = new SqlConnection(_SalesData.TopSoftConnection))
             {
-                string Query = "SELECT distinct HSalesCode,Phone1,SalesOrderDate,SalesStatus,ZoneName,AreaName,StreetName,CustomerName,CreatedDatetime,GrandTotalWithFees,GrandTotal,ServiceCost from RptSalesOrder  ";
+                string Query = "SELECT distinct BranchName,HSalesCode,Phone1,SalesOrderDate,SalesStatus,ZoneName,AreaName,StreetName,CustomerName,CreatedDatetime,GrandTotalWithFees,GrandTotal,ServiceCost from RptSalesOrder  ";
                 if (!string.IsNullOrEmpty(StoreId))
                 {
-                    Query += "where BranchIdD=@StoreId and Salesstatus in (0,1) "; // 0 Call make // 1 Branch order // 2 Done //3 Cancel
+                    Query += "where BranchIdD=@StoreId and Salesstatus in (0,1,2) "; // 0 Call make // 1 Branch order,2 transit // 3 Done //4 Cancel
                 }
                 Query += " order by SalesOrderDate ";
                 using (SqlCommand command = new SqlCommand(Query, connection))
@@ -465,7 +475,7 @@ Cust in _TopSoftContext.CustomerCodes
                             ServiceCost = test["ServiceCost"] == DBNull.Value ? "" : Convert.ToDouble(test["ServiceCost"]).ToString("#,##0.00"),
                             GrandTotal = test["GrandTotal"] == DBNull.Value ? "" : Convert.ToDouble(test["GrandTotal"]).ToString("#,##0.00"),
                             GrandTotalWithFees = test["GrandTotalWithFees"] == DBNull.Value ? "" : Convert.ToDouble(test["GrandTotalWithFees"]).ToString("#,##0.00"),
-
+                            BranchName = test["BranchName"] == DBNull.Value ? string.Empty : test["BranchName"].ToString(),
                         };
 
                         vi.Add(si);
@@ -477,16 +487,20 @@ Cust in _TopSoftContext.CustomerCodes
         public async Task<bool>BranchReply(HsalesCode header,string username)
         {
             header.CancelBy = username;
-            header.Message ??= "No Comment";
+            //header.Message ??= "No Comment";
             try
             {
                 using (SqlConnection connection = new SqlConnection(_SalesData.TopSoftConnection))
                 {
                     connection.Open(); // Open the connection
-
-                    using (SqlCommand command = new SqlCommand("UPDATE HSalesCode SET Message = @Message,SalesStatus=@Status,Cancelby=@username where Serial=@Id", connection))
+                    string Query = @"UPDATE HSalesCode SET ";
+                    if (header.SalesStatus == 4)
+                        Query += " Message = @Message, ";
+                    Query += "SalesStatus =@Status,Cancelby=@username where Serial=@Id ";
+                    using (SqlCommand command = new SqlCommand(Query, connection))
                     {
-                        command.Parameters.Add(new SqlParameter("@Message", header.Message));
+                        if (header.SalesStatus == 4)
+                            command.Parameters.Add(new SqlParameter("@Message", header.Message));
                         command.Parameters.Add(new SqlParameter("@Id", header.Serial));
                         command.Parameters.Add(new SqlParameter("@Status", header.SalesStatus));
                         command.Parameters.Add(new SqlParameter("@username", header.CancelBy));

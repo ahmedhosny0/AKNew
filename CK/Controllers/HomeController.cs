@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using MimeKit;
 using CK.Models.AXDB;
 using CK.Models.TopSoft.Model;
+using CK.Models.CKPro;
 namespace CK.Controllers
 {
     [Authorize]
@@ -776,21 +777,6 @@ namespace CK.Controllers
                 }
             }
             return cipherText;
-        }
-        public async Task<IActionResult> indexa()
-        {
-            using (var db2 = new CkproUsersContext())
-            {
-                var storeUsers = await db2.RptUsers2s.ToListAsync();
-
-                // Decrypt each user's password
-                foreach (var user in storeUsers)
-                {
-                    user.DecryptedPassword = decrypt(user.Password); // Assuming 'decrypt' is your decryption method
-                }
-
-                return View(storeUsers);
-            }
         }
         public async Task<IActionResult> index2()
         {

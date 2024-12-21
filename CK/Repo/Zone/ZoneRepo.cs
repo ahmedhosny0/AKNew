@@ -2,6 +2,7 @@
 using CK.Models;
 using CK.Repo.Base;
 using Microsoft.EntityFrameworkCore;
+using CK.Models.CKPro;
 
 namespace CK.Repo.Zone
 {
@@ -13,6 +14,17 @@ namespace CK.Repo.Zone
    IHttpContextAccessor httpContextAccessor
   ) : base(ckproUsersContext, topSoftContext, httpContextAccessor)
         {
+        }
+        public async Task<bool> CheckTransactions(int Zone)
+        {
+            var data = await _TopSoftContext.CustomerCodes.Where(x => x.ZoneSerial == Zone).ToListAsync();
+            var data2 = await _TopSoftContext.StreetCodes.Where(x => x.ZoneSerial == Zone).ToListAsync();
+            var data3 = await _TopSoftContext.AreaCodes.Where(x => x.ZoneSerial == Zone).ToListAsync();
+            if (data.Count > 0 || data2.Count > 0 || data3.Count > 0)
+            {
+                return true;
+            }
+            return false;
         }
         public async Task<int> GetMaxCode()
         {

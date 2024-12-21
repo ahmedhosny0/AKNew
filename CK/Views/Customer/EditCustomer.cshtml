@@ -11,10 +11,10 @@
     <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
 </head>
 <body>
-    <div class="form-container">
+    <div class="form-containerSales">
         <!-- Header Button -->
         <button class="btn Title">Edit Customer</button>
-    <form asp-action="UpdateCustomerCode" asp-asp-controller="Customer" method="post">
+        <form id="myForm" asp-action="UpdateCustomerCode" asp-asp-controller="Customer" method="post">
             <ul>
                 <input type="hidden" asp-for="CustomerCode1" readonly />
                 <li class="fields">
@@ -66,9 +66,154 @@
                     <input asp-for="Notes" class="form-control" />
                 </li>
         </ul>
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
+            <button type="submit" id="saveButton" class="btn btn-primary">Save</button>
+        </form>
 </div>
+    <script>
+        var success = '@TempData["Check"]';
+        if (success === "T") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "This Customer Already Exist",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const saveButton = document.getElementById('saveButton');
+            const form = document.getElementById('myForm');
+
+            saveButton.addEventListener('click', function (event) {
+                // Prevent default behavior
+                event.preventDefault();
+
+                // Get form field values
+                const customerName = document.getElementById('CustomerName').value.trim();
+                const phone1 = document.getElementById('Phone1').value.trim();
+                const zoneName = document.getElementById('ZoneName').value;
+                const areaName = document.getElementById('AreaName').value;
+                const streetName = document.getElementById('StreetName').value;
+
+                // Validation
+                if (!customerName) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Customer Name is required.',
+                    });
+                    return;
+                }
+
+                if (!phone1 || !/^[0-9]+$/.test(phone1) || phone1.length !== 11) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Valid Phone Number 1 is required (11 digits, numbers only).',
+                    });
+                    return;
+                }
+
+                if (zoneName === "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Zone Name is required.',
+                    });
+                    return;
+                }
+
+                if (areaName === "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Area Name is required.',
+                    });
+                    return;
+                }
+
+                if (streetName === "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Street Name is required.',
+                    });
+                    return;
+                }
+
+                // If validation passes, submit the form
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Validation Passed',
+                    text: 'All required fields are valid!',
+                    timer: 1000,
+                }).then(() => {
+                    form.submit(); // Submit the form after validation passes
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const zoneDropdown = document.getElementById("ZoneName");
+            const areaDropdown = document.getElementById("AreaName");
+            const streetDropdown = document.getElementById("StreetName");
+
+            // Handle Zone selection
+            zoneDropdown.addEventListener("change", function () {
+                const selectedZone = this.value;
+
+                if (selectedZone && selectedZone !== "0") {
+                    fetch(`/Customer/GetFilteredArea?zone=${selectedZone}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            areaDropdown.innerHTML = '<option value="0">All Areas</option>';
+                            streetDropdown.innerHTML = '<option value="0">All Streets</option>'; // Reset streets
+                            data.forEach(area => {
+                                const option = document.createElement("option");
+                                option.value = area.serial;
+                                option.textContent = area.name;
+                                areaDropdown.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Error fetching areas:", error);
+                        });
+                } else {
+                    areaDropdown.innerHTML = '<option value="0">All Areas</option>';
+                    streetDropdown.innerHTML = '<option value="0">All Streets</option>';
+                }
+            });
+
+            // Handle Area selection
+            areaDropdown.addEventListener("change", function () {
+                const selectedZone = zoneDropdown.value;
+                const selectedArea = this.value;
+
+                if (selectedArea && selectedArea !== "0") {
+                    fetch(`/Customer/GetFilteredSteet?zone=${selectedZone}&area=${selectedArea}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            streetDropdown.innerHTML = '<option value="0">All Streets</option>';
+                            data.forEach(street => {
+                                const option = document.createElement("option");
+                                option.value = street.serial;
+                                option.textContent = street.name;
+                                streetDropdown.appendChild(option);
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Error fetching streets:", error);
+                        });
+                } else {
+                    streetDropdown.innerHTML = '<option value="0">All Streets</option>';
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>
 

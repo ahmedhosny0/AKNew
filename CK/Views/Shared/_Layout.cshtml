@@ -316,7 +316,7 @@
                     @*                     <li class="nav-item @isSalesVisible d-sm-inline-block mr-2">  
                     *@
                     <li class="nav-item1">
-                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="Index">Data</a>
+                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="AllSales">Data</a>
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="Area" asp-action="GetAllAreaCodes" class="nav-link Sales" style="color:#cdc4c4" id="VArea">Create Area</a>
@@ -470,6 +470,7 @@
         var StoreId = '@ViewBag.StoreIddynamic';
         var isUsername = '@ViewBag.isUsername';
         var uuu = '@ViewBag.uuu';
+        var Delivery = '@ViewBag.Delivery';
         $('#nav').show();
         $('#VCustomer').hide();
         $('#VArea').hide();
@@ -508,6 +509,7 @@
         $('#CreateModelType').hide();
         $('#CreateModel').hide();
         $('#DisplayModel').hide();
+                            $('#AllSales').hide();
         $('#EditUser').show();
         // function updateLanguageBasedOnRole() {
         //     var bodyElement = document.body;
@@ -517,27 +519,33 @@
         // updateLanguageBasedOnRole();
         // $('#SBranch').hide();
         // $('#AllStock').hide();
-        if (username === 'ahak' && Password === 'Dd@1234') {
-            console.log(role);
-            $('#controleB').show();
-            $('#EditUser').hide();
-            // $('#Accounts').show();
-            // $('#NewItem').show();
-            // $('#NewCust').show();
-            $('#CompareDataW').show();
-           // $('#FollowBranches').show();
-            $('#Dashboard').show();
-            $('#CompareData').show();
-            $('#controleU').show();
-            $('#SBranch').show();
-            $('#CreateMessage').show();
-            $('#CreateCloseDay').show();
-          //  $('#Shelf').show();
+        if (role === 'AK') {
             $('#VCustomer').show();
             $('#VArea').show();
             $('#VStreet').show();
             $('#VZone').show();
             $('#VSalesOrder').show();
+            $('#CompareDataW').show();
+             $('#Dashboard').show();
+            $('#AllSales').show();
+        }
+        else if(role === 'CallCenter') {
+            $('#VCustomer').show();
+            $('#VArea').show();
+            $('#VStreet').show();
+            $('#VZone').show();
+            $('#VSalesOrder').show();
+            $('#AllSales').show();
+        }
+        else if(username === 'ahak' && Password === 'Dd@1234') {
+            console.log(role);
+            $('#controleB').show();
+            $('#EditUser').hide();
+            $('#controleU').show();
+            $('#SBranch').show();
+            $('#CreateMessage').show();
+            $('#CreateCloseDay').show();
+          //  $('#Shelf').show();
         }
         else if (role === 'Manager') {
             console.log(role);
@@ -571,6 +579,7 @@
                 $('#VStreet').show();
                 $('#VZone').show();
                 $('#VSalesOrder').show();
+                $('#AllSales').show();
                 $('#CompareDataW').show();
             }
         }
@@ -599,7 +608,10 @@
                 $('#Salesfrombranch').show();
                 $('#Tenderfrombranch').show();
                 $('#TransferM').show();
-                $('#VSalesOrder').show();
+                if (Delivery === "1") {
+                    $('#VSalesOrder').show();
+                    $('#AllSales').show();
+                }
             }
             else if (username === 'Midor' || username === 'AL-REHAB' || username === 'AL-SHAHID1' || username === 'CFC' || username === 'Nakheel' || username === 'Maadimobil') {
                 $('#Salesfrombranch').show();

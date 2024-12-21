@@ -68,6 +68,28 @@
     <script src="/js/pdfmake.min.js"></script>
     <script src="/js/vfs_fonts.js"></script>
     <script>
+        var success = '@TempData["Check"]';
+        if (success === "T") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "There are Transactions",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+        var Dou = '@TempData["D"]';
+        if (Dou === "D") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "This Customer Already Exist",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             const deleteForms = document.querySelectorAll('.delete-form');
 

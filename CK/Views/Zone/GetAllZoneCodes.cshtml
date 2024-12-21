@@ -64,6 +64,18 @@
     <script src="/js/pdfmake.min.js"></script>
     <script src="/js/vfs_fonts.js"></script>
     <script>
+        var success = '@TempData["Check"]';
+        if (success === "T") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "There are Transactions",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
         var success = '@TempData["SuccessMessage"]';
         if (success === "success") {
             window.addEventListener('load', function () {

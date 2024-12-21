@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using DocumentFormat.OpenXml.ExtendedProperties;
 using CK.Models.AXDB;
 using CK.Models.TopSoft.Model;
+using CK.Models.CKPro;
 namespace CK.Controllers
 {
     public class BranchesController : BaseController

@@ -19,26 +19,30 @@ namespace CK.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var data = await _SalesOrderRepo.GetAllTransactions(StoreIddynamic);
-            var Customers = data
-    .OrderByDescending(x => DateTime.TryParse(x.CreatedDatetime, out var dt) ? dt : DateTime.MinValue)
-    .Select(x => new
-    {
-        x.Phone1,
-        x.HSalesCode,
-        x.SalesStatus,
-        CreatedAtTime = DateTime.TryParse(x.CreatedDatetime, out var dt) ? dt : (DateTime?)null, // Safely parse to DateTime
-        x.CustomerName,
-        x.ZoneName,
-        x.AreaName,
-        x.StreetName,
-        x.ServiceCost,
-        x.GrandTotal,
-        x.GrandTotalWithFees
-    })
-    .ToList();
-            if (Customers.Count > 0)
-                ViewBag.Customers = Customers;
+            if(Role=="CallCenter"||username=="admin" ||Role=="AK" ||Delivery=="1")
+            {
+                var data = await _SalesOrderRepo.GetAllTransactions(StoreIddynamic);
+                var Customers = data
+        .OrderByDescending(x => DateTime.TryParse(x.CreatedDatetime, out var dt) ? dt : DateTime.MinValue)
+        .Select(x => new
+        {
+            x.Phone1,
+            x.HSalesCode,
+            x.SalesStatus,
+            CreatedAtTime = DateTime.TryParse(x.CreatedDatetime, out var dt) ? dt : (DateTime?)null, // Safely parse to DateTime
+            x.CustomerName,
+            x.ZoneName,
+            x.AreaName,
+            x.StreetName,
+            x.ServiceCost,
+            x.GrandTotal,
+            x.GrandTotalWithFees,
+            x.BranchName
+        })
+        .ToList();
+                if (Customers.Count > 0)
+                    ViewBag.Customers = Customers;
+            }
             return View();
         }
         [HttpPost]

@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using CK.Models.CKPro;
 
 
 namespace CK.Controllers

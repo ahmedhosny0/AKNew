@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
 </head>
 <body>
-    <div class="form-container">
+    <div class="form-containerSales">
         <!-- Header Button -->
         <button class="btn Title">Create Customer</button>
 
@@ -74,38 +74,93 @@
             </ul>
 
             <!-- Buttons -->
-            <button type="submit" id="saveButton" class="btn btn-primary">Create Customer</button>
+            <button type="submit" id="saveButton" class="btn btn-primary">Save</button>
             <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="btn btn-primary">Display Customers</a>
         </form>
     </div>
-
+    <script>
+        var success = '@TempData["Check"]';
+        if (success === "T") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "This Customer Already Exist",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const saveButton = document.getElementById('saveButton');
+            const form = document.getElementById('myForm');
 
             saveButton.addEventListener('click', function (event) {
+                // Prevent default behavior
                 event.preventDefault();
-                // Validate the form
-                if (document.getElementById('myForm').checkValidity()) {
+
+                // Get form field values
+                const customerName = document.getElementById('CustomerName').value.trim();
+                const phone1 = document.getElementById('Phone1').value.trim();
+                const zoneName = document.getElementById('ZoneName').value;
+                const areaName = document.getElementById('AreaName').value;
+                const streetName = document.getElementById('StreetName').value;
+
+                // Validation
+                if (!customerName) {
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Validated',
-                        text: 'All validations passed. Proceeding to save...',
-                        timer: 1000,
-                        timerProgressBar: true,
-                        willClose: () => {
-                            document.getElementById('myForm').submit();
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
+                        icon: 'warning',
                         title: 'Validation Error',
-                        text: 'Please fill out all required fields correctly.',
-                        timer: 2000,
-                        timerProgressBar: true
+                        text: 'Customer Name is required.',
                     });
+                    return;
                 }
+
+                if (!phone1 || !/^[0-9]+$/.test(phone1) || phone1.length !== 11) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Valid Phone Number 1 is required (11 digits, numbers only).',
+                    });
+                    return;
+                }
+
+                if (zoneName === "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Zone Name is required.',
+                    });
+                    return;
+                }
+
+                if (areaName === "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Area Name is required.',
+                    });
+                    return;
+                }
+
+                if (streetName === "0") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Validation Error',
+                        text: 'Street Name is required.',
+                    });
+                    return;
+                }
+
+                // If validation passes, submit the form
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Validation Passed',
+                    text: 'All required fields are valid!',
+                    timer: 1000,
+                }).then(() => {
+                    form.submit(); // Submit the form after validation passes
+                });
             });
         });
     </script>

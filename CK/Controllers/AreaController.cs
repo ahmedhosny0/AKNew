@@ -52,6 +52,11 @@ namespace CK.Controllers
         {
             var Areas = _AreaRepo.GetAllAreaCodes();
             var data = TempData["SuccessMessage"];
+            var check = TempData["Check"];
+            if (check != null)
+            {
+                TempData["Check"] = "T";
+            }
             if (data != null)
             {
                 TempData["SuccessMessage"] = "success";
@@ -74,7 +79,12 @@ namespace CK.Controllers
         }
         public async Task<IActionResult> DeleteAreaCode(int id)
         {
-           // return RedirectToAction("GetAllAreaCodes", "Area");
+            bool Check = await _AreaRepo.CheckTransactions(id);
+            if (Check)
+            {
+                TempData["Check"] = "T";
+                return RedirectToAction("GetAllAreaCodes", "Area");
+            }
             try
             {
                 await _AreaRepo.DeleteAreaCodeAsync(id);
