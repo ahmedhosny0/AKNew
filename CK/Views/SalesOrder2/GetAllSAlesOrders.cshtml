@@ -1,0 +1,126 @@
+﻿@model List<CK.DTO.SalesOrderDTO>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Order Details</title>
+    <style>
+        .main-footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sales Order Details</h1>
+
+    <table id="example" class="display table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>HSalesCode2</th>
+                <th>Customer</th>
+                <th>Category</th>
+                <th>Grand Total</th>
+                <th>Grand Total (With Fees)</th>
+                <th>Sales Order Date</th>
+                <th>Notes</th>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through the list of SalesOrderDTO objects and display each one -->
+            @foreach (var si in Model)
+            {
+                <tr>
+                    <td>
+                        <a class="btn btn-primary" style="font-weight:bold;margin: 7px;" href="@Url.Action("EditSalesOrder","SalesOrder", new { @id = @si.HSalesCode })">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" style="font-weight:bold;margin: 7px;" href="@Url.Action("DeleteSalesOrder","SalesOrder", new { @id = @si.HSalesCode })">Delete</a>
+                    </td>
+                    <td>@si.HSalesCode</td>
+                    <td>@si.CustomerName</td>
+                    <td>@si.CategoryName</td>
+                    <td>@si.GrandTotal</td>
+                    <td>@si.GrandTotalWithFees</td>
+                    <td>@si.SalesOrderDate</td>
+                    <td>@si.Notes</td>
+                    <td>@si.ItemCode</td>
+                    <td>@si.ItemName</td>
+                    <td>@si.Price LE</td>
+                    <td>@si.Quantity</td>
+                    <td>@si.Total LE</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.buttons.min.js"></script>
+    <script src="/js/jszip.min.js"></script>
+    <script src="/js/buttons.html5.min.js"></script>
+    <script src="/js/pdfmake.min.js"></script>
+    <script src="/js/vfs_fonts.js"></script>
+    <script>
+        var success = '@TempData["Check"]';
+        if (success === "T") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "There are Transactions",
+                    icon: "error",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
+        var success = '@TempData["SuccessMessage"]';
+        if (success === "Sales Order has been successfully Updated!") {
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    title: "Good, You Update Invoice Successfully",
+                    icon: "success",
+                    timer: 6500
+                });
+            });
+        }
+    </script>
+    <script>
+        $('#example').DataTable({
+            pageLength: 25,
+            lengthChange: false,
+            searching: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+            dom: 'Bfrtip',
+            buttons: ['excelHtml5', 'pdfHtml5'],
+            columnDefs: [
+                { targets: '_all', className: 'text-center' }
+            ]
+        });
+
+        // Move the buttons to the top of the table
+        new $.fn.dataTable.Buttons(table, {
+            buttons: ['pdf'],
+        }).container().appendTo($('#example_wrapper').find('.col-sm-6:eq(0)'));
+
+        // Add tooltip to delete button
+        $('.hidedeletebtn').tooltip({
+            placement: 'top',
+            trigger: 'hover'
+        });
+    </script>
+</body>
+</html>

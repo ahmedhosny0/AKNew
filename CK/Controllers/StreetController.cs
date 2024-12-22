@@ -1,4 +1,5 @@
-﻿using CK.Models.TopSoft;
+﻿using CK.DTO;
+using CK.Models.TopSoft;
 using CK.Repo.Street;
 using CK.Repo.Street;
 using CK.ViewModel;
@@ -59,9 +60,9 @@ namespace CK.Controllers
         }
         // Read (Get all)
         [HttpGet]
-        public IActionResult GetAllStreetCodes()
+        public async Task<IActionResult> GetAllStreetCodes()
         {
-            var Streets = _StreetRepo.GetAllStreetCodes();
+            List<SalesOrderDTO> Streets =  _StreetRepo.GetAllStreetCodes();
             var data = TempData["SuccessMessage"];
             var check = TempData["Check"];
             if (check != null)
@@ -72,7 +73,7 @@ namespace CK.Controllers
             {
                 TempData["SuccessMessage"] = "edit";
             }
-            return View(Streets);
+            return Json(Streets);
         }
         // Update
         [HttpPost]

@@ -46,22 +46,38 @@ namespace CK.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> BranchReply(HsalesCode header)
+        public async Task<IActionResult> BranchReply(HsalesCode header,string Message,int Serial,int SalesStatus)
         {
+            header.Serial = Serial;
+            header.SalesStatus = SalesStatus;
+            header.Message = Message;
             _SalesOrderRepo.BranchReply(header, username);
             return RedirectToAction ("Index","SalesOrder");
         }
         [HttpGet]
         public async Task<IActionResult> GetAllSalesOrders()
         {
-            List<SalesOrderDTO> salesOrders = await _SalesOrderRepo.GetAllSalesOrder(StoreIddynamic);
+            ViewBag.VBCustomers = await _SalesOrderRepo.GetCustomerList();
+            ViewBag.VBZone = await _SalesOrderRepo.GetZone();
+            ViewBag.VBBranch = await _SalesOrderRepo.GetBranch();
+            return View();
+        
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetAllSalesOrders(SalesOrderData sales)
+        {
+            ViewBag.VBCustomers = await _SalesOrderRepo.GetCustomerList();
+            ViewBag.VBZone = await _SalesOrderRepo.GetZone();
+            ViewBag.VBBranch = await _SalesOrderRepo.GetBranch();
+            List<SalesOrderDTO> salesOrders = await _SalesOrderRepo.GetAllSalesOrder(StoreIddynamic, 0,sales);
             var data = TempData["SuccessMessage"];
             if (data != null)
             {
                 TempData["SuccessMessage"] = "Sales Order has been successfully Updated!";
             }
-            return View(salesOrders);
-        
+            ViewBag.Data = salesOrders;
+            return Json(salesOrders);
+
         }
         [HttpGet]
         public async Task<IActionResult> GetSalesOrder(int salesCode)
@@ -88,19 +104,27 @@ namespace CK.Controllers
         //    return View(viewModel);
         //}
         [HttpGet]
-        public async Task<IActionResult> EditSalesOrder(int id)
+        public async Task<IActionResult> EditSalesOrder(int id,SalesOrderData sales)
         {
-            //id = 1;
-            var salesOrder = await _SalesOrderRepo.GetSalesOrderAsync(id);
-            int customerId = Convert.ToInt32(salesOrder.Header.CustomerCode); // Assuming `Header` contains the Customer
-                   if (salesOrder == null)
-            {
-                return NotFound();
-            }
+            var salesOrder = await _SalesOrderRepo.GetAllSalesOrder(null, id,sales);
 
-            ViewBag.VBCustomer = await _SalesOrderRepo.GetCustomerList();
-            ViewBag.VBDepartment = await _SalesOrderRepo.GetCategoryList();
-            ViewBag.VBBranch = await _SalesOrderRepo.GetBranchesList(customerId);
+            ViewBag.Serial = salesOrder.Select(x => x.HSalesCode).FirstOrDefault();
+            ViewBag.Message = salesOrder.Select(x => x.Message).FirstOrDefault();
+            //var viewModel = new SalesOrderDTO_Header
+            //{
+            //    SalesOrder = salesOrder
+            //};
+            ////id = 1;
+            //var salesOrder = await _SalesOrderRepo.GetSalesOrderAsync(id);
+            //int customerId = Convert.ToInt32(salesOrder.Header.CustomerCode); // Assuming `Header` contains the Customer
+            //       if (salesOrder == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //ViewBag.VBCustomer = await _SalesOrderRepo.GetCustomerList();
+            //ViewBag.VBDepartment = await _SalesOrderRepo.GetCategoryList();
+            //ViewBag.VBBranch = await _SalesOrderRepo.GetBranchesList(customerId);
 
             return View(salesOrder);
         }
@@ -156,13 +180,13 @@ namespace CK.Controllers
             ViewBag.VBCustomer = await _SalesOrderRepo.GetCustomerList();
             ViewBag.VBDepartment = await _SalesOrderRepo.GetCategoryList();
             ViewBag.MaxCode = await _SalesOrderRepo.GetMaxCode();
-            // Initialize VBItems
-            var items = await _SalesOrderRepo.GetItems("0", "0");
-            ViewBag.VBItems = items?.Select(i => new SelectListItem
-            {
-                Value = i.ItemId.ToString(),
-                Text = i.ItemName
-            }).ToList() ?? new List<SelectListItem>();
+            //// Initialize VBItems
+            //var items = await _SalesOrderRepo.GetItems("0", "0");
+            //ViewBag.VBItems = items?.Select(i => new SelectListItem
+            //{
+            //    Value = i.ItemId.ToString(),
+            //    Text = i.ItemName
+            //}).ToList() ?? new List<SelectListItem>();
             var data = TempData["SuccessMessage"];
             if (data != null)
             {

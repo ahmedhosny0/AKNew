@@ -1,5 +1,6 @@
 ﻿using CK.DTO;
 using CK.Models;
+using CK.Models.AXDB;
 using CK.Models.CKPro;
 using CK.Models.TopSoft;
 using CK.ViewModel;
@@ -8,6 +9,8 @@ namespace CK.Repo.Base
 {
     public class BaseRepo :IBaseRepo
     {
+        public readonly SalesData _SalesData;
+        public readonly AxdbContext _AxdbContext;
         public readonly CkproUsersContext _CkproUsersContext;
         public readonly TopSoftContext _TopSoftContext;
         public readonly IHttpContextAccessor _httpContextAccessor;
@@ -19,7 +22,17 @@ CkproUsersContext ckproUsersContext, TopSoftContext topSoftContext, IHttpContext
             this._TopSoftContext = topSoftContext;
             _httpContextAccessor = httpContextAccessor;
         }
-        //Customer 
+        public BaseRepo(
+CkproUsersContext ckproUsersContext, TopSoftContext topSoftContext, IHttpContextAccessor httpContextAccessor, SalesData salesData, AxdbContext axdbContext
+    )
+        {
+            _CkproUsersContext = ckproUsersContext;
+            this._TopSoftContext = topSoftContext;
+            _httpContextAccessor = httpContextAccessor;
+            _SalesData = salesData;
+            _AxdbContext = axdbContext;
+        }
+                   //Customer 
         public async Task<List<ZoneCode>> GetZone()
         {
             List<ZoneCode> Data = (from

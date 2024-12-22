@@ -11,6 +11,7 @@
     <title>Zone List</title>
     <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
     <style>
         .main-footer
         {
@@ -20,7 +21,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">Zones</h1>
+        <div class="header-container">
+            <h2 class="header-title">Zones</h2>
+        </div>
         <a asp-controller="Zone" asp-action="CreateZoneCode" class="btn btn-primary mb-3">Create Zone</a>
 
         <table id="example" class="display table table-striped table-bordered">

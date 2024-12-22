@@ -1,0 +1,201 @@
+﻿@model CK.ViewModel.SalesOrderRequest
+<!Doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
+
+</head>
+<body>
+    <div class="Contain">
+        <div class="header-container">
+            <h1 class="header-title">Create Sales Order</h1>
+        </div>
+        <form id="branchForm" asp-action="BranchReply" asp-controller="SalesOrder" method="post">
+            <li class="Displayliselect">
+                <label>Message</label>
+                <textarea style="font-weight:bold;height:100px" class="form-control" asp-for="Header.Message" id="Message"></textarea>
+
+            </li>
+            <input type="hidden" asp-for="Header.Serial" />
+            <input type="hidden" id="ManagerReply" asp-for="Header.SalesStatus">
+            <button type="submit" id="Packingbtn" class="btn btn-primary" style="font-weight:bold;">Packing</button>
+            <button type="submit" id="Transitbtn" class="btn btn-primary" style="font-weight:bold;">In Transit </button>
+            <button type="submit" id="Approvebtn" class="btn btn-primary" style="font-weight:bold;">Delivered</button>
+            <button type="submit" id="UnApprovebtn" class="btn btn-primary unapprove">Cancel</button>
+        </form>
+        <form id="myForm" method="post" asp-action="UpdateSalesOrder" class="form-container">
+            <!-- Header Section -->
+            <fieldset class="form-section">
+                <legend class="section-legend">Main Data</legend>
+
+                <!-- First row: Sales Code and Date -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="SalesCode">Sales Code</label>
+                        <input type="text" asp-for="Header.Serial" id="SalesCode"  class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="SalesOrderDate">Date</label>
+                        <input type="date" asp-for="Header.SalesOrderDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control" />
+                    </div>
+                </div>
+
+                <!-- Second row: Branch Code and Customer Code -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="SalesOrderDate">Customer</label>
+                        <select class="FilterSelect form-control" asp-for="Header.CustomerCode" id="CustomerCode" asp-items="@(new SelectList(ViewBag.VBCustomer,"CustomerCode1","CustomerName"))">
+                            <option value="0">All Customers</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="BranchCode">Branch Code</label>
+                        <select class="FilterSelect form-control" asp-for="Header.BranchCode" id="BranchCode" asp-items="@(new SelectList(ViewBag.VBBranch,"BranchId","BranchName"))">
+                            <option value="0">All Branches</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Third row: Category Code -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="CategoryName">Category Code</label>
+                        <select class="FilterSelect form-control"  id="CategoryName" asp-items="@(new SelectList(ViewBag.VBDepartment))">
+                            <option value="0">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Notes Section -->
+                <div class="form-group">
+                    <label for="Notes">Notes</label>
+                    <textarea class="FilterSelect form-control" asp-for="Header.Notes" id="Notes"></textarea>
+                </div>
+            </fieldset>
+            <input type="text" name="Details[${rowCount}].Quantity" style="display:none"
+                   class="form-control quantity-input"
+                   placeholder="Quantity"
+                   data-max-quantity="0" />
+            <!-- Details Section -->
+            <fieldset class="form-section">
+                <legend class="section-legend">Details</legend>
+                <table id="detailsTable" class="details-table">
+                    <thead>
+                        <tr>
+                            <th style ="display:none;">Serial</th>
+                            <th>Item Code</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Details.Count; i++)
+                        {
+                            var detail = Model.Details[i];
+                            <tr>
+                                <td style="display:none;">
+                                    <input type="text" class="form-control item-search" name="Details[@i].Serial" value="@detail.Serial" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control item-search" name="Details[@i].ItemCode" value="@detail.ItemCode" placeholder="Search Item" />
+                                    <ul class="search-results" style="display: none;"></ul>
+                                    <!-- Hidden input for ItemId -->
+                                    <input type="hidden" class="item-id" name="Details[0].ItemId" />
+                                </td>
+                                <td>
+                                    <input type="text" name="Details[@i].Price" class="form-control price-input" value="@detail.Price" placeholder="Price" readonly />
+                                </td>
+                                <td>
+                                    <input type="number" name="Details[@i].Quantity" class="form-control quantity-input" value="@detail.Quantity" placeholder="Quantity" />
+                                </td>
+                                <td>
+                                    <input type="number" name="Details[@i].Total" class="form-control row-total" value="@detail.Total" placeholder="Total" readonly />
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger remove-row">Remove</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" id="addRow" class="btn btn-primary">Add Row</button>
+            </fieldset>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Grand Total</label>
+                    <input type="number" class="form-control" asp-for="Header.GrandTotal" id="grandTotal" readonly />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Fees</label>
+                    <input type="number" class="form-control" asp-for="Header.Fees" id="Fees" readonly />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Delivery time</label>
+                    <input type="text" class="form-control" asp-for="Header.Deliverytime" id="Deliverytime" readonly />
+                </div>
+                <div class="form-group col-md-6">
+                    <label id="grandTotalWithFeesLabel">
+                        Grand Total with Fees: + <input type="button" id="AdditionalFees" readonly style="background-color: #f8f9fa;
+                                                    border: none;
+                                                    color: red;" />
+                        <span style="display: flex; align-items: center;">
+                            <input type="number" class="form-control" asp-for="Header.GrandTotalwithFees" id="grandTotalWithFees" readonly style="margin-right: 10px;" />
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" id="saveButton" class="btn btn-success">Save</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+     <script>
+        let Approvebtn = document.getElementById('Approvebtn');
+        let Transitbtn = document.getElementById('Transitbtn');
+        let Packingbtn = document.getElementById('Packingbtn');
+        let UnApprovebtn = document.getElementById('UnApprovebtn');
+        let ManagerReply = document.getElementById('ManagerReply'); // Reference to the hidden input
+        let Message = document.getElementById('Message'); // Reference to the hidden input
+        // // Event listener for the Display button
+        Packingbtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            ManagerReply.value = 1; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        Transitbtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            ManagerReply.value = 2; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        Approvebtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            ManagerReply.value = 3; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        UnApprovebtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (!Message.value) {
+                Swal.fire({
+                    title: "Write Message Why you Cancel",
+                    icon: "question",
+                    timer: 6500
+                });
+                return;
+            }
+            ManagerReply.value = 4; // Set the value to 1 for Display action
+            // exportButton.disabled = true;
+            submitExportForm(); // Submit the export form
+        });
+        function submitExportForm() {
+            branchForm.submit(); // Submit the export form
+            // Set up an interval to check export status periodically
+        }
+    </script>
+</body>
+</html>

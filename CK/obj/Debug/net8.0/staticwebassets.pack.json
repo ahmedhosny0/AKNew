@@ -825,6 +825,10 @@
       "PackagePath": "staticwebassets\\images\\d3.png"
     },
     {
+      "Id": "D:\\Dev\\AK\\CK\\wwwroot\\images\\delv.webp",
+      "PackagePath": "staticwebassets\\images\\delv.webp"
+    },
+    {
       "Id": "D:\\Dev\\AK\\CK\\wwwroot\\images\\favicon1.ico",
       "PackagePath": "staticwebassets\\images\\favicon1.ico"
     },

@@ -3,6 +3,10 @@ using CK.Models;
 using CK.Repo.Base;
 using Microsoft.EntityFrameworkCore;
 using CK.Models.CKPro;
+using CK.DTO;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Data.SqlClient;
+using System.Globalization;
 
 namespace CK.Repo.Street
 {
@@ -42,10 +46,46 @@ namespace CK.Repo.Street
         {
             return await _TopSoftContext.StreetCodes.FindAsync(id);
         }
-        public List<StreetCode> GetAllStreetCodes()
+        public List<SalesOrderDTO> GetAllStreetCodes()
         {
+            SalesOrderDTO Conn = new SalesOrderDTO();
             var data = _TopSoftContext.StreetCodes.OrderByDescending(x => x.Name).ToList();
-            return data;
+            using (SqlConnection connection = new SqlConnection(Conn.TopSoftConnection))
+            {
+                string Query = "SELECT * from RptStreet where  BranchCode is not null   ";
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    connection.Open(); // Open the connection
+                    var vi = new List<SalesOrderDTO>();
+                    var test = command.ExecuteReader();
+                    while (test.Read())
+                    {
+                        SalesOrderDTO si = new SalesOrderDTO()
+                        {
+                            ZoneCode = test["ZoneCode"] == DBNull.Value ? "" : test["ZoneCode"].ToString(),
+                            ZoneCode2 = test["ZoneCode2"] == DBNull.Value ? "" : test["ZoneCode2"].ToString(),
+                            ZoneName = test["ZoneName"] == DBNull.Value ? string.Empty : test["ZoneName"].ToString(),
+                            AreaCode = test["AreaCode"] == DBNull.Value ? "" : test["AreaCode"].ToString(),
+                            AreaCode2 = test["AreaCode2"] == DBNull.Value ? "" : test["AreaCode2"].ToString(),
+                            AreaName = test["AreaName"] == DBNull.Value ? string.Empty : test["AreaName"].ToString(),
+                            StreetCode = test["StreetCode"] == DBNull.Value ? "" : test["StreetCode"].ToString(),
+                            StreetCode2 = test["StreetCode2"] == DBNull.Value ? "" : test["StreetCode2"].ToString(),
+                            StreetName = test["StreetName"] == DBNull.Value ? string.Empty : test["StreetName"].ToString(),
+                            DeliveryTime = test["DeliveryTime"] == DBNull.Value ? "" : test["DeliveryTime"].ToString(),
+                            ServiceCost = test["ServiceCost"] == DBNull.Value ? "" : Convert.ToDouble(test["ServiceCost"]).ToString("#,##0.00"),
+                            BranchCode = test["BranchCode"] == DBNull.Value ? "" : test["BranchCode"].ToString(),
+                            BranchIdR = test["BranchIdR"] == DBNull.Value ? "" : test["BranchIdR"].ToString(),
+                            BranchIdD = test["BranchIdD"] == DBNull.Value ? "" : test["BranchIdD"].ToString(),
+                            BranchName = test["BranchName"] == DBNull.Value ? string.Empty : test["BranchName"].ToString(),
+                        };
+
+                        vi.Add(si);
+                    }
+                    return vi;
+                }
+            }
+
+           // return data;
         }
         public async Task UpdateStreetCodeAsync(StreetCode updatedStreet)
         {

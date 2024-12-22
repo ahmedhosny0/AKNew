@@ -16,25 +16,19 @@ using Microsoft.CodeAnalysis.Operations;
 using DocumentFormat.OpenXml.Drawing;
 using Org.BouncyCastle.Asn1.X509;
 using CK.Models.CKPro;
+using CK.Repo.Base;
+using System.Globalization;
 
 namespace CK.Repo.SalesOrder
 {
-    public class SalesOrderRepo : ISalesOrderRepo
+    public class SalesOrderRepo : BaseRepo, ISalesOrderRepo
     {
-        private readonly SalesData _SalesData;
-        private readonly AxdbContext _AxdbContext;
-        private readonly CkproUsersContext _CkproUsersContext;
-        private readonly TopSoftContext _TopSoftContext;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public SalesOrderRepo(SalesData salesData
-, CkproUsersContext ckproUsersContext, TopSoftContext topSoftContext, IHttpContextAccessor httpContextAccessor, AxdbContext axdbContext
-            )
+        public SalesOrderRepo(
+  CkproUsersContext ckproUsersContext,
+  TopSoftContext topSoftContext,
+  IHttpContextAccessor httpContextAccessor , SalesData salesData, AxdbContext axdbContext
+ ) : base(ckproUsersContext, topSoftContext, httpContextAccessor,  salesData,  axdbContext)
         {
-            _SalesData = salesData;
-            _CkproUsersContext = ckproUsersContext;
-            _TopSoftContext = topSoftContext;
-            _httpContextAccessor = httpContextAccessor;
-            _AxdbContext = axdbContext; 
         }
         public async Task<bool> CheckTransactions(int Branch)
         {
@@ -369,23 +363,82 @@ Cust in _TopSoftContext.CustomerCodes
                 await _TopSoftContext.SaveChangesAsync();
             }
         }
-        public async Task<List<SalesOrderDTO>> GetAllSalesOrder(string StoreId)
+        public async Task<List<SalesOrderDTO>> GetAllSalesOrder(string StoreId, int salesCode,SalesOrderData sales)
         {
             using (SqlConnection connection = new SqlConnection(_SalesData.TopSoftConnection))
             {
-                string Query = "SELECT * from RptSalesOrder  ";
+                string Query = "SELECT * from RptSalesOrder where  BranchSp is not null   ";
+                if (!string.IsNullOrEmpty(sales.StartDate))
+                {
+                    Query += "and cast(SalesOrderDate as date) >=@fromDate ";
+
+                }
+                if (!string.IsNullOrEmpty(sales.EndDate))
+                {
+                    Query += "and cast(SalesOrderDate as date) <=@toDate ";
+                }
                 if (!string.IsNullOrEmpty(StoreId))
                 {
-                    Query += "where BranchIdD=@StoreId ";
+                    Query += "and BranchIdD=@StoreId ";
+                }
+                if (salesCode>0)
+                {
+                    Query += "and HSalesCode=@SalesCode ";
+                }
+                if (!string.IsNullOrEmpty(sales.Branch) && sales.Branch !="0")
+                {
+                    Query += "and BranchCode=@Branch ";
+                }
+                if (!string.IsNullOrEmpty(sales.Zone) && sales.Zone != "0")
+                {
+                    Query += "and Zonecode=@Zone ";
+                }
+                if (!string.IsNullOrEmpty(sales.Customer) && sales.Customer != "0")
+                {
+                    Query += "and CustomerCode=@Customer ";
+                }
+                if (!string.IsNullOrEmpty(sales.InvoiceNumber))
+                {
+                    Query += "and HSalesCode2=@InvoiceNumber ";
                 }
                 using (SqlCommand command = new SqlCommand(Query, connection))
                 {
                     connection.Open(); // Open the connection
-                                       //Where
+                    //Where
+                    if (!string.IsNullOrEmpty(sales.StartDate))
+                    {
+                        DateTime startDateTime = Convert.ToDateTime(sales.StartDate, new CultureInfo("en-GB"));
+                        command.Parameters.AddWithValue("@fromDate", startDateTime.Date.ToString("yyyy-MM-dd"));
+                    }
+                    if (!string.IsNullOrEmpty(sales.EndDate))
+                    {
+                        DateTime endDateTime = Convert.ToDateTime(sales.EndDate, new CultureInfo("en-GB"));
+                        command.Parameters.AddWithValue("@toDate", endDateTime.Date.ToString("yyyy-MM-dd"));
+                    }
+                    if (!string.IsNullOrEmpty(sales.Branch) && sales.Branch != "0")
+                    {
+                        command.Parameters.AddWithValue("@Branch", sales.Branch);
+                    }
+                    if (!string.IsNullOrEmpty(sales.Zone) && sales.Zone != "0" )
+                    {
+                        command.Parameters.AddWithValue("@Zone", sales.Zone);
+                    }
+                    if (!string.IsNullOrEmpty(sales.Customer) && sales.Customer != "0" )
+                    {
+                        command.Parameters.AddWithValue("@Customer", sales.Customer);
+                    }
+                    if (!string.IsNullOrEmpty(sales.InvoiceNumber))
+                    {
+                        command.Parameters.AddWithValue("@InvoiceNumber", sales.InvoiceNumber);
+                    }
                     if (!string.IsNullOrEmpty(StoreId))
                     {
                         command.Parameters.AddWithValue("@StoreId", StoreId);
-                    }                    //command.Parameters.Add(new SqlParameter("@Id", salesCode));
+                    }
+                    if (salesCode > 0)
+                    {
+                        command.Parameters.AddWithValue("@SalesCode", salesCode);
+                    }//command.Parameters.Add(new SqlParameter("@Id", salesCode));
                     var vi = new List<SalesOrderDTO>();
                     var test = command.ExecuteReader();
                     while (test.Read())
@@ -431,6 +484,7 @@ Cust in _TopSoftContext.CustomerCodes
                             BranchIdR = test["BranchIdR"] == DBNull.Value ? "" : test["BranchIdR"].ToString(),
                             BranchIdD = test["BranchIdD"] == DBNull.Value ? "" : test["BranchIdD"].ToString(),
                             BranchName = test["BranchName"] == DBNull.Value ? string.Empty : test["BranchName"].ToString(),
+                            Message = test["Message"] == DBNull.Value ? string.Empty : test["Message"].ToString(),
                         };
 
                         vi.Add(si);

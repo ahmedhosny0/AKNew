@@ -17,355 +17,363 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CK
 build_property.RootNamespace = CK
-build_property.ProjectDir = D:\Dev\CircleK_Report_POR\CK\
+build_property.ProjectDir = D:\Dev\AK\CK\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Dev\CircleK_Report_POR\CK
+build_property.MSBuildProjectDirectory = D:\Dev\AK\CK
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Accounts/AInvEditItem.cshtml]
+[D:/Dev/AK/CK/Views/Accounts/AInvEditItem.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQUludkVkaXRJdGVtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Accounts/AInvNewCust.cshtml]
+[D:/Dev/AK/CK/Views/Accounts/AInvNewCust.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQUludk5ld0N1c3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Accounts/AInvNewItem.cshtml]
+[D:/Dev/AK/CK/Views/Accounts/AInvNewItem.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcQUludk5ld0l0ZW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Accounts/DisplayUploadedInvoices.cshtml]
+[D:/Dev/AK/CK/Views/Accounts/DisplayUploadedInvoices.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRGlzcGxheVVwbG9hZGVkSW52b2ljZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Accounts/Edit.cshtml]
+[D:/Dev/AK/CK/Views/Accounts/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Accounts/Index.cshtml]
+[D:/Dev/AK/CK/Views/Accounts/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Area/CreateAreaCode.cshtml]
+[D:/Dev/AK/CK/Views/Area/CreateAreaCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJlYVxDcmVhdGVBcmVhQ29kZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Area/EditArea.cshtml]
+[D:/Dev/AK/CK/Views/Area/EditArea.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJlYVxFZGl0QXJlYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Area/GetAllAreaCodes.cshtml]
+[D:/Dev/AK/CK/Views/Area/GetAllAreaCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJlYVxHZXRBbGxBcmVhQ29kZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Branches/CreateStore.cshtml]
+[D:/Dev/AK/CK/Views/Branches/CreateStore.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmNoZXNcQ3JlYXRlU3RvcmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Branches/DisplayStores.cshtml]
+[D:/Dev/AK/CK/Views/Branches/DisplayStores.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmNoZXNcRGlzcGxheVN0b3Jlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Branches/EditStore.cshtml]
+[D:/Dev/AK/CK/Views/Branches/EditStore.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmNoZXNcRWRpdFN0b3JlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/CategoryLimit/AttachItemwithCategory.cshtml]
+[D:/Dev/AK/CK/Views/CategoryLimit/AttachItemwithCategory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlMaW1pdFxBdHRhY2hJdGVtd2l0aENhdGVnb3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/CategoryLimit/DisplayItems.cshtml]
+[D:/Dev/AK/CK/Views/CategoryLimit/DisplayItems.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlMaW1pdFxEaXNwbGF5SXRlbXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/CompareTenderwithWaf/CompareData.cshtml]
+[D:/Dev/AK/CK/Views/CompareTenderwithWaf/CompareData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyZVRlbmRlcndpdGhXYWZcQ29tcGFyZURhdGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Customer/CreateCustomerCode.cshtml]
+[D:/Dev/AK/CK/Views/Customer/CreateCustomerCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ3JlYXRlQ3VzdG9tZXJDb2RlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Customer/EditCustomer.cshtml]
+[D:/Dev/AK/CK/Views/Customer/EditCustomer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcRWRpdEN1c3RvbWVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Customer/GetAllCustomerCodes.cshtml]
+[D:/Dev/AK/CK/Views/Customer/GetAllCustomerCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcR2V0QWxsQ3VzdG9tZXJDb2Rlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Driveres/CreateDriver.cshtml]
+[D:/Dev/AK/CK/Views/Driveres/CreateDriver.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpdmVyZXNcQ3JlYXRlRHJpdmVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Driveres/EditDriver.cshtml]
+[D:/Dev/AK/CK/Views/Driveres/EditDriver.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpdmVyZXNcRWRpdERyaXZlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/ATransferSol.cshtml]
+[D:/Dev/AK/CK/Views/Home/ATransferSol.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBVHJhbnNmZXJTb2wuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/ATransferSol1.cshtml]
+[D:/Dev/AK/CK/Views/Home/ATransferSol1.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBVHJhbnNmZXJTb2wxLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/CompareData.cshtml]
+[D:/Dev/AK/CK/Views/Home/CompareData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb21wYXJlRGF0YS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/CreateMessage.cshtml]
+[D:/Dev/AK/CK/Views/Home/CreateMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGVNZXNzYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Dashboard.cshtml]
+[D:/Dev/AK/CK/Views/Home/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/EditMessage.cshtml]
+[D:/Dev/AK/CK/Views/Home/EditMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFZGl0TWVzc2FnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/FollowBranches.cshtml]
+[D:/Dev/AK/CK/Views/Home/FollowBranches.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb2xsb3dCcmFuY2hlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Home.cshtml]
+[D:/Dev/AK/CK/Views/Home/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Home1.cshtml]
+[D:/Dev/AK/CK/Views/Home/Home1.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Index.cshtml]
+[D:/Dev/AK/CK/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Indexa.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleGEuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/ItemMovements.cshtml]
+[D:/Dev/AK/CK/Views/Home/ItemMovements.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJdGVtTW92ZW1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Offer.cshtml]
+[D:/Dev/AK/CK/Views/Home/Offer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxPZmZlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Privacy.cshtml]
+[D:/Dev/AK/CK/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/SalesReport - Copy.cshtml]
+[D:/Dev/AK/CK/Views/Home/SalesReport - Copy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTYWxlc1JlcG9ydCAtIENvcHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/SalesReport.cshtml]
+[D:/Dev/AK/CK/Views/Home/SalesReport.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTYWxlc1JlcG9ydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Shelf.cshtml]
+[D:/Dev/AK/CK/Views/Home/Shelf.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaGVsZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/Store.cshtml]
+[D:/Dev/AK/CK/Views/Home/Store.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdG9yZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/SupplierItemBarcode.cshtml]
+[D:/Dev/AK/CK/Views/Home/SupplierItemBarcode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdXBwbGllckl0ZW1CYXJjb2RlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Login/CreateUser.cshtml]
+[D:/Dev/AK/CK/Views/Login/CreateUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cQ3JlYXRlVXNlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Login/DisplayUsers.cshtml]
+[D:/Dev/AK/CK/Views/Login/DisplayUsers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRGlzcGxheVVzZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Login/EditUser.cshtml]
+[D:/Dev/AK/CK/Views/Login/EditUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRWRpdFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Login/Login - Copy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4gLSBDb3B5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Dev/CircleK_Report_POR/CK/Views/Login/Login.cshtml]
+[D:/Dev/AK/CK/Views/Login/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Messages/CreateCloseDay.cshtml]
+[D:/Dev/AK/CK/Views/Messages/CreateCloseDay.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcQ3JlYXRlQ2xvc2VEYXkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Messages/EditCloseDay.cshtml]
+[D:/Dev/AK/CK/Views/Messages/EditCloseDay.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcRWRpdENsb3NlRGF5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/SalesOrder/CreateSalesOrder.cshtml]
+[D:/Dev/AK/CK/Views/SalesOrder2/CreateSalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcQ3JlYXRlU2FsZXNPcmRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/DisplaySalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcRGlzcGxheVNhbGVzT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/EditSalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcRWRpdFNhbGVzT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/GetAllSAlesOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcR2V0QWxsU0FsZXNPcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder/2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclwyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder/CreateSalesOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxDcmVhdGVTYWxlc09yZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/SalesOrder/DisplaySalesOrder.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxEaXNwbGF5U2FsZXNPcmRlci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Dev/CircleK_Report_POR/CK/Views/SalesOrder/EditSalesOrder - Copy (2).cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxFZGl0U2FsZXNPcmRlciAtIENvcHkgKDIpLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Dev/CircleK_Report_POR/CK/Views/SalesOrder/EditSalesOrder - Copy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxFZGl0U2FsZXNPcmRlciAtIENvcHkuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Dev/CircleK_Report_POR/CK/Views/SalesOrder/EditSalesOrder.cshtml]
+[D:/Dev/AK/CK/Views/SalesOrder/EditSalesOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxFZGl0U2FsZXNPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/SalesOrder/GetAllSAlesOrders.cshtml]
+[D:/Dev/AK/CK/Views/SalesOrder/GetAllSAlesOrders.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxHZXRBbGxTQWxlc09yZGVycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/Error.cshtml]
+[D:/Dev/AK/CK/Views/SalesOrder/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Stock/Index.cshtml]
+[D:/Dev/AK/CK/Views/Stock/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvY2tcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Stock/StockFromBranch - Copy.cshtml]
+[D:/Dev/AK/CK/Views/Stock/StockFromBranch - Copy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvY2tcU3RvY2tGcm9tQnJhbmNoIC0gQ29weS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Stock/StockFromBranch.cshtml]
+[D:/Dev/AK/CK/Views/Stock/StockFromBranch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvY2tcU3RvY2tGcm9tQnJhbmNoLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Stock/SupplierItemBarcode.cshtml]
+[D:/Dev/AK/CK/Views/Stock/SupplierItemBarcode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvY2tcU3VwcGxpZXJJdGVtQmFyY29kZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Street/CreateStreetCode.cshtml]
+[D:/Dev/AK/CK/Views/Street/CreateStreetCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RyZWV0XENyZWF0ZVN0cmVldENvZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Street/EditStreet.cshtml]
+[D:/Dev/AK/CK/Views/Street/EditStreet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RyZWV0XEVkaXRTdHJlZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Street/GetAllStreetCodes.cshtml]
+[D:/Dev/AK/CK/Views/Street/GetAllStreetCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RyZWV0XEdldEFsbFN0cmVldENvZGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Tender/Index.cshtml]
+[D:/Dev/AK/CK/Views/Tender/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVuZGVyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Tender/TenderFromBranch.cshtml]
+[D:/Dev/AK/CK/Views/Tender/TenderFromBranch.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVuZGVyXFRlbmRlckZyb21CcmFuY2guY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf2/AddTransferDetails.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf2/AddTransferDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZjJcQWRkVHJhbnNmZXJEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf2/ATransferSol - Copy.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf2/ATransferSol - Copy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZjJcQVRyYW5zZmVyU29sIC0gQ29weS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf2/ATransferSol.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf2/ATransferSol.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZjJcQVRyYW5zZmVyU29sLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf2/SalesPdf.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf2/SalesPdf.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZjJcU2FsZXNQZGYuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf/ATransferSol - Copy.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf/ATransferSol - Copy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZlxBVHJhbnNmZXJTb2wgLSBDb3B5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf/ATransferSol.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf/ATransferSol.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZlxBVHJhbnNmZXJTb2wuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/transfersalespdf/SalesPdf.cshtml]
+[D:/Dev/AK/CK/Views/transfersalespdf/SalesPdf.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcdHJhbnNmZXJzYWxlc3BkZlxTYWxlc1BkZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Zone/CreateZoneCode.cshtml]
+[D:/Dev/AK/CK/Views/Zone/CreateZoneCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9uZVxDcmVhdGVab25lQ29kZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Zone/EditZone.cshtml]
+[D:/Dev/AK/CK/Views/Zone/EditZone.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9uZVxFZGl0Wm9uZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Zone/GetAllZoneCodes.cshtml]
+[D:/Dev/AK/CK/Views/Zone/GetAllZoneCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcWm9uZVxHZXRBbGxab25lQ29kZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/_ViewImports.cshtml]
+[D:/Dev/AK/CK/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/_ViewStart.cshtml]
+[D:/Dev/AK/CK/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Home/_CompareData.cshtml]
+[D:/Dev/AK/CK/Views/Home/_CompareData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfQ29tcGFyZURhdGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kpvm3hwl7v
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_Layout.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-j0bgd3kj0p
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_Layout0.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_Layout0.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-y8xxvavi1o
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_Layout01.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_Layout01.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQwMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-oa95vz7n2m
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_Layout11.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_Layout11.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQxMS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-9fymo9yab4
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_Layout2.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_Layout2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-qqf48gesx3
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_LayoutS.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_LayoutS.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-eqpmtbbivc
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_LayoutS_S.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_LayoutS_S.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTX1MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-15r4s48yln
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_LayoutS_S_F.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_LayoutS_S_F.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTX1NfRi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-5msxznws3h
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_LayoutS_S_T.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_LayoutS_S_T.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTX1NfVC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-dy25rhi59x
 
-[D:/Dev/CircleK_Report_POR/CK/Views/Shared/_LayoutS_T.cshtml]
+[D:/Dev/AK/CK/Views/Shared/_LayoutS_T.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTX1QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-rzgx66gom2

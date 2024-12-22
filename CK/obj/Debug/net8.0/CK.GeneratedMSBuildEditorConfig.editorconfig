@@ -202,12 +202,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcRWRpdENsb3NlRGF5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/AK/CK/Views/SalesOrder/CreateSalesOrder.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxDcmVhdGVTYWxlc09yZGVyLmNzaHRtbA==
+[D:/Dev/AK/CK/Views/SalesOrder2/CreateSalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcQ3JlYXRlU2FsZXNPcmRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Dev/AK/CK/Views/SalesOrder/DisplaySalesOrder.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxEaXNwbGF5U2FsZXNPcmRlci5jc2h0bWw=
+[D:/Dev/AK/CK/Views/SalesOrder2/DisplaySalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcRGlzcGxheVNhbGVzT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/EditSalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcRWRpdFNhbGVzT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/GetAllSAlesOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcR2V0QWxsU0FsZXNPcmRlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder2/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlcjJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder/2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclwyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Dev/AK/CK/Views/SalesOrder/CreateSalesOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZXNPcmRlclxDcmVhdGVTYWxlc09yZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Dev/AK/CK/Views/SalesOrder/EditSalesOrder.cshtml]

@@ -1,10 +1,11 @@
 ﻿using CK.DTO;
 using CK.Models.TopSoft;
+using CK.Repo.Base;
 using CK.ViewModel;
 
 namespace CK.Repo.SalesOrder
 {
-    public interface ISalesOrderRepo
+    public interface ISalesOrderRepo :IBaseRepo
     {
         Task<bool> CheckTransactions(int Branch);
         Task<int> GetMaxCode();
@@ -19,7 +20,7 @@ namespace CK.Repo.SalesOrder
         Task UpdateSalesOrderAsync(HsalesCode header, List<DsalesCode> details);
         Task DeleteSalesOrderAsync(int salesCode);
         Task<SalesOrderRequest> GetSalesOrderAsync(int salesCode);
-        Task<List<SalesOrderDTO>> GetAllSalesOrder(string StoreId);
+        Task<List<SalesOrderDTO>> GetAllSalesOrder(string StoreId, int salesCode,SalesOrderData sales);
         Task<List<SalesOrderDTO>> GetAllTransactions(string StoreId);
         Task<bool> BranchReply(HsalesCode header, string username);
     }

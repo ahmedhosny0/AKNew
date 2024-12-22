@@ -1,4 +1,5 @@
-﻿using CK.Models.TopSoft;
+﻿using CK.DTO;
+using CK.Models.TopSoft;
 using CK.Repo.Base;
 
 namespace CK.Repo.Street
@@ -8,7 +9,7 @@ namespace CK.Repo.Street
         Task<bool> CheckTransactions(int Street);
         Task<int> GetMaxCode();
         Task AddStreetCodeAsync(StreetCode Street);
-        List<StreetCode> GetAllStreetCodes();
+        List<SalesOrderDTO> GetAllStreetCodes();
         Task<StreetCode?> GetStreetCodeByIdAsync(int id);
         Task DeleteStreetCodeAsync(int id);
         Task UpdateStreetCodeAsync(StreetCode updatedStreet);

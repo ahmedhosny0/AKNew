@@ -1,8 +1,10 @@
 ﻿@model CK.ViewModel.SalesOrderRequest
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!Doctype html>
 <html>
     <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
     </head>
     <body>
@@ -10,7 +12,6 @@
 <div class="header-container">
     <h1 class="header-title">Create Sales Order</h1>
 </div>
-        <a asp-action="GetAllSalesOrders">GetAllSalesOrders</a>
         <form id="myForm" method="post" asp-action="CreateSalesOrder" class="form-containerSales">
     <!-- Header Section -->
     <fieldset class="form-section">
@@ -140,7 +141,7 @@
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/js/jquery-3.5.1.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const customerSelect = document.getElementById('CustomerCode');

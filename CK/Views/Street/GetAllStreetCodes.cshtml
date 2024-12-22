@@ -1,4 +1,4 @@
-﻿@model List<CK.Models.TopSoft.StreetCode>
+﻿@model List<CK.DTO.SalesOrderDTO>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,6 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Street List</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
     <style>
         .main-footer
         {
@@ -18,7 +19,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">Streets</h1>
+        <div class="header-container">
+            <h2 class="header-title">Streets</h2>
+        </div>
         <a asp-controller="Street" asp-action="CreateStreetCode" class="btn btn-primary mb-3">Create Street</a>
 
         <table id="example" class="display table table-striped table-bordered">
@@ -37,18 +40,18 @@
                     <tr>
                         <td class="edit-column">
                             <form asp-controller="Street" asp-action="EditStreet" method="get">
-                                <input type="hidden" name="Id" value="@Street.Serial" />
+                                <input type="hidden" name="Id" value="@Street.StreetCode" />
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
                         </td>
                         <td class="delete-column">
                             <form asp-action="DeleteStreetCode" asp-controller="Street" method="post" style="display: inline;">
-                                <input type="hidden" name="id" value="@Street.Serial" />
+                                <input type="hidden" name="id" value="@Street.StreetCode" />
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
-                        <td>@Street.Code</td>
-                        <td>@Street.Name</td>
+                        <td>@Street.StreetCode</td>
+                        <td>@Street.StreetName</td>
                     </tr>
                 }
             </tbody>

@@ -9,6 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customer List</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
     <style>
         .main-footer
         {
@@ -18,7 +19,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">Customers</h1>
+        <div class="header-container">
+            <h2 class="header-title">Customers</h2>
+        </div>
         <a asp-controller="Customer" asp-action="CreateCustomerCode" class="btn btn-primary mb-3">Create Customer</a>
 
         <table id="example" class="display table table-striped table-bordered">

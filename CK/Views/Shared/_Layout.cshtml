@@ -316,22 +316,49 @@
                     @*                     <li class="nav-item @isSalesVisible d-sm-inline-block mr-2">  
                     *@
                     <li class="nav-item1">
-                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="AllSales">Data</a>
+                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="FollowDelivery">Follow Delivery</a>
                     </li>
                     <li class="nav-item1">
-                        <a asp-controller="Area" asp-action="GetAllAreaCodes" class="nav-link Sales" style="color:#cdc4c4" id="VArea">Create Area</a>
+                        <a asp-controller="Area" asp-action="CreateAreaCode" class="nav-link Sales" style="color:#cdc4c4" id="VArea">Create Area</a>
                     </li>
                     <li class="nav-item1">
-                        <a asp-controller="Street" asp-action="GetAllStreetCodes" class="nav-link Sales" style="color:#cdc4c4" id="VStreet">Create Street</a>
+                        <a asp-controller="Street" asp-action="CreateStreetCode" class="nav-link Sales" style="color:#cdc4c4" id="VStreet">Create Street</a>
                     </li>
                     <li class="nav-item1">
-                        <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="nav-link Sales" style="color:#cdc4c4" id="VZone">Create Zone</a>
+                        <a asp-controller="Zone" asp-action="CreateZoneCode" class="nav-link Sales" style="color:#cdc4c4" id="VZone">Create Zone</a>
                     </li>
                     <li class="nav-item1">
-                        <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="nav-link Sales" style="color:#cdc4c4" id="VCustomer">Create Customer</a>
+                        <a asp-controller="Customer" asp-action="CreateCustomerCode" class="nav-link Sales" style="color:#cdc4c4" id="VCustomer">Create Customer</a>
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="SalesOrder" asp-action="CreateSalesOrder" class="nav-link Sales" style="color:#cdc4c4" id="VSalesOrder">CreateSalesOrder</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block mr-2">
+                        <a class="nav-link " href="#" id="DeliveryReports" style="color:#cdc4c4">Reports</a>
+                        <ul class="dropdown-menu" style="background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    border: ridge 1px;
+    font-family: sans-serif;
+    left: -28px;
+    top: 33px;">
+                            <li class="nav-item1">
+                                <a asp-controller="Area" asp-action="GetAllAreaCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Area Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="Street" asp-action="GetAllStreetCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Street Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Zone Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Customer Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="SalesOrder" asp-action="GetAllSalesOrders" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Sales Data</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="CompareTenderwithWaf" asp-action="CompareData" class="nav-link Sales" style="color:#cdc4c4" id="CompareDataW">CompareTenderwithWaf</a>
@@ -477,6 +504,8 @@
         $('#VStreet').hide();
         $('#VZone').hide();
         $('#VSalesOrder').hide();
+        $('#DeliveryReports').hide();
+        $('#FollowDelivery').hide();
         $('#CompareDataW').hide();
         $('#Dashboard').hide();
         $('#FollowBranches').hide();
@@ -509,7 +538,6 @@
         $('#CreateModelType').hide();
         $('#CreateModel').hide();
         $('#DisplayModel').hide();
-                            $('#AllSales').hide();
         $('#EditUser').show();
         // function updateLanguageBasedOnRole() {
         //     var bodyElement = document.body;
@@ -527,7 +555,8 @@
             $('#VSalesOrder').show();
             $('#CompareDataW').show();
              $('#Dashboard').show();
-            $('#AllSales').show();
+            $('#FollowDelivery').show();
+            $('#DeliveryReports').show();
         }
         else if(role === 'CallCenter') {
             $('#VCustomer').show();
@@ -535,7 +564,7 @@
             $('#VStreet').show();
             $('#VZone').show();
             $('#VSalesOrder').show();
-            $('#AllSales').show();
+            $('#FollowDelivery').show();
         }
         else if(username === 'ahak' && Password === 'Dd@1234') {
             console.log(role);
@@ -575,11 +604,6 @@
             if (username === "Admin") {
                 $('#controleU').show();
                 $('#FollowBranches').show();
-                $('#VArea').show();
-                $('#VStreet').show();
-                $('#VZone').show();
-                $('#VSalesOrder').show();
-                $('#AllSales').show();
                 $('#CompareDataW').show();
             }
         }
@@ -610,7 +634,7 @@
                 $('#TransferM').show();
                 if (Delivery === "1") {
                     $('#VSalesOrder').show();
-                    $('#AllSales').show();
+                    $('#FollowDelivery').show();
                 }
             }
             else if (username === 'Midor' || username === 'AL-REHAB' || username === 'AL-SHAHID1' || username === 'CFC' || username === 'Nakheel' || username === 'Maadimobil') {

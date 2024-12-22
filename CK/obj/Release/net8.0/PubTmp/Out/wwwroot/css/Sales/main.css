@@ -1,0 +1,320 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Title Header */
+.Title {
+    background-color: #b50101;
+    color: white;
+    font-family: emoji;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 2px 2px 5px rgb(255 0 0 / 40%);
+    margin-bottom: 15px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+/* Form Fields */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fields {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 34%;
+    padding-right: 10px;
+}
+
+    .fields label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+.form-control, .FilterSelect {
+    width: 20%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+    .form-control:focus, .FilterSelect:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+/* Buttons */
+.btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.02);
+    }
+
+/* Container for the search results */
+.search-results {
+    list-style-type: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+    position: absolute; /* Position it below the search input */
+    max-height: 300px; /* Limit the height */
+    overflow-y: auto; /* Enable scrolling when the list exceeds the max-height */
+    font-size: 14px;
+    width: 18%; /* Make it as wide as the input */
+    background-color: #fff; /* White background */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Slight rounding of corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow to make it float */
+    z-index: 9999; /* Ensure it appears on top of other elements */
+}
+
+    /* Item in the search results */
+    .search-results li {
+        padding: 10px; /* Add padding for spacing */
+        cursor: pointer; /* Pointer cursor to indicate interactivity */
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
+    }
+
+        /* Highlight the item when hovered */
+        .search-results li:hover {
+            background-color: #f0f0f0; /* Light gray when hovered */
+            color: #007bff; /* Change text color to blue */
+        }
+
+        /* Active or selected item */
+        .search-results li.selected {
+            background-color: #007bff; /* Highlight selected item with a blue background */
+            color: white; /* Change text color to white */
+        }
+
+/* Clear any borders or padding on the input field */
+.item-search {
+    position: relative; /* Ensure the input field is above the dropdown list */
+    width: 100%; /* Take up full width of its container */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+    /* Display the input field and results container with proper spacing */
+    .item-search + .search-results {
+        margin-top: 5px; /* Space between input and dropdown */
+    }
+
+    /* Optional: Add focus style to the input */
+    .item-search:focus {
+        border-color: #007bff; /* Border turns blue when focused */
+        outline: none; /* Remove the default outline */
+    }
+
+/* .Contain {
+                    transform: scale(0.8);
+                    transform-origin: top;
+                } */
+/* Fieldset Section */
+.form-section {
+    border: 2px solid #007bff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+/* Legend Styling */
+.section-legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+    background-color: #f8f9fa;
+    padding: 0 10px;
+    position: absolute;
+    top: -14px;
+    left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+/* Header Container */
+.header-container {
+    color: white;
+    padding: 9px 0 !important;
+    text-align: center;
+}
+
+/* Header Title */
+.header-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgb(255 0 0 / 40%);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Section Headers */
+.form-section legend {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Group Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+/* Table Details Section */
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+    .details-table th,
+    .details-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .details-table th {
+        background: #007bff;
+        color: #fff;
+    }
+
+/* Buttons */
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Total Inputs */
+label {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* Column Responsiveness */
+.col-md-6 {
+    flex: 0 0 48%;
+    max-width: 48%;
+}
+
+/* Header Section Base */
+.form-containerSales {
+    max-width: 1000px !important;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for grouped select fields */
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        font-weight: bold;
+    }
+
+/* Style Select Fields */
+.FilterSelect,
+.form-control {
+    padding: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Notes Section */
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}

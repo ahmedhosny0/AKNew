@@ -1,6 +1,8 @@
-﻿namespace CK.DTO
+﻿using CK.ViewModel;
+
+namespace CK.DTO
 {
-    public class SalesOrderDTO
+    public class SalesOrderDTO :ConnectionDB
     {
         public string HSalesCode { get; set; } // HSales.Serial
         public string HSalesCode2 { get; set; } // HSales.SalesCode
@@ -42,6 +44,7 @@
         public string BranchIdD { get; set; } // Branch.BranchIdD
         public string BranchName { get; set; } // Branch.BranchName
         public string SalesStatus { get; set; }
+        public string Message { get; set; }
     }
 }
 

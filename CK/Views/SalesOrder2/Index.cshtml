@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Delivery Details</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        .main-footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    @if (ViewBag.Customers != null)
+    {
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">Order Delivery Details</h2>
+
+            <table id="detailsTable" class="table table-bordered table-hover">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th style="width: 10%;">Actions</th>
+                        <th style="width: 15%;">Status</th>
+                        <th style="width: 15%;">Branch Name</th>
+                        <th style="width: 50%;">Order Details</th>
+                        <th style="width: 15%;">Created At</th>
+                        <th style="width: 10%;">Total Invoice</th>
+                        <th style="width: 10%;">Fees</th>
+                        <th style="width: 10%;">Total With Fees</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dr in ViewBag.Customers)
+                    {
+                        string bgColor = "";
+                        string statusLabel = "";
+                        if (dr.SalesStatus == "0") { bgColor = "#6fed77"; statusLabel = "Order Taken"; }
+                        else if (dr.SalesStatus == "1") { bgColor = "#FFEB3B"; statusLabel = "Packing"; }
+                        else if (dr.SalesStatus == "2") { bgColor = "#03A9F4"; statusLabel = "In Transit"; }
+                        else if (dr.SalesStatus == "3") { bgColor = "#ff9a9a"; statusLabel = "Delivered"; }
+                        else if (dr.SalesStatus == "4") { bgColor = "#e100ff"; statusLabel = "Canceled"; }
+                        else { bgColor = "#FFFFFF"; statusLabel = "Unknown"; }
+
+                        <tr>
+                            <td class="text-center">
+                                <button class="btn btn-outline-primary btn-sm edit-btn" data-id="@dr.HSalesCode">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge" style="background-color:@bgColor; color: black; font-size: 0.9rem; padding: 10px 15px;">
+                                    @statusLabel
+                                </span>
+                            </td>
+                            <td class="text-center">@dr.BranchName</td>
+                            <td>
+                                <div>
+                                    <strong>Phone:</strong> @dr.Phone1 <br />
+                                    <strong>Customer:</strong> @dr.CustomerName <br />
+                                    <strong>Zone:</strong> @dr.ZoneName, @dr.AreaName <br />
+                                    <strong>Street:</strong> @dr.StreetName
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                @if (dr.CreatedAtTime != null)
+                                {
+                                    @dr.CreatedAtTime.ToString("yyyy-MM-dd hh:mm tt")
+                                }
+                                else
+                                {
+                                    <span>N/A</span>
+                                }
+                            </td>
+                            <td class="text-center">@dr.GrandTotal LE</td>
+                            <td class="text-center">@dr.ServiceCost LE</td>
+                            <td class="text-center">@dr.GrandTotalWithFees LE</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <!-- Modal for Edit Form -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Sales Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content will be loaded dynamically -->
+                    <div id="editModalContent">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Handle Edit Button Click
+            $('.edit-btn').on('click', function () {
+                var salesId = $(this).data('id'); // Get the sales order ID
+                var url = '/SalesOrder/EditSalesOrder?id=' + salesId; // Edit URL
+
+                // Reset the modal content
+                $('#editModalContent').html('Loading...');
+
+                // Load the content into the modal
+                $('#editModalContent').load(url, function (response, status, xhr) {
+                    if (status === "error") {
+                        $('#editModalContent').html('<div class="alert alert-danger">Failed to load data. Please try again later.</div>');
+                    }
+                });
+
+                // Ensure the modal is properly initialized before showing it
+                var modal = $('#editModal');
+
+                // Re-initialize and show the modal
+                modal.modal('show');
+            });
+
+            // Refresh the page when the modal is closed
+            $('#editModal').on('hidden.bs.modal', function () {
+                location.reload(); // Refresh the page
+            });
+
+            // Optional: Prevent the modal from being dismissed when clicking inside the modal content
+            $('#editModalContent').on('click', function (e) {
+                e.stopPropagation(); // Prevent the modal from closing when clicking inside the content
+            });
+        });
+
+    </script>
+</body>
+</html>

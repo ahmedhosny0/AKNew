@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1utAdOSmQKWzVrOhBZtiR2YTctr48CFyj4+f6yi2lDU=",
+  "Hash": "rielp4VdIOtqA0Wl5jcj+3zAACONllKRo+U7dHtNRzI=",
   "Source": "CK",
   "BasePath": "_content/CK",
   "Mode": "Default",
@@ -3378,6 +3378,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\d3.png"
+    },
+    {
+      "Identity": "D:\\Dev\\AK\\CK\\wwwroot\\images\\delv.webp",
+      "SourceId": "CK",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Dev\\AK\\CK\\wwwroot\\",
+      "BasePath": "_content/CK",
+      "RelativePath": "images/delv.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\delv.webp"
     },
     {
       "Identity": "D:\\Dev\\AK\\CK\\wwwroot\\images\\favicon1.ico",

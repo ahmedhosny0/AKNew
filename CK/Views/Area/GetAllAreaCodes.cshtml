@@ -9,6 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Area List</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Sales/main.css" />
     <link rel="stylesheet" type="text/css" href="/css/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="/js/datatables.min.css" />
     <style>
@@ -19,7 +20,9 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mb-4">Areas</h1>
+        <div class="header-container">
+            <h2 class="header-title">Areas</h2>
+        </div>
         <a asp-controller="Area" asp-action="CreateAreaCode" class="btn btn-primary mb-3">Create Area</a>
 
         <table id="example" class="display table table-striped table-bordered">
