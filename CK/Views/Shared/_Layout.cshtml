@@ -316,7 +316,7 @@
                     @*                     <li class="nav-item @isSalesVisible d-sm-inline-block mr-2">  
                     *@
                     <li class="nav-item1">
-                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="FollowDelivery">Follow Delivery</a>
+                        <a asp-controller="Zone" asp-action="CreateZoneCode" class="nav-link Sales" style="color:#cdc4c4" id="VZone">Create Zone</a>
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="Area" asp-action="CreateAreaCode" class="nav-link Sales" style="color:#cdc4c4" id="VArea">Create Area</a>
@@ -325,13 +325,13 @@
                         <a asp-controller="Street" asp-action="CreateStreetCode" class="nav-link Sales" style="color:#cdc4c4" id="VStreet">Create Street</a>
                     </li>
                     <li class="nav-item1">
-                        <a asp-controller="Zone" asp-action="CreateZoneCode" class="nav-link Sales" style="color:#cdc4c4" id="VZone">Create Zone</a>
-                    </li>
-                    <li class="nav-item1">
                         <a asp-controller="Customer" asp-action="CreateCustomerCode" class="nav-link Sales" style="color:#cdc4c4" id="VCustomer">Create Customer</a>
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="SalesOrder" asp-action="CreateSalesOrder" class="nav-link Sales" style="color:#cdc4c4" id="VSalesOrder">CreateSalesOrder</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="FollowDelivery">Follow Delivery</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block mr-2">
                         <a class="nav-link " href="#" id="DeliveryReports" style="color:#cdc4c4">Reports</a>
@@ -344,13 +344,13 @@
     left: -28px;
     top: 33px;">
                             <li class="nav-item1">
+                                <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Zone Data</a>
+                            </li>
+                            <li class="nav-item1">
                                 <a asp-controller="Area" asp-action="GetAllAreaCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Area Data</a>
                             </li>
                             <li class="nav-item1">
                                 <a asp-controller="Street" asp-action="GetAllStreetCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Street Data</a>
-                            </li>
-                            <li class="nav-item1">
-                                <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Zone Data</a>
                             </li>
                             <li class="nav-item1">
                                 <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Customer Data</a>
@@ -552,9 +552,10 @@
             $('#VArea').show();
             $('#VStreet').show();
             $('#VZone').show();
-            $('#VSalesOrder').show();
+            $('#VSalesOrder').show(); 
+            $('#CompareData').show();
             $('#CompareDataW').show();
-             $('#Dashboard').show();
+            $('#Dashboard').show();
             $('#FollowDelivery').show();
             $('#DeliveryReports').show();
         }
@@ -565,6 +566,7 @@
             $('#VZone').show();
             $('#VSalesOrder').show();
             $('#FollowDelivery').show();
+            $('#DeliveryReports').show();
         }
         else if(username === 'ahak' && Password === 'Dd@1234') {
             console.log(role);
@@ -633,7 +635,6 @@
                 $('#Tenderfrombranch').show();
                 $('#TransferM').show();
                 if (Delivery === "1") {
-                    $('#VSalesOrder').show();
                     $('#FollowDelivery').show();
                 }
             }

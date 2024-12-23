@@ -49,7 +49,6 @@ namespace CK.Repo.Street
         public List<SalesOrderDTO> GetAllStreetCodes()
         {
             SalesOrderDTO Conn = new SalesOrderDTO();
-            var data = _TopSoftContext.StreetCodes.OrderByDescending(x => x.Name).ToList();
             using (SqlConnection connection = new SqlConnection(Conn.TopSoftConnection))
             {
                 string Query = "SELECT * from RptStreet where  BranchCode is not null   ";
@@ -84,8 +83,6 @@ namespace CK.Repo.Street
                     return vi;
                 }
             }
-
-           // return data;
         }
         public async Task UpdateStreetCodeAsync(StreetCode updatedStreet)
         {

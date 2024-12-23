@@ -73,7 +73,7 @@ namespace CK.Controllers
             {
                 TempData["SuccessMessage"] = "edit";
             }
-            return Json(Streets);
+            return View(Streets);
         }
         // Update
         [HttpPost]

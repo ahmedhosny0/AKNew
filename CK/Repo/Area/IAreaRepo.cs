@@ -1,4 +1,5 @@
-﻿using CK.Models.TopSoft;
+﻿using CK.DTO;
+using CK.Models.TopSoft;
 using CK.Repo.Base;
 
 namespace CK.Repo.Area
@@ -8,7 +9,7 @@ namespace CK.Repo.Area
         Task<bool> CheckTransactions(int Area);
         Task<int> GetMaxCode();
         Task AddAreaCodeAsync(AreaCode Area);
-        List<AreaCode> GetAllAreaCodes();
+        List<SalesOrderDTO> GetAllAreaCodes();
         Task<AreaCode?> GetAreaCodeByIdAsync(int id);
         Task DeleteAreaCodeAsync(int id);
         Task UpdateAreaCodeAsync(AreaCode updatedArea);

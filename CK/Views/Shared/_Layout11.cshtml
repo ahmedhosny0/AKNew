@@ -317,6 +317,54 @@
                     @*                     <li class="nav-item @isSalesVisible d-sm-inline-block mr-2">
                     *@
                     <li class="nav-item1">
+                        <a asp-controller="Zone" asp-action="CreateZoneCode" class="nav-link Sales" style="color:#cdc4c4" id="VZone">Create Zone</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Area" asp-action="CreateAreaCode" class="nav-link Sales" style="color:#cdc4c4" id="VArea">Create Area</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Street" asp-action="CreateStreetCode" class="nav-link Sales" style="color:#cdc4c4" id="VStreet">Create Street</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Customer" asp-action="CreateCustomerCode" class="nav-link Sales" style="color:#cdc4c4" id="VCustomer">Create Customer</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="SalesOrder" asp-action="CreateSalesOrder" class="nav-link Sales" style="color:#cdc4c4" id="VSalesOrder">CreateSalesOrder</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="SalesOrder" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="FollowDelivery">Follow Delivery</a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block mr-2">
+                        <a class="nav-link " href="#" id="DeliveryReports" style="color:#cdc4c4">Reports</a>
+                        <ul class="dropdown-menu" style="background-color: white;
+    font-size: 15px;
+    font-weight: bold;
+    width: 100%;
+    border: ridge 1px;
+    font-family: sans-serif;
+    left: -28px;
+    top: 33px;">
+                            <li class="nav-item1">
+                                <a asp-controller="Zone" asp-action="GetAllZoneCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Zone Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="Area" asp-action="GetAllAreaCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Area Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="Street" asp-action="GetAllStreetCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Street Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="Customer" asp-action="GetAllCustomerCodes" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Customer Data</a>
+                            </li>
+                            <li class="nav-item1">
+                                <a asp-controller="SalesOrder" asp-action="GetAllSalesOrders" class="nav-link Sales" style="font-weight: bold; font-family: auto;">Sales Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="CompareTenderwithWaf" asp-action="CompareData" class="nav-link Sales" style="color:#cdc4c4" id="CompareDataW">CompareTenderwithWaf</a>
+                    </li>
+                    <li class="nav-item1">
                         <a asp-controller="Driveres" asp-action="CreateDriver" class="nav-link Sales" style="color:#cdc4c4" id="Driver">Create Car License</a>
                     </li>
                     <li class="nav-item1">
@@ -327,6 +375,9 @@
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="Messages" asp-action="CreateCloseDay" class="nav-link Sales" style="color:#cdc4c4" id="CreateCloseDay">Close Day</a>
+                    </li>
+                    <li class="nav-item1">
+                        <a asp-controller="Home" asp-action="FollowBranches" class="nav-link Sales" style="color:#cdc4c4" id="FollowBranches">Follow Branches</a>
                     </li>
                     <li class="nav-item1">
                         <a asp-controller="Accounts" asp-action="Index" class="nav-link Sales" style="color:#cdc4c4" id="Accounts">Accounts</a>
@@ -469,8 +520,18 @@
         var StoreId = '@ViewBag.StoreIddynamic';
         var isUsername = '@ViewBag.isUsername';
         var uuu = '@ViewBag.uuu';
+        var Delivery = '@ViewBag.Delivery';
         $('#nav').show();
+        $('#VCustomer').hide();
+        $('#VArea').hide();
+        $('#VStreet').hide();
+        $('#VZone').hide();
+        $('#VSalesOrder').hide();
+        $('#DeliveryReports').hide();
+        $('#FollowDelivery').hide();
+        $('#CompareDataW').hide();
         $('#Dashboard').hide();
+        $('#FollowBranches').hide();
         $('#Home1').hide();
         $('#Accounts').hide();
         $('#NewItem').hide();
@@ -509,25 +570,36 @@
         // updateLanguageBasedOnRole();
         // $('#SBranch').hide();
         // $('#AllStock').hide();
-        if (username === 'ahak' && Password === 'Dd@1234') {
+        if (role === 'AK') {
+            $('#VCustomer').show();
+            $('#VArea').show();
+            $('#VStreet').show();
+            $('#VZone').show();
+            $('#VSalesOrder').show();
+            $('#CompareData').show();
+            $('#CompareDataW').show();
+            $('#Dashboard').show();
+            $('#FollowDelivery').show();
+            $('#DeliveryReports').show();
+        }
+        else if (role === 'CallCenter') {
+            $('#VCustomer').show();
+            $('#VArea').show();
+            $('#VStreet').show();
+            $('#VZone').show();
+            $('#VSalesOrder').show();
+            $('#FollowDelivery').show();
+            $('#DeliveryReports').show();
+        }
+        else if (username === 'ahak' && Password === 'Dd@1234') {
             console.log(role);
             $('#controleB').show();
             $('#EditUser').hide();
-            // $('#Accounts').show();
-            // $('#NewItem').show();
-            // $('#NewCust').show();
-            $('#TransferM').show();
-            $('#Dashboard').show();
-            $('#CompareData').show();
-            $('#Home1').show();
             $('#controleU').show();
-            $('#Sales').show();
-            $('#Transfer').show();
             $('#SBranch').show();
-            $('#Driver').show();
             $('#CreateMessage').show();
             $('#CreateCloseDay').show();
-            $('#Shelf').show();
+            //  $('#Shelf').show();
         }
         else if (role === 'Manager') {
             console.log(role);
@@ -538,6 +610,7 @@
             $('#Offer').show();
             $('#SBranch').show();
             $('#AllStock').show();
+            $('#Shelf').show();
         }
         else if (role === 'Manager1') {
             $('#Sales').show();
@@ -552,8 +625,11 @@
             $('#CreateMessage').show();
             $('#CreateCloseDay').show();
             $('#Categorylimit').show();
+            $('#Shelf').show();
             if (username === "Admin") {
                 $('#controleU').show();
+                $('#FollowBranches').show();
+                $('#CompareDataW').show();
             }
         }
         else if (role === 'Manager2') {
@@ -565,6 +641,7 @@
             $('#SBranch').show();
             $('#AllStock').show();
             $('#TransferM').show();
+            $('#Shelf').show();
         }
         else if (role === 'Carlicense') {
             $('#Driver').show();
@@ -580,6 +657,9 @@
                 $('#Salesfrombranch').show();
                 $('#Tenderfrombranch').show();
                 $('#TransferM').show();
+                if (Delivery === "1") {
+                    $('#FollowDelivery').show();
+                }
             }
             else if (username === 'Midor' || username === 'AL-REHAB' || username === 'AL-SHAHID1' || username === 'CFC' || username === 'Nakheel' || username === 'Maadimobil') {
                 $('#Salesfrombranch').show();
@@ -607,12 +687,21 @@
             $('#Transfer').show();
             $('#ItemMovements').show();
             $('#TransferM').show();
+            $('#Shelf').show();
         }
         else if (role === 'IT') {
             $('#controleB').show();
             $('#Categorylimit').show();
             $('#Stock').show();
             $('#SBranch').show();
+            $('#Shelf').show();
+            $('#Sales').show();
+            $('#Stock').show();
+            $('#Tender').show();
+        }
+        else if (role === 'Stock') {
+            $('#Stock').show();
+            $('#AllStock').show();
         }
         else if (role === 'Sales_NewS_Stock') {
             $('#Sales').show();
@@ -642,7 +731,7 @@
         }
         else if (role === 'TerrManager') {
             $('#Sales').show();
-                        $('#Shelf').show();
+            $('#Shelf').show();
             $('#Stock').show();
             $('#AllStock').show();
             $('#Tender').show();

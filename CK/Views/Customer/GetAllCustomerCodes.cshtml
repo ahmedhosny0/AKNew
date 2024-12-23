@@ -1,4 +1,4 @@
-﻿@model List<CK.Models.TopSoft.CustomerCode>
+﻿@model List<CK.DTO.SalesOrderDTO>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -29,7 +29,11 @@
                 <tr>
                     <th>Edit</th>
                     <th>Delete</th>
-                    <th>Name</th>
+                    <th>Customer</th>
+                    <th>Zone</th>
+                    <th>Area</th>
+                    <th>Street</th>
+                    <th>Branch</th>
                     <th>Phone Number1</th>
                     <th>Phone Number2</th>
                     <th>Address1</th>
@@ -43,17 +47,21 @@
                     <tr>
                         <td class="edit-column">
                             <form asp-controller="Customer" asp-action="EditCustomer" method="get">
-                                <input type="hidden" name="Id" value="@customer.CustomerCode1" />
+                                <input type="hidden" name="Id" value="@customer.CustomerCode" />
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
                         </td>
                         <td class="delete-column">
                             <form id="myform" asp-action="DeleteCustomerCode" asp-controller="Customer" method="post" style="display: inline;" class=" delete-form">
-                                <input type="hidden" name="id" value="@customer.CustomerCode1" />
+                                <input type="hidden" name="id" value="@customer.CustomerCode" />
                                 <button type="submit" class="btn btn-danger btn-sm delete-form">Delete</button>
                             </form>
                         </td>
                         <td>@customer.CustomerName</td>
+                        <td>@customer.ZoneName</td>
+                        <td>@customer.AreaName</td>
+                        <td>@customer.StreetName</td>
+                        <td>@customer.BranchName</td>
                         <td>@customer.Phone1</td>
                         <td>@customer.Phone2</td>
                         <td>@customer.Address1</td>

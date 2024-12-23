@@ -38,7 +38,7 @@
                     </select>
                 </div>
             <div class="form-group col-md-6">
-                <label for="BranchCode">Branch Code</label>
+                <label for="BranchCode">Branch Name</label>
                 <select class="FilterSelect form-control" asp-for="Header.BranchCode" id="BranchCode">
                     <option value="0">All Branches</option>
                 </select>
@@ -48,7 +48,7 @@
         <!-- Third row: Category Code -->
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="CategoryName">Category Code</label>
+                <label for="CategoryName">Category Name</label>
                 <select class="FilterSelect form-control" id="CategoryName" asp-items="@(new SelectList(ViewBag.VBDepartment))">
                     <option value="0">All Categories</option>
                 </select>

@@ -1,7 +1,9 @@
-﻿using CK.Models;
+﻿using CK.DTO;
+using CK.Models;
 using CK.Models.CKPro;
 using CK.Models.TopSoft;
 using CK.Repo.Base;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace CK.Repo.Area
@@ -43,10 +45,34 @@ namespace CK.Repo.Area
         {
             return await _TopSoftContext.AreaCodes.FindAsync(id);
         }
-        public List<AreaCode> GetAllAreaCodes()
+        public List<SalesOrderDTO> GetAllAreaCodes()
         {
-            var data = _TopSoftContext.AreaCodes.OrderByDescending(x => x.Name).ToList();
-            return data;
+            SalesOrderDTO Conn = new SalesOrderDTO();
+            using (SqlConnection connection = new SqlConnection(Conn.TopSoftConnection))
+            {
+                string Query = "SELECT * from RptArea    ";
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    connection.Open(); // Open the connection
+                    var vi = new List<SalesOrderDTO>();
+                    var test = command.ExecuteReader();
+                    while (test.Read())
+                    {
+                        SalesOrderDTO si = new SalesOrderDTO()
+                        {
+                            ZoneCode = test["ZoneCode"] == DBNull.Value ? "" : test["ZoneCode"].ToString(),
+                            ZoneCode2 = test["ZoneCode2"] == DBNull.Value ? "" : test["ZoneCode2"].ToString(),
+                            ZoneName = test["ZoneName"] == DBNull.Value ? string.Empty : test["ZoneName"].ToString(),
+                            AreaCode = test["AreaCode"] == DBNull.Value ? "" : test["AreaCode"].ToString(),
+                            AreaCode2 = test["AreaCode2"] == DBNull.Value ? "" : test["AreaCode2"].ToString(),
+                            AreaName = test["AreaName"] == DBNull.Value ? string.Empty : test["AreaName"].ToString(),
+                        };
+
+                        vi.Add(si);
+                    }
+                    return vi;
+                }
+            }
         }
         public async Task UpdateAreaCodeAsync(AreaCode updatedArea)
         {

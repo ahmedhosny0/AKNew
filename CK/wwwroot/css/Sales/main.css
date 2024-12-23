@@ -8,7 +8,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
 }
-
+.main-footer {
+    display: none !important;
+}
 /* Title Header */
 .Title {
     background-color: #b50101;

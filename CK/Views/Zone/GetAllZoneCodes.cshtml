@@ -1,4 +1,4 @@
-﻿@model List<CK.Models.TopSoft.ZoneCode>
+﻿@model List<CK.DTO.SalesOrderDTO>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -42,18 +42,18 @@
                     <tr>
                         <td class="edit-column">
                             <form asp-controller="Zone" asp-action="EditZone" method="get">
-                                <input type="hidden" name="Id" value="@Zone.Serial" />
+                                <input type="hidden" name="Id" value="@Zone.ZoneCode" />
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
                         </td>
                         <td class="delete-column">
                             <form asp-action="DeleteZoneCode" asp-controller="Zone" method="post" style="display: inline;" class="delete-form">
-                                <input type="hidden" name="id" value="@Zone.Serial" />
+                                <input type="hidden" name="id" value="@Zone.ZoneCode" />
                                 <button type="submit" class="btn btn-danger btn-sm delete-button">Delete</button>
                             </form>
                         </td>
-                        <td>@Zone.Code</td>
-                        <td>@Zone.Name</td>
+                        <td>@Zone.ZoneCode2</td>
+                        <td>@Zone.ZoneName</td>
                     </tr>
                 }
             </tbody>

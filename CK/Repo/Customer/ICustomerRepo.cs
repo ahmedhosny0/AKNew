@@ -10,7 +10,7 @@ namespace CK.Repo.Customer
         Task<bool> CheckTransactions(int Customer);
         Task<bool> CheckExist(CustomerCode Customer);
         Task AddCustomerCodeAsync(CustomerCode customer);
-        List<CustomerCode> GetAllCustomerCodes();
+        List<SalesOrderDTO> GetAllCustomerCodes();
         Task<CustomerCode?> GetCustomerCodeByIdAsync(int id);
         Task DeleteCustomerCodeAsync(int id);
         Task UpdateCustomerCodeAsync(CustomerCode updatedCustomer);

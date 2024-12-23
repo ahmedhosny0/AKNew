@@ -29,8 +29,13 @@
                 <tr>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th>Zone</th>
+                    <th>Area</th>
                     <th>Code</th>
-                    <th>Name</th>
+                    <th>Street</th>
+                    <th>Branch</th>
+                    <th>Delivery Time</th>
+                    <th>Service Cost</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,8 +55,13 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
-                        <td>@Street.StreetCode</td>
+                        <td>@Street.ZoneName</td>
+                        <td>@Street.AreaName</td>
+                        <td>@Street.StreetCode2</td>
                         <td>@Street.StreetName</td>
+                        <td>@Street.BranchName</td>
+                        <td>@Street.DeliveryTime</td>
+                        <td>@Street.ServiceCost</td>
                     </tr>
                 }
             </tbody>

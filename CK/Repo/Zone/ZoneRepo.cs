@@ -3,6 +3,8 @@ using CK.Models;
 using CK.Repo.Base;
 using Microsoft.EntityFrameworkCore;
 using CK.Models.CKPro;
+using CK.DTO;
+using Microsoft.Data.SqlClient;
 
 namespace CK.Repo.Zone
 {
@@ -44,10 +46,31 @@ namespace CK.Repo.Zone
         {
             return await _TopSoftContext.ZoneCodes.FindAsync(id);
         }
-        public List<ZoneCode> GetAllZoneCodes()
+        public List<SalesOrderDTO> GetAllZoneCodes()
         {
-            var data = _TopSoftContext.ZoneCodes.OrderByDescending(x => x.Name).ToList();
-            return data;
+            SalesOrderDTO Conn = new SalesOrderDTO();
+            using (SqlConnection connection = new SqlConnection(Conn.TopSoftConnection))
+            {
+                string Query = "SELECT * from RptZone ";
+                using (SqlCommand command = new SqlCommand(Query, connection))
+                {
+                    connection.Open(); // Open the connection
+                    var vi = new List<SalesOrderDTO>();
+                    var test = command.ExecuteReader();
+                    while (test.Read())
+                    {
+                        SalesOrderDTO si = new SalesOrderDTO()
+                        {
+                            ZoneCode = test["ZoneCode"] == DBNull.Value ? "" : test["ZoneCode"].ToString(),
+                            ZoneCode2 = test["ZoneCode2"] == DBNull.Value ? "" : test["ZoneCode2"].ToString(),
+                            ZoneName = test["ZoneName"] == DBNull.Value ? string.Empty : test["ZoneName"].ToString(),
+                        };
+
+                        vi.Add(si);
+                    }
+                    return vi;
+                }
+            }
         }
         public async Task UpdateZoneCodeAsync(ZoneCode updatedZone)
         {
